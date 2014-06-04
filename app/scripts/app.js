@@ -26,7 +26,7 @@ angular.module('lifealthApp', [
         authenticate: true
       })
       .when('/user', {
-        templateUrl: 'partials/user',
+        templateUrl: 'partials/users',
         controller: 'UserCtrl'
       })
       .otherwise({
