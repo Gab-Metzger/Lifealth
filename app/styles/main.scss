@@ -29,6 +29,7 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 .navbar-default .navbar-nav > .active > a:focus {
   color: white;
   background-color: #65cdaa;
+  font-weight: bold;
 }
 
 a {
@@ -45,13 +46,18 @@ a {
     font-size: 16px;
 }
 
+.navbar-brand {
+    font-size: 18px;
+    font-weight: bold;
+}
+
 img {
     padding-bottom: 25px;
 }
 /* Space out content a bit */
 body {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 25px;
+    padding-bottom: 0px;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
