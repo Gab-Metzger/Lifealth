@@ -3,13 +3,13 @@
 angular.module('lifealthApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
-      'title': 'Home',
+      'title': 'Acceuil',
       'link': '/'
     },  {
       'title': 'Utilisateurs',
       'link':'/user'
     },  {
-      'title': 'Settings',
+      'title': 'Paramètres',
       'link': '/settings'
     },
 ];
