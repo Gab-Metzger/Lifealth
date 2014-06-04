@@ -25,13 +25,9 @@ angular.module('lifealthApp', [
         controller: 'SettingsCtrl',
         authenticate: true
       })
-      .when('/patient', {
-        templateUrl: 'partials/patient',
-        controller: 'PatientCtrl'
-      })
-      .when('/medecin', {
-        templateUrl: 'partials/medecin',
-        controller: 'MedecinCtrl'
+      .when('/user', {
+        templateUrl: 'partials/users',
+        controller: 'UserCtrl'
       })
       .otherwise({
         redirectTo: '/'

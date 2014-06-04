@@ -9,6 +9,41 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
     padding: 0.2em 0;
 }
 
+.title {
+    text-align: center;
+}
+
+.row h4{
+    text-align:center;
+}
+.lead {
+    font-style: italic;
+}
+
+.footer p {
+    text-align: center;
+}
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  color: white;
+  background-color: #65cdaa;
+}
+
+a {
+  color: #65cdaa;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  color: #65cdaa;
+  text-decoration: underline;
+}
+
+img {
+    padding-bottom: 25px;
+}
 /* Space out content a bit */
 body {
     padding-top: 20px;
@@ -70,7 +105,7 @@ body {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .container {
-        max-width: 730px;
+        max-width: 1050px;
     }
 
     /* Remove the padding we set earlier */

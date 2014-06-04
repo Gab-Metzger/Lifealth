@@ -5,18 +5,14 @@ angular.module('lifealthApp')
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
-    }, {
+    },  {
+      'title': 'Utilisateurs',
+      'link':'/user'
+    },  {
       'title': 'Settings',
       'link': '/settings'
     },
-    {
-      'title': 'Patient',
-      'link':'/patient'
-    },
-    {
-      'title': 'Médecin',
-      'link':'/medecin'
-    }];
+];
     
     $scope.logout = function() {
       Auth.logout()
