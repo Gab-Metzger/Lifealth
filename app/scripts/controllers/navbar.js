@@ -8,6 +8,14 @@ angular.module('lifealthApp')
     }, {
       'title': 'Settings',
       'link': '/settings'
+    },
+    {
+      'title': 'Patient',
+      'link':'/patient'
+    },
+    {
+      'title': 'Médecin',
+      'link':'/medecin'
     }];
     
     $scope.logout = function() {
