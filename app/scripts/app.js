@@ -9,8 +9,8 @@ angular.module('lifealthApp', [
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'partials/main',
-        controller: 'MainCtrl'
+        templateUrl: 'partials/acc_medecin',
+        controller: 'AccMedecinCtrl'
       })
       .when('/login', {
         templateUrl: 'partials/login',
