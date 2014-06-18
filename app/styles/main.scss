@@ -24,31 +24,8 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
     text-align: center;
 }
 
-.navbar-default .navbar-nav > .active > a,
-.navbar-default .navbar-nav > .active > a:hover,
-.navbar-default .navbar-nav > .active > a:focus {
-  color: white;
-  background-color: #65cdaa;
-  font-weight: bold;
-}
-
-a {
-  color: #65cdaa;
-  text-decoration: none;
-}
-
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-  color: #65cdaa;
-}
-
-.navbar-nav a {
-    font-size: 16px;
-}
-
-.navbar-brand {
-    font-size: 18px;
-    font-weight: bold;
+.navbar-default {
+  background-color: #FF8927;
 }
 
 img {
@@ -56,7 +33,6 @@ img {
 }
 /* Space out content a bit */
 body {
-    padding-top: 25px;
     padding-bottom: 0px;
 }
 
