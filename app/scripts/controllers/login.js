@@ -7,7 +7,7 @@ angular.module('lifealthApp')
 
     $scope.login = function(form) {
       $scope.submitted = true;
-      
+
       if(form.$valid) {
         Auth.login({
           email: $scope.user.email,
@@ -15,7 +15,13 @@ angular.module('lifealthApp')
         })
         .then( function() {
           // Logged in, redirect to home
-          $location.path('/');
+          if ($scope.user.role === "MEDECIN") {
+            $location.path('/medecin');
+          }
+          else if ($scope.user.role === "PATIENT") {
+            $location.path('/patient');
+          }
+
         })
         .catch( function(err) {
           err = err.data;
