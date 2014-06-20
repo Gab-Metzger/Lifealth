@@ -10,7 +10,6 @@ angular.module('lifealthApp', [
     $routeProvider
       .when('/', {
         templateUrl: 'partials/acc_medecin',
-        controller: 'AccMedecinCtrl'
       })
       .when('/login', {
         templateUrl: 'partials/login',
@@ -24,10 +23,6 @@ angular.module('lifealthApp', [
         templateUrl: 'partials/settings',
         controller: 'SettingsCtrl',
         authenticate: true
-      })
-      .when('/user', {
-        templateUrl: 'partials/users',
-        controller: 'UserCtrl'
       })
       .when('/patient', {
         templateUrl: 'partials/patient',

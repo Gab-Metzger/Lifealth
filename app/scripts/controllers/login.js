@@ -13,12 +13,12 @@ angular.module('lifealthApp')
           email: $scope.user.email,
           password: $scope.user.password
         })
-        .then( function() {
+        .then( function(user) {
           // Logged in, redirect to home
-          if ($scope.user.role === "MEDECIN") {
+          if (user.role === 'MEDECIN') {
             $location.path('/medecin');
           }
-          else if ($scope.user.role === "PATIENT") {
+          else if (user.role === 'PATIENT') {
             $location.path('/patient');
           }
 
