@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lifealthApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location) {
+  .controller('LoginCtrl', function ($scope, Auth, $location, $http) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -29,4 +29,5 @@ angular.module('lifealthApp')
         });
       }
     };
+
   });
