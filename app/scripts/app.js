@@ -15,6 +15,9 @@ angular.module('lifealthApp', [
         templateUrl: 'partials/login',
         controller: 'LoginCtrl'
       })
+      .when('/loginPatient', {
+          templateUrl: 'partials/loginPatient'
+      })
       .when('/signup', {
         templateUrl: 'partials/signup',
         controller: 'SignupCtrl'
