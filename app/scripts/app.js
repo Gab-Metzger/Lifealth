@@ -28,7 +28,7 @@ angular.module('lifealthApp', [
         authenticate: true
       })
       .when('/patient', {
-        templateUrl: 'partials/patient',
+        templateUrl: 'partials/patient'
       })
       //.when('/auth/iHealth', {
       //  redirectTo: '/auth/iHealth'
