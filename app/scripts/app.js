@@ -30,6 +30,9 @@ angular.module('lifealthApp', [
       .when('/patient', {
         templateUrl: 'partials/patient'
       })
+      .when('/dataPatient', {
+          templateUrl: 'partials/dataPatient'
+      })
       //.when('/auth/iHealth', {
       //  redirectTo: '/auth/iHealth'
       //})
