@@ -9,7 +9,16 @@ angular.module('lifealthApp', [
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'partials/acc_medecin',
+        templateUrl: 'partials/main'
+      })
+      .when('/medecin', {
+        templateUrl: 'partials/medecin',
+        controller: 'MedecinCtrl',
+        authenticate: true
+      })
+      .when('/loginDoctor', {
+        templateUrl: 'partials/loginDoctor',
+        controller: 'LoginCtrl'
       })
       .when('/login', {
         templateUrl: 'partials/login',
@@ -28,14 +37,13 @@ angular.module('lifealthApp', [
         authenticate: true
       })
       .when('/patient', {
-        templateUrl: 'partials/patient'
+        templateUrl: 'partials/patient',
+        controller: 'PatientCtrl',
+        authenticate: true
       })
       .when('/dataPatient', {
           templateUrl: 'partials/dataPatient'
       })
-      //.when('/auth/iHealth', {
-      //  redirectTo: '/auth/iHealth'
-      //})
       .otherwise({
         redirectTo: '/'
       });
@@ -62,8 +70,12 @@ angular.module('lifealthApp', [
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$routeChangeStart', function (event, next) {
 
-      if (next.authenticate && !Auth.isLoggedIn()) {
-        $location.path('/login');
+      if (next.authenticate) {
+        if (next.originalPath == '/patient'  && !Auth.isPatientLoggedIn()) {
+          $location.path('/loginPatient');
+        } else if (next.originalPath == '/medecin' && !Auth.isDoctorLoggedIn()) {
+          $location.path('/loginDoctor')
+        }
       }
     });
   });

@@ -21,7 +21,8 @@ angular.module('lifealthApp')
 
         return Session.save({
           email: user.email,
-          password: user.password
+          password: user.password,
+          role: user.role
         }, function(user) {
           $rootScope.currentUser = user;
           return cb();
@@ -103,9 +104,14 @@ angular.module('lifealthApp')
        * 
        * @return {Boolean}
        */
-      isLoggedIn: function() {
+      isPatientLoggedIn: function() {
         var user = $rootScope.currentUser;
-        return !!user;
+        return !!user && user.role == 'PATIENT';
       },
+
+      isDoctorLoggedIn: function() {
+        var user = $rootScope.currentUser;
+        return !!user && user.role == 'DOCTOR';
+      }
     };
   });

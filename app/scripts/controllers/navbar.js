@@ -6,12 +6,9 @@ angular.module('lifealthApp')
       'title': 'Acceuil',
       'link': '/'
     },  {
-      'title': 'Utilisateurs',
-      'link':'/user'
-    },  {
       'title': 'Paramètres',
       'link': '/settings'
-    },
+    }
 ];
     
     $scope.logout = function() {
