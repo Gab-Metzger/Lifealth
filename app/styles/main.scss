@@ -12,12 +12,12 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 img {
     padding-bottom: 25px;
 }
-/* Space out content a bit */
+
 body {
     padding-bottom: 0px;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
+
 .header,
 .marketing,
 .footer {
@@ -25,12 +25,12 @@ body {
     padding-right: 15px;
 }
 
-/* Custom page header */
+
 .header {
     border-bottom: 1px solid #e5e5e5;
 }
 
-/* Make the masthead heading the same height as the navigation */
+
 .header h3 {
     margin-top: 0;
     margin-bottom: 0;
@@ -38,7 +38,7 @@ body {
     padding-bottom: 19px;
 }
 
-/* Custom page footer */
+
 .footer {
     padding-top: 19px;
     color: #777;
@@ -49,7 +49,7 @@ body {
     margin: 30px 0;
 }
 
-/* Main marketing message and sign up button */
+
 .jumbotron {
     text-align: center;
     border-bottom: 1px solid #e5e5e5;
@@ -60,7 +60,7 @@ body {
     padding: 14px 24px;
 }
 
-/* Supporting marketing content */
+
 .marketing {
     margin: 40px 0;
 }
@@ -69,24 +69,23 @@ body {
     margin-top: 28px;
 }
 
-/* Responsive: Portrait tablets and up */
+
 @media screen and (min-width: 768px) {
     .container {
         max-width: 1050px;
     }
 
-    /* Remove the padding we set earlier */
     .header,
     .marketing,
     .footer {
         padding-left: 0;
         padding-right: 0;
     }
-    /* Space out the masthead */
+
     .header {
         margin-bottom: 30px;
     }
-    /* Remove the bottom border on the jumbotron for visual effect */
+
     .jumbotron {
         border-bottom: 0;
     }
