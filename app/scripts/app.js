@@ -20,12 +20,9 @@ angular.module('lifealthApp', [
         templateUrl: 'partials/loginDoctor',
         controller: 'LoginCtrl'
       })
-      .when('/login', {
-        templateUrl: 'partials/login',
-        controller: 'LoginCtrl'
-      })
       .when('/loginPatient', {
-          templateUrl: 'partials/loginPatient'
+          templateUrl: 'partials/loginPatient',
+        controller: 'LoginCtrl'
       })
       .when('/signup', {
         templateUrl: 'partials/signup',
@@ -55,7 +52,7 @@ angular.module('lifealthApp', [
       return {
         'responseError': function(response) {
           if(response.status === 401) {
-            $location.path('/login');
+            $location.path('/loginDoctor');
             return $q.reject(response);
           }
           else {

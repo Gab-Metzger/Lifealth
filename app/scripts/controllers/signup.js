@@ -12,11 +12,12 @@ angular.module('lifealthApp')
         Auth.createUser({
           name: $scope.user.name,
           email: $scope.user.email,
-          password: $scope.user.password
+          password: $scope.user.password,
+          role: 'DOCTOR'
         })
         .then( function() {
-          // Account created, redirect to home
-          $location.path('/');
+          // Account created, redirect
+          $location.path('/medecin');
         })
         .catch( function(err) {
           err = err.data;

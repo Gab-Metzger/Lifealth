@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('lifealthApp')
-  .controller('MedecinCtrl', function ($scope, Auth) {
+  .controller('MedecinCtrl', function ($scope, Auth, $location) {
     $scope.logout = function() {
-      Auth.logoutDoctor()
+      Auth.logout()
         .then(function() {
           $location.path('/');
         });
