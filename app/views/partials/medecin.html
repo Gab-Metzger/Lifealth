@@ -1,44 +1,33 @@
 <div ng-include="'partials/includes/headerDoctor.html'"></div>
 
 <div class="row">
-    <div class="col-sm-6 col-md-4 col-md-offset-2">
+    <div class="col-md-5">
       <div class="thumbnail">
         <div class="caption">
-          <h4>VOS PATIENTS</h4>
-          <p>Améliorez les soins avec Lifealth et partagez les données</p>
-          <a href="#/medecin">Dossiers patients</a>
+          <h4>RECHERCHER UN DOSSIER</h4>
+          <div class="material-input-group material-input-group-theme-light">
+            <label for="t1">Nom</label>
+            <input id="t1" type="text" name="recordName" ng-model="recordName">
+          </div>
+          <div ng-repeat="r in foundRecords">
+            <a ng-click="goToRecord(r)" ng-bind="r.email"></a>
+            <a ng-click="deleteRecord(r)">supprimer</a>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
-        <div class="caption">
-          <h4>IMPORTS PATIENTS</h4>
-          <p>Importez votre liste de patients et créez de nouveaux comptes</p>
-          <a href="#/medecin">Imports patients</a>
-        </div>
-      </div>
+    <div class="col-md-2">
+      <h4>OU</h4>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-6 col-md-4 col-md-offset-2">
+    <div class="col-md-5">
       <div class="thumbnail">
         <div class="caption">
-          <h4>AGENDA</h4>
-          <p>Sélectionnez votre agenda en ligne parmis nos partenaires et optimisez vos rendez-vous</p>
-          <a href="#/medecin">Mes Rendez-Vous</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
-        <div class="caption">
-          <h4>GESTION COURRIER</h4>
-          <p>Envoyez vos courriers et importez les comptes-rendus en un clic</p>
-          <a href="#/medecin">Documents</a>
+          <h4>CRÉER UN DOSSIER</h4>
+          <div class="material-input-group material-input-group-theme-light">
+            <label for="t2">Email</label>
+            <input id="t2" type="text" name="email" ng-model="email">
+          </div>
+          <a class="btn btn-primary" ng-click="addRecord()">Créer</a>
         </div>
       </div>
     </div>

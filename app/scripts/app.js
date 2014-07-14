@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('lifealthApp', [
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
-  'ngRoute'
-])
+    'ngCookies',
+    'ngResource',
+    'ngSanitize',
+    'ngRoute',
+    'ngMaterial'
+  ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/', {
@@ -21,7 +22,7 @@ angular.module('lifealthApp', [
         controller: 'LoginCtrl'
       })
       .when('/loginPatient', {
-          templateUrl: 'partials/loginPatient',
+        templateUrl: 'partials/loginPatient',
         controller: 'LoginCtrl'
       })
       .when('/signup', {
@@ -45,10 +46,10 @@ angular.module('lifealthApp', [
     //$locationProvider.html5Mode(true);
 
     // Intercept 401s and redirect you to login
-    $httpProvider.interceptors.push(['$q', '$location', function($q, $location) {
+    $httpProvider.interceptors.push(['$q', '$location', function ($q, $location) {
       return {
-        'responseError': function(response) {
-          if(response.status === 401) {
+        'responseError': function (response) {
+          if (response.status === 401) {
             $location.path('/loginDoctor');
             return $q.reject(response);
           }
@@ -65,7 +66,7 @@ angular.module('lifealthApp', [
     $rootScope.$on('$routeChangeStart', function (event, next) {
 
       if (next.authenticate) {
-        if (next.originalPath == '/patient'  && !Auth.isPatientLoggedIn()) {
+        if (next.originalPath == '/patient' && !Auth.isPatientLoggedIn()) {
           $location.path('/loginPatient');
         } else if (next.originalPath == '/medecin' && !Auth.isDoctorLoggedIn()) {
           $location.path('/loginDoctor')

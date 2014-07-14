@@ -17,6 +17,24 @@ body {
     padding-bottom: 0px;
 }
 
+.login-panel material-whiteframe {
+  width: 500px;
+  margin: auto;
+  font-size: 24pt;
+}
+
+.login-panel form {
+  padding: 12px 50px;
+}
+
+.login-panel input {
+  width: 100%;
+}
+
+.material-input-group label,
+.material-input-group input {
+  transition-duration: 100ms;
+}
 
 .header,
 .marketing,
