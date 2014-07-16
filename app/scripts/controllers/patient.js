@@ -10,7 +10,7 @@ angular.module('lifealthApp')
     };
 
     $scope.getBPDatas = function() {
-        $http.get('/api/users/'+$rootScope.currentUser.id)
+        $http.get('/api/users/'+$rootScope.currentUser.id+'/bp')
             .success(function(data) {
                 console.log(data);
                 // TODO something
