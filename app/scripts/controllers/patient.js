@@ -12,11 +12,13 @@ angular.module('lifealthApp')
     $scope.getBPDatas = function() {
         $http.get('/api/users/'+$rootScope.currentUser.id+'/bp')
             .success(function(data) {
-                console.log(data);
-                // TODO something
+                $scope.BPDatas = data;
             })
             .error(function(data) {
                 console.log(data);
         });
     }
+
+        $scope.predicate = "-MDate";
+        $scope.reverse = false;
   });
