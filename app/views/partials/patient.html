@@ -16,7 +16,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="BP in BPDatas.BPDataList | orderBy:predicate:reverse">
+                <tr ng-repeat="BP in BPDatas[0] | orderBy:predicate:reverse">
                     <td>{{BP.MDate*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                     <td>{{BP.BPL}}</td>
                     <td>{{BP.HP}}</td>
