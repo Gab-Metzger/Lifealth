@@ -4,6 +4,7 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 
 body material-content {
   padding: 0;
+  font-size: 14pt;
 }
 
 body material-content .footer {
@@ -33,6 +34,11 @@ body .row {
 
 .doctor {
   padding-top: 40px;
+}
+
+.doctor p, .login-panel p {
+  font-size: 8pt;
+  color: red;
 }
 
 .browsehappy {

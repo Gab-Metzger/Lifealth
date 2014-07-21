@@ -2,6 +2,7 @@
 
 angular.module('lifealthApp')
   .controller('MedecinCtrl', function ($scope, Auth, $location, $http, $rootScope) {
+    $
     $scope.logout = function() {
       Auth.logout()
         .then(function() {
@@ -30,10 +31,12 @@ angular.module('lifealthApp')
         $scope.foundRecords = data;
       });
     $scope.deleteRecord = function (r) {
-      $http.delete('/api/doctors/'+$rootScope.currentUser.id+'/records/'+ r._id)
-        .success(function(data) {
-          $scope.foundRecords.splice($scope.foundRecords.indexOf(r), 1);
-        })
+      if (confirm('Etes-vous sûr de vouloir supprimer ce dossier ?')) {
+        $http.delete('/api/doctors/'+$rootScope.currentUser.id+'/records/'+ r._id)
+          .success(function(data) {
+            $scope.foundRecords.splice($scope.foundRecords.indexOf(r), 1);
+          });
+      }
     };
     $scope.goToRecord = function (r) {
       $rootScope.currentUser.selectedPatientId = r._id;

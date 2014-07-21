@@ -1,44 +1,51 @@
 <div ng-include="'partials/includes/headerDoctor.html'"></div>
 
 <div class="doctor row">
-    <div class="col-md-5">
-      <div class="thumbnail">
-        <div class="caption">
-          <h4>RECHERCHER UN DOSSIER</h4>
-          <div class="material-input-group material-input-group-theme-light">
-            <label for="t1">Nom</label>
-            <input id="t1" type="text" name="recordName" ng-model="recordName">
-          </div>
-          <div ng-repeat="r in foundRecords | filter:recordName">
-            <a ng-click="goToRecord(r)" ng-bind="name(r)"></a>
-            <a ng-click="deleteRecord(r)">supprimer</a>
-          </div>
+  <div class="col-md-5">
+    <div class="thumbnail">
+      <div class="caption">
+        <h4>RECHERCHER UN DOSSIER</h4>
+
+        <div class="material-input-group material-input-group-theme-light">
+          <label for="t1">Nom</label>
+          <input id="t1" type="text" name="recordName" ng-model="recordName">
+        </div>
+        <div ng-repeat="r in foundRecords | filter:recordName">
+          <a ng-click="goToRecord(r)" ng-bind="name(r)"></a>
+          <a ng-click="deleteRecord(r)"><span class="glyphicon glyphicon-trash"></span></a>
         </div>
       </div>
     </div>
-    <div class="col-md-2 text-center">
-      <h4>OU</h4>
-    </div>
-    <div class="col-md-5">
-      <div class="thumbnail">
-        <div class="caption">
+  </div>
+  <div class="col-md-2 text-center">
+    <h4>OU</h4>
+  </div>
+  <div class="col-md-5">
+    <div class="thumbnail">
+      <div class="caption">
+        <form ng-submit="addRecord()" name="form" novalidate>
           <h4>CRÉER UN DOSSIER</h4>
           <div class="material-input-group material-input-group-theme-light">
             <label for="t2">Prénom</label>
-            <input id="t2" type="text" name="firstName" ng-model="firstName">
+            <input id="t2" type="text" name="firstName" ng-model="firstName" ng-model-options="{ updateOn: 'blur' }" required>
+            <p ng-show="form.email.$dirty && form.firstName.$error.required">obligatoire</p>
           </div>
           <div class="material-input-group material-input-group-theme-light">
             <label for="t3">Nom</label>
-            <input id="t3" type="text" name="lastName" ng-model="lastName">
+            <input id="t3" type="text" name="lastName" ng-model="lastName" ng-model-options="{ updateOn: 'blur' }" required>
+            <p ng-show="form.email.$dirty && form.lastName.$error.required">obligatoire</p>
           </div>
           <div class="material-input-group material-input-group-theme-light">
             <label for="t4">Email</label>
-            <input id="t4" type="text" name="email" ng-model="email">
+            <input id="t4" type="email" name="email" ng-model="email" ng-model-options="{ updateOn: 'blur' }" required>
+            <p ng-show="form.email.$dirty && form.email.$error.required">obligatoire</p>
+            <p ng-show="form.email.$dirty && form.email.$invalid">email invalide</p>
           </div>
-          <a class="material-button material-button-raised material-button-colored" ng-click="addRecord()">Créer</a>
-        </div>
+          <button class="material-button material-button-raised material-button-colored" type="submit" ng-disabled="form.$invalid">Créer</button>
+        </form>
       </div>
     </div>
+  </div>
 </div>
 
 <div ng-include="'partials/includes/footer.html'"></div>
