@@ -1,7 +1,7 @@
 <div ng-include="'partials/includes/headerPatient.html'"></div>
 <div ng-init="getBPDatas()"></div>
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-6">
         <div class="panel panel-primary">
             <!-- Default panel contents -->
             <div class="panel-heading">Pression du sang</div>
@@ -26,9 +26,25 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="col-md-6">
+        <nvd3-multi-bar-chart
+                data="exampleData"
+                id="BPChart"
+                height="250"
+                showXAxis="true"
+                showYAxis="true"
+                tooltips="true"
+                interactive="true"
+                useInteractiveGuideline="true"
+                toolTipContent="toolTipContentFunction()"
+                xAxisTickFormat="xAxisTickFormat()">
+        </nvd3-multi-bar-chart>
+    </div>
+</div>
 
-
-
+<div class="row">
+    <div class="col-md-6">
         <div class="panel panel-primary">
             <!-- Default panel contents -->
             <div class="panel-heading">Glycémie</div>
@@ -50,8 +66,21 @@
                 </tr>
                 </tbody>
             </table>
-
         </div>
+    </div>
+    <div class="col-md-6">
+        <nvd3-multi-bar-chart
+                data="exampleData"
+                id="GCChart"
+                height="250"
+                showXAxis="true"
+                showYAxis="true"
+                tooltips="true"
+                interactive="true"
+                useInteractiveGuideline="true"
+                toolTipContent="toolTipContentFunction()"
+                xAxisTickFormat="xAxisTickFormat()">
+        </nvd3-multi-bar-chart>
     </div>
 </div>
 

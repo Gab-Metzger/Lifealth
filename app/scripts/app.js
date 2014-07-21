@@ -5,7 +5,8 @@ angular.module('lifealthApp', [
     'ngResource',
     'ngSanitize',
     'ngRoute',
-    'ngMaterial'
+    'ngMaterial',
+    'nvd3ChartDirectives'
   ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
