@@ -1,23 +1,17 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <h1>Lifealth</h1>
-        </div>
-    </div>
-    <div class="row">
+<material-toolbar class="material-theme-light">
+  <div class="material-toolbar-tools">
+    <span class="material-flex">Lifealh</span>
+  </div>
+</material-toolbar>
+    <div class="main row">
         <div class="col-md-6 text-center">
-            <a class="btn btn-primary" ng-href="/#/medecin">Médecin</a>
+            <a class="material-button material-button-raised material-button-colored" ng-href="/#/medecin">Médecin</a>
             <p>Accèdez à vos dossiers, gérer votre agenda, gérer vos courrier</p>
         </div>
         <div class="col-md-6 text-center">
-            <a class="btn btn-primary" ng-href="/#/patient">Patient</a>
+            <a class="material-button material-button-raised material-button-colored" ng-href="/#/patient">Patient</a>
             <p>Accédez à votre dossier, partagez vos données biométriques</p>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <p>© 2014 Lifealth. All Rights Reserved</p>
-        </div>
-    </div>
-</div>
 
+<div ng-include="'partials/includes/footer.html'"></div>

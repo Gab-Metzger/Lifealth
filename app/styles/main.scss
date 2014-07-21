@@ -2,6 +2,39 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/
 
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 
+body material-content {
+  padding: 0;
+}
+
+body material-content .footer {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+body .container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+body .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.main div {
+  padding-top: 40px;
+  font-size: 20pt;
+}
+
+.main .material-button {
+  padding: 10px 10px;  
+}
+
+.doctor {
+  padding-top: 40px;
+}
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;

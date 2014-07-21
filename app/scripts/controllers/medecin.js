@@ -15,8 +15,8 @@ angular.module('lifealthApp')
     $scope.addRecord = function () {
       $http.post('/api/doctors/'+$rootScope.currentUser.id+'/records', {'email': $scope.email, 'firstName': $scope.firstName, 'lastName': $scope.lastName})
         .success(function(data) {
-          console.log(data);
-          // TODO something
+          $rootScope.currentUser.selectedPatientId = data._id;
+          $location.path('/patient');
         })
         .error(function(data) {
           console.log(data);
@@ -36,6 +36,7 @@ angular.module('lifealthApp')
         })
     };
     $scope.goToRecord = function (r) {
-
+      $rootScope.currentUser.selectedPatientId = r._id;
+      $location.path('/patient');
     };
   });
