@@ -10,8 +10,10 @@ angular.module('lifealthApp')
     };
     $scope.recordName;
     $scope.email;
+    $scope.firstName;
+    $scope.lastName;
     $scope.addRecord = function () {
-      $http.post('/api/doctors/'+$rootScope.currentUser.id+'/records', {'email': $scope.email})
+      $http.post('/api/doctors/'+$rootScope.currentUser.id+'/records', {'email': $scope.email, 'firstName': $scope.firstName, 'lastName': $scope.lastName})
         .success(function(data) {
           console.log(data);
           // TODO something
@@ -19,6 +21,9 @@ angular.module('lifealthApp')
         .error(function(data) {
           console.log(data);
         });
+    };
+    $scope.name = function (r) {
+      return r.firstName+' '+ r.lastName;
     };
     $http.get('/api/doctors/'+$rootScope.currentUser.id+'/records')
       .success(function(data) {

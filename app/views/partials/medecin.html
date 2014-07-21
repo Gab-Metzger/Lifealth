@@ -9,14 +9,14 @@
             <label for="t1">Nom</label>
             <input id="t1" type="text" name="recordName" ng-model="recordName">
           </div>
-          <div ng-repeat="r in foundRecords">
-            <a ng-click="goToRecord(r)" ng-bind="r.email"></a>
+          <div ng-repeat="r in foundRecords | filter:recordName">
+            <a ng-click="goToRecord(r)" ng-bind="name(r)"></a>
             <a ng-click="deleteRecord(r)">supprimer</a>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2 text-center">
       <h4>OU</h4>
     </div>
     <div class="col-md-5">
@@ -24,8 +24,16 @@
         <div class="caption">
           <h4>CRÉER UN DOSSIER</h4>
           <div class="material-input-group material-input-group-theme-light">
-            <label for="t2">Email</label>
-            <input id="t2" type="text" name="email" ng-model="email">
+            <label for="t2">Prénom</label>
+            <input id="t2" type="text" name="firstName" ng-model="firstName">
+          </div>
+          <div class="material-input-group material-input-group-theme-light">
+            <label for="t3">Nom</label>
+            <input id="t3" type="text" name="lastName" ng-model="lastName">
+          </div>
+          <div class="material-input-group material-input-group-theme-light">
+            <label for="t4">Email</label>
+            <input id="t4" type="text" name="email" ng-model="email">
           </div>
           <a class="btn btn-primary" ng-click="addRecord()">Créer</a>
         </div>
