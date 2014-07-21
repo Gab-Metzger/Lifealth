@@ -1,6 +1,16 @@
 <div ng-include="'partials/includes/headerPatient.html'"></div>
-<div ng-init="getBPDatas()"></div>
-<div class="row">
+<material-sidenav class="material-sidenav-left material-whiteframe-z2" component-id="left">
+  <material-toolbar class="material-theme-light">
+    <div class="material-toolbar-tools">Menu</div>
+  </material-toolbar>
+    <material-list>
+      <material-item>Biométrie</material-item>
+      <material-item>Biologie</material-item>
+      <material-item>Imagerie</material-item>
+      <material-item>Consultations</material-item>
+    </material-list>
+</material-sidenav>
+<div class="row" ng-init="getBPDatas()">
     <div class="col-md-6">
         <div class="panel panel-primary">
             <!-- Default panel contents -->
