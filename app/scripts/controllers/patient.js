@@ -22,21 +22,19 @@ angular.module('lifealthApp')
     $scope.predicate = "-MDate";
     $scope.reverse = false;
 
-    /*
+
     $scope.putBpDatainChart = function(BPList) {
        var DPChart = [['optimale', 0]];
        for(var i=0; i<BPList[0].length; i++) {
-           if(BPList[0][i].HP < 120 && BPList[0][i].HR < 80) {
+           if((BPList[0][i].HP < 120) && (BPList[0][i].HR < 80)) {
                DPChart[0][1] += 1;
            }
-           ... Suite des if pour les autres cas
        }
         DPChart[0][1] /= BPList[0].length;
-        .. pareil pour les autres cas
     };
 
     $scope.BPChart = $scope.putBpDatainChart($scope.BPDatas);
-    */
+
     $scope.exampleData = [
         {
             "key": "Series 1",
