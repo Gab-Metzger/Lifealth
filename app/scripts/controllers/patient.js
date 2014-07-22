@@ -19,12 +19,9 @@ angular.module('lifealthApp')
     $scope.predicate = "-MDate";
     $scope.reverse = false;
 
-    $scope.exampleData = [
-        {
-            "key": "Series 1",
-            "values": [ [ 10 , 0.5] , [ 25 , 8.5] , [ 20 , 6] , [ 12 , 0.5] , [ 16 , 8.5] , [ 28 , 6] ]
-        }
-    ];
+    $scope.color = function() {
+        return ['red', 'blue', 'green', 'gray', 'yellow', 'black'];
+    }
 
     $scope.xAxisTickFormat = function(){
         return function(d){

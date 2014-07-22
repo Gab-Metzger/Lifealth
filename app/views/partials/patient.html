@@ -38,7 +38,7 @@
         </div>
     </div>
     <div class="col-md-6">
-        <nvd3-multi-bar-chart
+        <nvd3-discrete-bar-chart
                 data="BPClassified"
                 id="BPChart"
                 height="250"
@@ -48,8 +48,10 @@
                 interactive="true"
                 useInteractiveGuideline="true"
                 toolTipContent="toolTipContentFunction()"
-                xAxisTickFormat="xAxisTickFormat()">
-        </nvd3-multi-bar-chart>
+                xAxisTickFormat="xAxisTickFormat()"
+                color="color()">
+          <svg></svg>
+        </nvd3-discrete-bar-chart>
     </div>
 </div>
 
