@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lifealthApp')
-  .controller('PatientCtrl', function ($scope, Auth, $location, $http, $rootScope) {
+  .controller('PatientCtrl', function ($scope, Auth, $location, PatientData) {
     $scope.logout = function () {
       Auth.logout()
         .then(function () {
@@ -9,35 +9,15 @@ angular.module('lifealthApp')
         });
     };
 
-    $scope.getBPDatas = function () {
-      var id = $rootScope.currentUser.id;
-      if ($rootScope.currentUser.role == 'DOCTOR') {
-        id = $rootScope.currentUser.selectedPatientId;
-      }
-      $http.get('/api/users/' + id + '/bp')
-        .success(function (data) {
-          $scope.BPDatas = data;
-        })
-        .error(function (data) {
-          console.log(data);
-        });
-    };
+    $scope.BPDatas = PatientData.bpData;
+    $scope.BPClassified = PatientData.classifiedBpData;
+    PatientData.getBPData().then(function() {
+      $scope.BPDatas = PatientData.bpData;
+      $scope.BPClassified = PatientData.classifiedBpData;
+    });
 
     $scope.predicate = "-MDate";
     $scope.reverse = false;
-
-
-    $scope.putBpDatainChart = function(BPList) {
-       var DPChart = [['optimale', 0]];
-       for(var i=0; i<BPList[0].length; i++) {
-           if((BPList[0][i].HP < 120) && (BPList[0][i].HR < 80)) {
-               DPChart[0][1] += 1;
-           }
-       }
-        DPChart[0][1] /= BPList[0].length;
-    };
-
-    $scope.BPChart = $scope.putBpDatainChart($scope.BPDatas);
 
     $scope.exampleData = [
         {
