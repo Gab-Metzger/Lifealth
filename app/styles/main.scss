@@ -41,6 +41,10 @@ body .row {
   color: red;
 }
 
+.patient {
+  margin-top: 50px;
+}
+
 .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
@@ -73,6 +77,35 @@ body {
 .material-input-group label,
 .material-input-group input {
   transition-duration: 100ms;
+}
+
+.patient .panel-primary > .panel-heading {
+  color: white;
+  background-color: #4285f4;
+  border-color: #4285f4;
+}
+
+.patient .panel-primary > .panel-heading div {
+  display: inline;
+}
+
+.patient .panel-primary > .panel-heading div input {
+  width: 120px;
+  border-width: 0;
+  border-bottom-width: 1px;
+  text-align: center;
+}
+
+.patient table th, .patient table td {
+  text-align: center;
+}
+
+.patient table th {
+  font-weight: normal;
+}
+
+.patient table td {
+  font-weight: bold;
 }
 
 .header,
