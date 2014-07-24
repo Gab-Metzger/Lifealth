@@ -31,7 +31,6 @@ angular.module('lifealthApp')
         $scope.BPDatas = PatientData.bpData;
         $scope.BPClassified = PatientData.classifiedBpData;
       });
-      console.log(value);
     });
 
     $scope.color = function() {

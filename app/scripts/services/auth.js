@@ -106,7 +106,7 @@ angular.module('lifealthApp')
        */
       isPatientLoggedIn: function() {
         var user = $rootScope.currentUser;
-        return !!user;
+        return !!user && user.role == 'PATIENT';
       },
 
       isDoctorLoggedIn: function() {

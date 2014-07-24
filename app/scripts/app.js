@@ -68,8 +68,12 @@ angular.module('lifealthApp', [
     $rootScope.$on('$routeChangeStart', function (event, next) {
 
       if (next.authenticate) {
-        if (next.originalPath == '/patient' && !Auth.isPatientLoggedIn()) {
-          $location.path('/loginPatient');
+        if (next.originalPath == '/patient') {
+          if (Auth.isDoctorLoggedIn() && !$rootScope.currentUser.selectedPatientId) {
+            $location.path('/medecin');
+          } else if (!Auth.isDoctorLoggedIn() && !Auth.isPatientLoggedIn()) {
+            $location.path('/loginPatient');
+          }
         } else if (next.originalPath == '/medecin' && !Auth.isDoctorLoggedIn()) {
           $location.path('/loginDoctor')
         }
