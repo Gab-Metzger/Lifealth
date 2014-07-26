@@ -1,7 +1,12 @@
 <material-toolbar class="material-theme-light">
-  <div class="material-toolbar-tools">
+  <div class="material-toolbar-tools" ng-switch="$root.currentUser.role">
     <span class="glyphicon glyphicon-list" ng-click="openSideNavBar()"></span>
+    <div class="material-flex">
+      <span ng-bind="patientName()"></span>
+      <br>
+      <span ng-bind="patientAge()"></span>
+    </div>
     <span class="material-flex">Lifealth</span>
-    <button class="material-button" ng-click="logout()" ng-show="$root.currentUser">Deconnexion</button>
+    <span class="glyphicon glyphicon-log-out" ng-click="logout()" ng-show="$root.currentUser"></span>
   </div>
 </material-toolbar>

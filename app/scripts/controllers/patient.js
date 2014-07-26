@@ -2,6 +2,11 @@
 
 angular.module('lifealthApp')
   .controller('PatientCtrl', function ($scope, Auth, $location, PatientData, $materialSidenav) {
+    $scope.patientInfos = PatientData.infos;
+    PatientData.getInfos().then(function() {
+      $scope.patientInfos = PatientData.infos;
+    });
+
     $scope.logout = function () {
       Auth.logout()
         .then(function () {
@@ -31,7 +36,6 @@ angular.module('lifealthApp')
         $scope.BPDatas = PatientData.bpData;
         $scope.BPClassified = PatientData.classifiedBpData;
       });
-      console.log(value);
     });
 
     $scope.color = function() {
@@ -66,4 +70,10 @@ angular.module('lifealthApp')
     $scope.goToMonitoring = function () {
       $materialSidenav('left').close();
     };
+    $scope.patientName = function () {
+      return $scope.patientInfos.firstName + ' ' + $scope.patientInfos.lastName;
+    };
+    $scope.patientAge = function() {
+      return $scope.patientInfos.gender + ' - ' + $scope.patientInfos.age + ' ans'
+    }
   });

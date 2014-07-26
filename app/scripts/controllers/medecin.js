@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lifealthApp')
-  .controller('MedecinCtrl', function ($scope, Auth, $location, $http, $rootScope) {
+  .controller('MedecinCtrl', function ($scope, Auth, $location, $http, $rootScope, $materialSidenav) {
     $
     $scope.logout = function() {
       Auth.logout()
@@ -42,4 +42,13 @@ angular.module('lifealthApp')
       $rootScope.currentUser.selectedPatientId = r._id;
       $location.path('/patient');
     };
+
+    $scope.openSideNavBar = function () {
+      $materialSidenav('left').toggle();
+    };
+
+    $scope.goToMonitoring = function () {
+      $materialSidenav('left').close();
+    };
+
   });

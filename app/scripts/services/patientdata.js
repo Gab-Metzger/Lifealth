@@ -38,32 +38,34 @@ angular.module('lifealthApp')
       if ($rootScope.currentUser.role == 'DOCTOR') {
         id = $rootScope.currentUser.selectedPatientId;
       }
-      return $http.get('/api/users/' + id + '/bp?from='+from.unix()+'&to='+to.unix())
-        .success(function (data) {
-          // classification
-          var classified = [
-            ['Optimale', 0],
-            ['Normale', 0],
-            ['Normale Haute', 0],
-            ['Hypertension moyenne', 0],
-            ['Hypertension modérée', 0],
-            ['Hypertension sévère', 0]
-          ];
-          for (var i = 0; i < data[0].length; i++) {
-            classified[getClassification(data[0][i])][1]++;
-          }
-          PatientData.classifiedBpData = [
-            {
-              key: 'Classification',
-              values: classified
+      if (id) {
+        return $http.get('/api/users/' + id + '/bp?from='+from.unix()+'&to='+to.unix())
+          .success(function (data) {
+            // classification
+            var classified = [
+              ['Optimale', 0],
+              ['Normale', 0],
+              ['Normale Haute', 0],
+              ['Hypertension moyenne', 0],
+              ['Hypertension modérée', 0],
+              ['Hypertension sévère', 0]
+            ];
+            for (var i = 0; i < data[0].length; i++) {
+              classified[getClassification(data[0][i])][1]++;
             }
-          ];
+            PatientData.classifiedBpData = [
+              {
+                key: 'Classification',
+                values: classified
+              }
+            ];
 
-          PatientData.bpData = data;
-        })
-        .error(function (data) {
-          console.log(data);
-        });
+            PatientData.bpData = data;
+          })
+          .error(function (data) {
+            console.log(data);
+          });
+      }
     };
 
     PatientData.getBGData = function (from, to) {
@@ -79,5 +81,24 @@ angular.module('lifealthApp')
                 console.log(data);
             });
     };
+
+    PatientData.infos = {};
+
+    PatientData.getInfos = function() {
+      var id = $rootScope.currentUser.id;
+      if ($rootScope.currentUser.role == 'DOCTOR') {
+        id = $rootScope.currentUser.selectedPatientId;
+      }
+      if (id) {
+        return $http.get('/api/users/' + id)
+          .success(function (data) {
+            PatientData.infos = data.profile;
+          })
+          .error(function (data) {
+            console.log(data);
+          });
+      }
+    };
+
     return PatientData;
   });

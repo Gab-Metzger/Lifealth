@@ -108,6 +108,16 @@ body {
   font-weight: bold;
 }
 
+.material-toolbar-tools div {
+  line-height: 20px;
+}
+.material-toolbar-tools div span:nth-child(1) {
+  font-weight: bold;
+}
+.material-toolbar-tools div span:nth-child(3) {
+  font-size: 12pt;
+}
+
 .header,
 .marketing,
 .footer {
