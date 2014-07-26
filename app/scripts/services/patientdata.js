@@ -29,6 +29,7 @@ angular.module('lifealthApp')
     };
 
     PatientData.bpData = [];
+    PatientData.bgData = [];
 
     PatientData.colors = ['rgb(1, 145, 60)', 'rgb(142, 194, 31)', 'rgb(255, 240, 2)', 'rgb(241, 150, 0)', 'rgb(233, 86, 19)', 'rgb(229, 1, 18)'];
 
@@ -63,6 +64,20 @@ angular.module('lifealthApp')
         .error(function (data) {
           console.log(data);
         });
+    };
+
+    PatientData.getBGData = function (from, to) {
+        var id = $rootScope.currentUser.id;
+        if ($rootScope.currentUser.role == 'DOCTOR') {
+            id = $rootScope.currentUser.selectedPatientId;
+        }
+        return $http.get('/api/users/' + id + '/bg?from='+from.unix()+'&to='+to.unix())
+            .success(function (data) {
+                PatientData.bgData = data;
+            })
+            .error(function (data) {
+                console.log(data);
+            });
     };
     return PatientData;
   });
