@@ -50,4 +50,5 @@ angular.module('lifealthApp')
     $scope.goToMonitoring = function () {
       $materialSidenav('left').close();
     };
+
   });

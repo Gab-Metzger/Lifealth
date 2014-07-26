@@ -66,5 +66,23 @@ angular.module('lifealthApp')
           });
       }
     };
+
+    PatientData.infos = {};
+
+    PatientData.getInfos = function() {
+      var id = $rootScope.currentUser.id;
+      if ($rootScope.currentUser.role == 'DOCTOR') {
+        id = $rootScope.currentUser.selectedPatientId;
+      }
+      if (id) {
+        return $http.get('/api/users/' + id)
+          .success(function (data) {
+            PatientData.infos = data.profile;
+          })
+          .error(function (data) {
+            console.log(data);
+          });
+      }
+    }
     return PatientData;
   });
