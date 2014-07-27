@@ -15,6 +15,7 @@ angular.module('lifealthApp')
     };
 
     $scope.BPDatas = PatientData.bpData;
+    $scope.BGDatas = PatientData.bgData;
     $scope.BPClassified = PatientData.classifiedBpData;
 
     $scope.predicate = "-MDate";
@@ -27,16 +28,26 @@ angular.module('lifealthApp')
         'endDate': moment().format('YYYY-MM-DD')
       }
     };
-    $scope.dates = {
+    $scope.datesBP = {
         'startDate': moment().subtract('days', 7),
         'endDate': moment()
     };
-    $scope.$watch('dates', function(value) {
+    $scope.$watch('datesBP', function(value) {
       PatientData.getBPData(value.startDate, value.endDate).then(function() {
         $scope.BPDatas = PatientData.bpData;
         $scope.BPClassified = PatientData.classifiedBpData;
       });
     });
+
+        $scope.datesBG = {
+            'startDate': moment().subtract('days', 7),
+            'endDate': moment()
+        };
+        $scope.$watch('datesBG', function(value) {
+            PatientData.getBGData(value.startDate, value.endDate).then(function() {
+                $scope.BGDatas = PatientData.bgData;
+            });
+        });
 
     $scope.color = function() {
         return PatientData.colors;

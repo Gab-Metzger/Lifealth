@@ -38,7 +38,7 @@
       </material-item>
     </material-list>
 </material-sidenav>
-<div class="patient row" ng-init="getBPDatas()">
+<div class="patient row">
     <div class="col-md-6">
         <div class="panel panel-primary">
             <!-- Default panel contents -->
@@ -46,7 +46,7 @@
               <span>Tension - </span>
               <div>période <input
                 type="daterange"
-                ng-model="dates"
+                ng-model="datesBP"
                 min-date="minDateRange"
                 max-date="maxDateRange"
                 format="DD/MM"
@@ -74,7 +74,7 @@
     <div class="col-md-6">
         <nvd3-discrete-bar-chart
                 data="BPClassified"
-                id="BPChart"
+                id="BGChart"
                 height="250"
                 showXAxis="true"
                 showYAxis="true"
@@ -98,7 +98,7 @@
                 <span>Glycémie - </span>
                 <div>période <input
                         type="daterange"
-                        ng-model="dates"
+                        ng-model="datesBG"
                         min-date="minDateRange"
                         max-date="maxDateRange"
                         format="DD/MM"
