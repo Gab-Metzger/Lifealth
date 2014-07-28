@@ -109,17 +109,17 @@
                 <thead>
                 <tr>
                     <th><a ng-click="predicate = 'MDate'; reverse=!reverse">Date</a></th>
-                    <th>Heure</th>
                     <th>Résultats (mg/dl)</th>
-                    <th>Dosage insuline</th>
+                    <th>Moment</th>
+                  <th>Note</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="BG in BGDatas[0] | orderBy:predicate:reverse">
                     <td>{{BG.MDate*1000 | date:"dd/MM HH'h'mm"}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{BG.BG}}</td>
+                    <td>{{BG.DinnerSituation}} / {{BG.DrugSituation}}</td>
+                    <td>{{BG.Note}}</td>
                 </tr>
                 </tbody>
             </table>
