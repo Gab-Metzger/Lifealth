@@ -126,18 +126,16 @@
         </div>
     </div>
     <div class="col-md-6">
-        <nvd3-multi-bar-chart
-                data="exampleData"
-                id="GCChart"
-                height="250"
+        <nvd3-line-chart
+                data="BGClassified"
                 showXAxis="true"
                 showYAxis="true"
-                tooltips="true"
-                interactive="true"
+                height="250"
+                xAxisTickFormat="xAxisTickFormat()"
                 useInteractiveGuideline="true"
-                toolTipContent="toolTipContentFunction()"
-                xAxisTickFormat="xAxisTickFormat()">
-        </nvd3-multi-bar-chart>
+                tooltips="true"
+                interactive="true">
+        </nvd3-line-chart>
     </div>
 </div>
 

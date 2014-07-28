@@ -75,6 +75,17 @@ angular.module('lifealthApp')
         }
         return $http.get('/api/users/' + id + '/bg?from='+from.unix()+'&to='+to.unix())
             .success(function (data) {
+                //Chart array
+                var chartArray = [];
+                for(var i = 0; i < data[0].length; i++) {
+                    chartArray[i] = [i,data[0][i].BG];
+                }
+                PatientData.classifiedBgData = [
+                    {
+                        key: 'BG Data',
+                        values: chartArray
+                    }
+                ];
                 PatientData.bgData = data;
             })
             .error(function (data) {
