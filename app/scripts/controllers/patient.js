@@ -69,9 +69,15 @@ angular.module('lifealthApp')
         }
     };
 
-    $scope.xAxisTickFormatFunction = function(){
+    $scope.yAxisTickFormat = function(){
         return function(d){
-            return d3.time.format('%H:%M')(moment.unix(d).toDate());
+            return d+"%";
+        }
+    };
+
+    $scope.xBGAxisTickFormat = function(){
+        return function(d){
+            return d3.time.format('%x %X')(new Date(d*1000));  //uncomment for date format
         }
     };
 

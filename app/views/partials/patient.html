@@ -79,10 +79,12 @@
                 showXAxis="true"
                 showYAxis="true"
                 tooltips="true"
+                showValues="true"
                 interactive="true"
                 useInteractiveGuideline="true"
                 toolTipContent="toolTipContentFunction()"
                 xAxisTickFormat="xAxisTickFormat()"
+                yAxisTickFormat="yAxisTickFormat()"
                 color="color()"
                 xaxisrotatelabels="-15">
           <svg></svg>
@@ -110,15 +112,13 @@
                 <tr>
                     <th><a ng-click="predicate = 'MDate'; reverse=!reverse">Date</a></th>
                     <th>Résultats (mg/dl)</th>
-                    <th>Moment</th>
-                  <th>Note</th>
+                    <th>Note</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="BG in BGDatas[0] | orderBy:predicate:reverse">
                     <td>{{BG.MDate*1000 | date:"dd/MM HH'h'mm"}}</td>
                     <td>{{BG.BG}}</td>
-                    <td>{{BG.DinnerSituation}} / {{BG.DrugSituation}}</td>
                     <td>{{BG.Note}}</td>
                 </tr>
                 </tbody>
@@ -131,10 +131,11 @@
                 showXAxis="true"
                 showYAxis="true"
                 height="250"
-                xAxisTickFormat="xAxisTickFormat()"
+                xAxisTickFormat="xBGAxisTickFormat()"
                 useInteractiveGuideline="true"
                 tooltips="true"
-                interactive="true">
+                interactive="true"
+                xaxisrotatelabels="-15">
         </nvd3-line-chart>
     </div>
 </div>

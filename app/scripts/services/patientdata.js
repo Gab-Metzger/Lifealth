@@ -53,6 +53,9 @@ angular.module('lifealthApp')
             for (var i = 0; i < data[0].length; i++) {
               classified[getClassification(data[0][i])][1]++;
             }
+                for (var i = 0; i < data[0].length; i++) {
+                    classified[i][1] = (classified[i][1] / data[0].length)*100;
+                }
             PatientData.classifiedBpData = [
               {
                 key: 'Classification',
@@ -78,7 +81,7 @@ angular.module('lifealthApp')
                 //Chart array
                 var chartArray = [];
                 for(var i = 0; i < data[0].length; i++) {
-                    chartArray[i] = [i,data[0][i].BG];
+                    chartArray[i] = [data[0][i].MDate,data[0][i].BG];
                 }
                 PatientData.classifiedBgData = [
                     {
