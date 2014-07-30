@@ -46,11 +46,15 @@ angular.module('lifealthApp')
           .success(function (data) {
 
             if (data.length) {
+              //Change date format
+              for (var i = 0; i < data.length; i++) {
+                data[i].MDate = moment.utc(data[i].MDate, 'X').format('DD/MM HH:mm');
+              }
               // pagination
               if (data.length > pagination) {
                 var finalList = [];
-                for (var i=0; i<Math.floor(data.length/pagination)+1; i++) {
-                  finalList.push(data.slice(i*pagination, (i+1)*pagination));
+                for (var i = 0; i < Math.floor(data.length / pagination) + 1; i++) {
+                  finalList.push(data.slice(i * pagination, (i + 1) * pagination));
                 }
                 PatientData.bpData = finalList;
               } else {
@@ -66,10 +70,8 @@ angular.module('lifealthApp')
                 ['Hypertension modérée', 0],
                 ['Hypertension sévère', 0]
               ];
-              for (var i = 0; i < data[0].length; i++) {
-                classified[getClassification(data[0][i])][1]++;
-                //Change date format
-                PatientData.bpData[0][i].MDate = moment.utc(PatientData.bpData[0][i].MDate,'X').format('DD/MM HH:mm');
+              for (var i = 0; i < data.length; i++) {
+                classified[getClassification(data[i])][1]++;
               }
               for (var i = 0; i < classified.length; i++) {
                 classified[i][1] = (classified[i][1] / data.length) * 100;
@@ -109,8 +111,8 @@ angular.module('lifealthApp')
           ];
           PatientData.bgData = [data];
           for (var i = 0; i < data.length; i++) {
-              chartArray[i] = [data[i].MDate, data[i].BG];
-              PatientData.bgData[0][i].MDate = moment.utc(PatientData.bgData[0][i].MDate,'X').format('DD/MM HH:mm');
+            chartArray[i] = [data[i].MDate, data[i].BG];
+            PatientData.bgData[0][i].MDate = moment.utc(PatientData.bgData[0][i].MDate, 'X').format('DD/MM HH:mm');
           }
         })
         .error(function (data) {
