@@ -44,28 +44,31 @@ angular.module('lifealthApp')
           .success(function (data) {
             PatientData.bpData = data;
 
-            // classification
-            var classified = [
-              ['Optimale', 0],
-              ['Normale', 0],
-              ['Normale Haute', 0],
-              ['Hypertension moyenne', 0],
-              ['Hypertension modérée', 0],
-              ['Hypertension sévère', 0]
-            ];
-            for (var i = 0; i < data[0].length; i++) {
-              classified[getClassification(data[0][i])][1]++;
-            }
-            for (var i = 0; i < classified.length; i++) {
-              classified[i][1] = (classified[i][1] / data[0].length) * 100;
-            }
-            PatientData.classifiedBpData = [
-              {
-                key: 'Classification',
-                values: classified
+            if (data[0].length) {
+              // classification
+              var classified = [
+                ['Optimale', 0],
+                ['Normale', 0],
+                ['Normale Haute', 0],
+                ['Hypertension moyenne', 0],
+                ['Hypertension modérée', 0],
+                ['Hypertension sévère', 0]
+              ];
+              for (var i = 0; i < data[0].length; i++) {
+                classified[getClassification(data[0][i])][1]++;
               }
-            ];
-
+              for (var i = 0; i < classified.length; i++) {
+                classified[i][1] = (classified[i][1] / data[0].length) * 100;
+              }
+              PatientData.classifiedBpData = [
+                {
+                  key: 'Classification',
+                  values: classified
+                }
+              ];
+            } else {
+              PatientData.classifiedBpData = [];
+            }
           })
           .error(function (data) {
             console.log(data);
