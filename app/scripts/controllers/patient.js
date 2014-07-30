@@ -2,7 +2,7 @@
 
 angular.module('lifealthApp')
   .controller('PatientCtrl', function ($scope, Auth, $location, PatientData, $materialSidenav) {
-    $scope.patientInfos = PatientData.infos;
+    $scope.patientInfos = {};
     PatientData.getInfos().then(function() {
       $scope.patientInfos = PatientData.infos;
     });
@@ -14,19 +14,27 @@ angular.module('lifealthApp')
         });
     };
 
-    $scope.BPDatas = PatientData.bpData;
-    $scope.BGDatas = PatientData.bgData;
-    $scope.BPClassified = PatientData.classifiedBpData;
-    $scope.BGClassified = PatientData.classifiedBgData;
+    $scope.BPDatas = [];
+    $scope.BGDatas = [];
+    $scope.BPClassified = [];
+    $scope.BGClassified = [];
 
     $scope.predicate = "-MDate";
     $scope.reverse = false;
-    $scope.minDateRange = moment().subtract('days', 300).format('YYYY-MM-DD');
-    $scope.maxDateRange = moment().format('YYYY-MM-DD');
+    $scope.minDateRange = moment().subtract('days', 300);
+    $scope.maxDateRange = moment();
     $scope.defaultRange = {
-      'Special Range': {
-        'startDate': moment().subtract('days', 7).format('YYYY-MM-DD'),
-        'endDate': moment().format('YYYY-MM-DD')
+      'depuis 7 jours': {
+        'startDate': moment().subtract('days', 7),
+        'endDate': moment()
+      },
+      'depuis 1 mois': {
+        'startDate': moment().subtract('days', 31),
+        'endDate': moment()
+      },
+      'depuis 3 mois': {
+        'startDate': moment().subtract('days', 93),
+        'endDate': moment()
       }
     };
     $scope.datesBP = {
