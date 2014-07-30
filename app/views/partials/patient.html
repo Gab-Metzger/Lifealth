@@ -62,12 +62,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="BP in BPDatas[0] | orderBy:predicate:reverse">
+                <tr ng-repeat="BP in BPDatas[bpIndex] | orderBy:predicate:reverse">
                     <td>{{BP.MDate}}</td>
                   <td ng-style="bgColor(BP)">{{BP.HP}}/{{BP.LP}}</td>
                     <td>{{BP.HR}}</td>
                 </tr>
                 </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3">
+                    <span ng-click="lastBpIndex()" ng-show="showLastBpIndex()" class="glyphicon glyphicon-step-backward left"></span>
+                    <span ng-click="previousBpIndex()" ng-show="showPreviousBpIndex()" class="glyphicon glyphicon-backward left"></span>
+                    <span ng-click="firstBpIndex()" ng-show="showFirstBpIndex()" class="glyphicon glyphicon-step-forward right"></span>
+                    <span ng-click="nextBpIndex()" ng-show="showNextBpIndex()" class="glyphicon glyphicon-forward right"></span>
+                  </td>
+                </tr>
+              </tfoot>
             </table>
         </div>
     </div>

@@ -33,6 +33,7 @@ angular.module('lifealthApp')
       'endDate': moment()
     };
     $scope.$watch('datesBP', function (value) {
+      $scope.bpIndex = 0;
       PatientData.getBPData(value.startDate, value.endDate)
         .then(function () {
           $scope.BPDatas = PatientData.bpData;
@@ -108,5 +109,31 @@ angular.module('lifealthApp')
     };
     $scope.goBack = function () {
       $location.path('/medecin');
+    };
+
+    $scope.bpIndex = 0;
+    $scope.lastBpIndex = function () {
+      $scope.bpIndex = $scope.BPDatas.length - 1;
+    };
+    $scope.previousBpIndex = function () {
+      $scope.bpIndex++;
+    };
+    $scope.nextBpIndex = function() {
+      $scope.bpIndex--;
+    };
+    $scope.firstBpIndex = function() {
+      $scope.bpIndex = 0;
+    };
+    $scope.showLastBpIndex = function () {
+      return $scope.bpIndex != $scope.BPDatas.length - 1;
+    };
+    $scope.showPreviousBpIndex = function () {
+      return $scope.bpIndex != $scope.BPDatas.length - 1;
+    };
+    $scope.showNextBpIndex = function () {
+      return $scope.bpIndex != 0;
+    };
+    $scope.showFirstBpIndex = function () {
+      return $scope.bpIndex != 0;
     };
   });

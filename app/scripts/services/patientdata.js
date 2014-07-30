@@ -25,6 +25,8 @@ angular.module('lifealthApp')
       return 0;
     };
 
+    var pagination = 5;
+
     PatientData.getColor = function (bp) {
       return PatientData.colors[getClassification(bp)];
     };
@@ -42,9 +44,19 @@ angular.module('lifealthApp')
       if (id) {
         return $http.get('/api/users/' + id + '/bp?from=' + from.unix() + '&to=' + to.unix())
           .success(function (data) {
-            PatientData.bpData = data;
 
-            if (data[0].length) {
+            if (data.length) {
+              // pagination
+              if (data.length > pagination) {
+                var finalList = [];
+                for (var i=0; i<Math.floor(data.length/pagination)+1; i++) {
+                  finalList.push(data.slice(i*pagination, (i+1)*pagination));
+                }
+                PatientData.bpData = finalList;
+              } else {
+                PatientData.bpData = [data];
+              }
+
               // classification
               var classified = [
                 ['Optimale', 0],
@@ -60,7 +72,7 @@ angular.module('lifealthApp')
                 PatientData.bpData[0][i].MDate = moment.utc(PatientData.bpData[0][i].MDate,'X').format('DD/MM HH:mm');
               }
               for (var i = 0; i < classified.length; i++) {
-                classified[i][1] = (classified[i][1] / data[0].length) * 100;
+                classified[i][1] = (classified[i][1] / data.length) * 100;
               }
               PatientData.classifiedBpData = [
                 {
@@ -69,6 +81,7 @@ angular.module('lifealthApp')
                 }
               ];
             } else {
+              PatientData.bpData = [];
               PatientData.classifiedBpData = [];
             }
           })
@@ -94,9 +107,9 @@ angular.module('lifealthApp')
               values: chartArray
             }
           ];
-          PatientData.bgData = data;
-          for (var i = 0; i < data[0].length; i++) {
-              chartArray[i] = [data[0][i].MDate, data[0][i].BG];
+          PatientData.bgData = [data];
+          for (var i = 0; i < data.length; i++) {
+              chartArray[i] = [data[i].MDate, data[i].BG];
               PatientData.bgData[0][i].MDate = moment.utc(PatientData.bgData[0][i].MDate,'X').format('DD/MM HH:mm');
           }
         })
