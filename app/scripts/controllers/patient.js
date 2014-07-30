@@ -105,5 +105,8 @@ angular.module('lifealthApp')
     };
     $scope.patientAge = function () {
       return $scope.patientInfos.gender + ' - ' + $scope.patientInfos.age + ' ans'
-    }
+    };
+    $scope.goBack = function () {
+      $location.path('/medecin');
+    };
   });

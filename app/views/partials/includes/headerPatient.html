@@ -7,6 +7,7 @@
       <span ng-bind="patientAge()"></span>
     </div>
     <span class="material-flex">Lifealth</span>
-    <span class="glyphicon glyphicon-log-out" ng-click="logout()" ng-show="$root.currentUser"></span>
+    <span class="glyphicon glyphicon-log-out" ng-click="logout()" ng-show="$root.currentUser" ng-switch-when="PATIENT"></span>
+    <span class="glyphicon glyphicon-backward" ng-click="goBack()" ng-switch-when="DOCTOR"></span>
   </div>
 </material-toolbar>
