@@ -56,6 +56,8 @@ angular.module('lifealthApp')
               ];
               for (var i = 0; i < data[0].length; i++) {
                 classified[getClassification(data[0][i])][1]++;
+                //Change date format
+                PatientData.bpData[0][i].MDate = moment.utc(PatientData.bpData[0][i].MDate,'X').format('DD/MM HH:mm');
               }
               for (var i = 0; i < classified.length; i++) {
                 classified[i][1] = (classified[i][1] / data[0].length) * 100;
@@ -85,16 +87,18 @@ angular.module('lifealthApp')
         .success(function (data) {
           //Chart array
           var chartArray = [];
-          for (var i = 0; i < data[0].length; i++) {
-            chartArray[i] = [data[0][i].MDate, data[0][i].BG];
-          }
+
           PatientData.classifiedBgData = [
             {
-              key: 'BG Data',
+              key: 'Glycémie capillaire (mg/dl)',
               values: chartArray
             }
           ];
           PatientData.bgData = data;
+          for (var i = 0; i < data[0].length; i++) {
+              chartArray[i] = [data[0][i].MDate, data[0][i].BG];
+              PatientData.bgData[0][i].MDate = moment.utc(PatientData.bgData[0][i].MDate,'X').format('DD/MM HH:mm');
+          }
         })
         .error(function (data) {
           console.log(data);

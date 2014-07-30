@@ -39,7 +39,7 @@
     </material-list>
 </material-sidenav>
 <div class="patient row">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <div class="panel panel-primary">
             <!-- Default panel contents -->
             <div class="panel-heading">
@@ -57,13 +57,13 @@
                 <thead>
                 <tr>
                     <th><a ng-click="predicate = 'MDate'; reverse=!reverse">Date</a></th>
-                    <th>SYS/DIAS</th>
-                    <th>Freq. Card.</th>
+                    <th>Pression artérielle (mmhg)</th>
+                    <th>Fc (Bat/mn)</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="BP in BPDatas[0] | orderBy:predicate:reverse">
-                    <td>{{BP.MDate*1000 | date:"dd/MM HH'h'mm"}}</td>
+                    <td>{{BP.MDate}}</td>
                   <td ng-style="bgColor(BP)">{{BP.HP}}/{{BP.LP}}</td>
                     <td>{{BP.HR}}</td>
                 </tr>
@@ -71,29 +71,26 @@
             </table>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-7">
         <nvd3-discrete-bar-chart
                 data="BPClassified"
                 id="BGChart"
                 height="250"
                 showXAxis="true"
                 showYAxis="true"
-                tooltips="true"
                 showValues="true"
                 interactive="true"
                 useInteractiveGuideline="true"
-                toolTipContent="toolTipContentFunction()"
                 xAxisTickFormat="xAxisTickFormat()"
                 yAxisTickFormat="yAxisTickFormat()"
-                color="color()"
-                xaxisrotatelabels="-15">
+                color="color()">
           <svg></svg>
         </nvd3-discrete-bar-chart>
     </div>
 </div>
 
 <div class="patient row">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <div class="panel panel-primary">
             <!-- Default panel contents -->
             <div class="panel-heading">
@@ -112,30 +109,28 @@
                 <tr>
                     <th><a ng-click="predicate = 'MDate'; reverse=!reverse">Date</a></th>
                     <th>Résultats (mg/dl)</th>
-                    <th>Note</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="BG in BGDatas[0] | orderBy:predicate:reverse">
-                    <td>{{BG.MDate*1000 | date:"dd/MM HH'h'mm"}}</td>
+                    <td>{{BG.MDate}}</td>
                     <td>{{BG.BG}}</td>
-                    <td>{{BG.Note}}</td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-7">
         <nvd3-line-chart
                 data="BGClassified"
-                showXAxis="true"
                 showYAxis="true"
+                showLegend="true"
                 height="250"
                 xAxisTickFormat="xBGAxisTickFormat()"
                 useInteractiveGuideline="true"
                 tooltips="true"
-                interactive="true"
-                xaxisrotatelabels="-15">
+                stacked="true"
+                interactive="true">
         </nvd3-line-chart>
     </div>
 </div>

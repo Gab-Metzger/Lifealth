@@ -82,7 +82,7 @@ angular.module('lifealthApp')
 
     $scope.xBGAxisTickFormat = function () {
       return function (d) {
-        return d3.time.format('%x %X')(new Date(d * 1000));  //uncomment for date format
+        return moment(d,'X').format('DD/MM HH:mm');  //uncomment for date format
       }
     };
 
