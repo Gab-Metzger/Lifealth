@@ -78,7 +78,7 @@ angular.module('lifealthApp')
               }
               PatientData.classifiedBpData = [
                 {
-                  key: 'Classification',
+                  key: 'Préssion artérielle - vue statistique sur la période',
                   values: classified
                 }
               ];
