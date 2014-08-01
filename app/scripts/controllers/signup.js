@@ -10,7 +10,8 @@ angular.module('lifealthApp')
   
       if(form.$valid) {
         Auth.createUser({
-          name: $scope.user.name,
+          lastName: $scope.user.lastName,
+          firstName: $scope.user.firstName,
           email: $scope.user.email,
           password: $scope.user.password,
           role: 'DOCTOR'
