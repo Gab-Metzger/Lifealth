@@ -8,16 +8,16 @@ angular.module('lifealthApp')
       if ((bp.HP <= 120) && (bp.LP <= 80)) {
         result = 0;
       }
-      if ((bp.HP > 120 && bp.HP < 129) || (bp.LP > 80 && bp.LP < 84)) {
+      if ((bp.HP >= 120 && bp.HP <= 129) || (bp.LP >= 80 && bp.LP <= 84)) {
         result = 1;
       }
-      if ((bp.HP > 130 && bp.HP < 139) || (bp.LP > 85 && bp.LP < 89)) {
+      if ((bp.HP >= 130 && bp.HP <= 139) || (bp.LP >= 85 && bp.LP <= 89)) {
         result = 2;
       }
-      if ((bp.HP > 140 && bp.HP < 159) || (bp.LP > 90 && bp.LP < 99)) {
+      if ((bp.HP >= 140 && bp.HP <= 159) || (bp.LP >= 90 && bp.LP <= 99)) {
         result = 3;
       }
-      if ((bp.HP > 160 && bp.HP < 179) || (bp.LP > 100 && bp.LP < 109)) {
+      if ((bp.HP >= 160 && bp.HP <= 179) || (bp.LP >= 100 && bp.LP <= 109)) {
         result = 4;
       }
       if ((bp.HP >= 180) || (bp.LP >= 110)) {
@@ -70,9 +70,9 @@ angular.module('lifealthApp')
                 ['Optimale', 0],
                 ['Normale', 0],
                 ['Normale Haute', 0],
-                ['Hypertension moyenne', 0],
-                ['Hypertension modérée', 0],
-                ['Hypertension sévère', 0]
+                ['HTA grade 1', 0],
+                ['HTA grade 2', 0],
+                ['HTA grade 3', 0]
               ];
               for (var i = 0; i < data.length; i++) {
                 classified[getClassification(data[i])][1]++;
@@ -106,7 +106,7 @@ angular.module('lifealthApp')
       }
       return $http.get('/api/users/' + id + '/bg?from=' + from.unix() + '&to=' + to.unix())
         .success(function (data) {
-          PatientData.bgLength = 0;
+          PatientData.bgLength = data.length;
           //Chart array
           var chartArray = [];
 
@@ -116,10 +116,19 @@ angular.module('lifealthApp')
               values: chartArray
             }
           ];
-          PatientData.bgData = [data];
           for (var i = 0; i < data.length; i++) {
             chartArray[i] = [data[i].MDate, data[i].BG];
-            PatientData.bgData[0][i].MDate = moment.utc(PatientData.bgData[0][i].MDate, 'X').format('DD/MM HH:mm');
+            data[i].MDate = moment.utc(data[i].MDate, 'X').format('DD/MM HH:mm');
+          }
+          // pagination
+          if (data.length > pagination) {
+            var finalList = [];
+            for (var i = 0; i < Math.floor(data.length / pagination) + 1; i++) {
+              finalList.push(data.slice(i * pagination, (i + 1) * pagination));
+            }
+            PatientData.bgData = finalList;
+          } else {
+            PatientData.bgData = [data];
           }
         })
         .error(function (data) {

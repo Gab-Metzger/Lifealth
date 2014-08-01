@@ -150,4 +150,30 @@ angular.module('lifealthApp')
     $scope.showFirstBpIndex = function () {
       return $scope.bpIndex != 0;
     };
+
+    $scope.bgIndex = 0;
+    $scope.lastBgIndex = function () {
+      $scope.bgIndex = $scope.BGDatas.length - 1;
+    };
+    $scope.previousBgIndex = function () {
+      $scope.bgIndex++;
+    };
+    $scope.nextBgIndex = function() {
+      $scope.bgIndex--;
+    };
+    $scope.firstBgIndex = function() {
+      $scope.bgIndex = 0;
+    };
+    $scope.showLastBgIndex = function () {
+      return $scope.bgIndex != $scope.BGDatas.length - 1;
+    };
+    $scope.showPreviousBgIndex = function () {
+      return $scope.bgIndex != $scope.BGDatas.length - 1;
+    };
+    $scope.showNextBgIndex = function () {
+      return $scope.bgIndex != 0;
+    };
+    $scope.showFirstBgIndex = function () {
+      return $scope.bgIndex != 0;
+    };
   });

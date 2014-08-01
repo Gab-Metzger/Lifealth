@@ -97,8 +97,7 @@
                 useInteractiveGuideline="true"
                 xAxisTickFormat="xAxisTickFormat()"
                 yAxisTickFormat="yAxisTickFormat()"
-                color="color()"
-                xaxisrotatelabels="-10">
+                color="color()">
           <svg></svg>
         </nvd3-discrete-bar-chart>
     </div>
@@ -135,6 +134,16 @@
                     <td>{{BG.BG}}</td>
                 </tr>
                 </tbody>
+              <tfoot>
+              <tr>
+                <td colspan="3">
+                  <span ng-click="lastBgIndex()" ng-show="showLastBgIndex()" class="glyphicon glyphicon-step-backward left"></span>
+                  <span ng-click="previousBgIndex()" ng-show="showPreviousBgIndex()" class="glyphicon glyphicon-backward left"></span>
+                  <span ng-click="firstBgIndex()" ng-show="showFirstBgIndex()" class="glyphicon glyphicon-step-forward right"></span>
+                  <span ng-click="nextBgIndex()" ng-show="showNextBgIndex()" class="glyphicon glyphicon-forward right"></span>
+                </td>
+              </tr>
+              </tfoot>
             </table>
         </div>
     </div>
@@ -152,6 +161,7 @@
         </nvd3-line-chart>
     </div>
 </div>
+  <div></div>
 
 <div ng-include="'partials/includes/footer.html'"></div>
 
