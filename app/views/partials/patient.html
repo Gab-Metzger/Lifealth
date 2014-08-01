@@ -43,25 +43,29 @@
         <div class="panel panel-primary">
             <!-- Default panel contents -->
             <div class="panel-heading">
-              <div>Période <input
+              <div>
+                <span>Période</span>
+                <input
                 type="daterange"
                 ng-model="datesBP"
                 min-date="minDateRange"
                 max-date="maxDateRange"
                 format="DD/MM"
                 separator="--"
-                ranges="defaultRange"></div>
+                ranges="defaultRange">
+                <span ng-bind="getBPDataLength()"></span>
+              </div>
             </div>
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th><a ng-click="predicate = 'MDate'; reverse=!reverse">Date</a></th>
+                    <th>Date</th>
                     <th>Pression artérielle (mmhg)</th>
                     <th>Fc (Bat/mn)</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="BP in BPDatas[bpIndex] | orderBy:predicate:reverse">
+                <tr ng-repeat="BP in BPDatas[bpIndex]">
                     <td>{{BP.MDate}}</td>
                   <td ng-style="bgColor(BP)">{{BP.HP}}/{{BP.LP}}</td>
                     <td>{{BP.HR}}</td>
@@ -105,24 +109,28 @@
         <div class="panel panel-primary">
             <!-- Default panel contents -->
             <div class="panel-heading">
-                <div>Période <input
+                <div>
+                  <span>Période</span>
+                  <input
                         type="daterange"
                         ng-model="datesBG"
                         min-date="minDateRange"
                         max-date="maxDateRange"
                         format="DD/MM"
                         separator="--"
-                        ranges="defaultRange"></div>
+                        ranges="defaultRange">
+                  <span ng-bind="getBGDataLength()"></span>
+                </div>
             </div>
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th><a ng-click="predicate = 'MDate'; reverse=!reverse">Date</a></th>
-                    <th>Résultats (mg/dl)</th>
+                    <th>Date</th>
+                    <th>Glycémie (mg/dl)</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="BG in BGDatas[0] | orderBy:predicate:reverse">
+                <tr ng-repeat="BG in BGDatas[0]">
                     <td>{{BG.MDate}}</td>
                     <td>{{BG.BG}}</td>
                 </tr>

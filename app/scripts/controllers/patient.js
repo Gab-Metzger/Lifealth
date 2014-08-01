@@ -57,6 +57,20 @@ angular.module('lifealthApp')
       });
     });
 
+    $scope.getBPDataLength = function () {
+      if (PatientData.bpLength == 0) {
+        return 'aucune mesure trouvée';
+      }
+      return PatientData.bpLength + ' mesure' + ((PatientData.bpLength>1)?'s':'');
+    };
+
+    $scope.getBGDataLength = function () {
+      if (PatientData.bgLength == 0) {
+        return 'aucune mesure trouvée';
+      }
+      return PatientData.bgLength + ' mesure' + ((PatientData.bgLength>1)?'s':'');
+    };
+
     $scope.color = function () {
       return PatientData.colors;
     };

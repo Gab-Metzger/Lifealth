@@ -4,34 +4,37 @@ angular.module('lifealthApp')
   .factory('PatientData', function PatientData($rootScope, $http) {
 
     var getClassification = function (bp) {
+      var result = 0;
       if ((bp.HP <= 120) && (bp.LP <= 80)) {
-        return 0;
+        result = 0;
       }
       if ((bp.HP > 120 && bp.HP < 129) || (bp.LP > 80 && bp.LP < 84)) {
-        return 1;
+        result = 1;
       }
       if ((bp.HP > 130 && bp.HP < 139) || (bp.LP > 85 && bp.LP < 89)) {
-        return 2;
+        result = 2;
       }
       if ((bp.HP > 140 && bp.HP < 159) || (bp.LP > 90 && bp.LP < 99)) {
-        return 3;
+        result = 3;
       }
       if ((bp.HP > 160 && bp.HP < 179) || (bp.LP > 100 && bp.LP < 109)) {
-        return 4;
+        result = 4;
       }
       if ((bp.HP >= 180) || (bp.LP >= 110)) {
-        return 5;
+        result = 5;
       }
-      return 0;
+      return result;
     };
 
-    var pagination = 5;
+    var pagination = 6;
 
     PatientData.getColor = function (bp) {
       return PatientData.colors[getClassification(bp)];
     };
 
+    PatientData.bpLength = 0;
     PatientData.bpData = [];
+    PatientData.bgLength = 0;
     PatientData.bgData = [];
 
     PatientData.colors = ['rgb(1, 145, 60)', 'rgb(142, 194, 31)', 'rgb(255, 240, 2)', 'rgb(241, 150, 0)', 'rgb(233, 86, 19)', 'rgb(229, 1, 18)'];
@@ -50,6 +53,7 @@ angular.module('lifealthApp')
               for (var i = 0; i < data.length; i++) {
                 data[i].MDate = moment.utc(data[i].MDate, 'X').format('DD/MM HH:mm');
               }
+              PatientData.bpLength = data.length;
               // pagination
               if (data.length > pagination) {
                 var finalList = [];
@@ -84,6 +88,7 @@ angular.module('lifealthApp')
                 }
               ];
             } else {
+              PatientData.bpLength = 0;
               PatientData.bpData = [];
               PatientData.classifiedBpData = [];
             }
@@ -101,6 +106,7 @@ angular.module('lifealthApp')
       }
       return $http.get('/api/users/' + id + '/bg?from=' + from.unix() + '&to=' + to.unix())
         .success(function (data) {
+          PatientData.bgLength = 0;
           //Chart array
           var chartArray = [];
 
