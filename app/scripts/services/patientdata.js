@@ -75,6 +75,7 @@ angular.module('lifealthApp')
               }
               for (var i = 0; i < classified.length; i++) {
                 classified[i][1] = (classified[i][1] / data.length) * 100;
+                classified[i][1] = Math.round(classified[i][1]*10)/10;
               }
               PatientData.classifiedBpData = [
                 {
