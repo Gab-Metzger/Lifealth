@@ -85,6 +85,9 @@
         </div>
     </div>
     <div class="col-md-7">
+        <div class="col-md-offset-2">
+            <h4>Statistiques de pression artérielle sur la période sélectionnée</h4>
+        </div>
         <nvd3-discrete-bar-chart
                 data="BPClassified"
                 id="BGChart"
@@ -100,6 +103,9 @@
                 color="color()">
           <svg></svg>
         </nvd3-discrete-bar-chart>
+        <div class="col-md-offset-10">
+            <h6>* Classification OMS</h6>
+        </div>
     </div>
 </div>
 
@@ -148,10 +154,12 @@
         </div>
     </div>
     <div class="col-md-7">
+        <div class="col-md-offset-2">
+            <h4>Evolution de la glycémie capillaire sur la période sélectionnée (mg/dl)</h4>
+        </div>
         <nvd3-line-chart
                 data="BGClassified"
                 showYAxis="true"
-                showLegend="true"
                 height="250"
                 xAxisTickFormat="xBGAxisTickFormat()"
                 useInteractiveGuideline="true"
