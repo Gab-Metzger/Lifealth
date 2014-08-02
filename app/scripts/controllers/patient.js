@@ -119,7 +119,20 @@ angular.module('lifealthApp')
       return $scope.patientInfos.firstName + ' ' + $scope.patientInfos.lastName;
     };
     $scope.patientAge = function () {
-      return $scope.patientInfos.gender + ' - ' + $scope.patientInfos.age + ' ans'
+      var result = '';
+      if ($scope.patientInfos.gender) {
+        switch ($scope.patientInfos.gender) {
+          case 'Male': result += 'Homme';break;
+          case 'Female': result += 'Femme';break;
+        }
+      }
+      if (result.length && $scope.patientInfos.age) {
+        result += ' - ';
+      }
+      if ($scope.patientInfos.age) {
+        result += $scope.patientInfos.age + ' ans'
+      }
+      return result;
     };
     $scope.goBack = function () {
       $location.path('/medecin');

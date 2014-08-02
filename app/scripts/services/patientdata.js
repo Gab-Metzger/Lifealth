@@ -32,10 +32,16 @@ angular.module('lifealthApp')
       return PatientData.colors[getClassification(bp)];
     };
 
-    PatientData.bpLength = 0;
-    PatientData.bpData = [];
-    PatientData.bgLength = 0;
-    PatientData.bgData = [];
+    var resetBp = function() {
+      PatientData.bpLength = 0;
+      PatientData.bpData = [];
+      PatientData.classfiedBpData = [];
+    }
+    var resetBg = function() {
+      PatientData.bgLength = 0;
+      PatientData.bgData = [];
+      PatientData.classifiedBgData = [];
+    }
 
     PatientData.colors = ['rgb(1, 145, 60)', 'rgb(142, 194, 31)', 'rgb(255, 240, 2)', 'rgb(241, 150, 0)', 'rgb(233, 86, 19)', 'rgb(229, 1, 18)'];
 
@@ -88,14 +94,15 @@ angular.module('lifealthApp')
                 }
               ];
             } else {
-              PatientData.bpLength = 0;
-              PatientData.bpData = [];
-              PatientData.classifiedBpData = [];
+              resetBp();
             }
           })
           .error(function (data) {
+            resetBp();
             console.log(data);
           });
+      } else {
+        resetBp();
       }
     };
 
@@ -104,36 +111,45 @@ angular.module('lifealthApp')
       if ($rootScope.currentUser.role == 'DOCTOR') {
         id = $rootScope.currentUser.selectedPatientId;
       }
-      return $http.get('/api/users/' + id + '/bg?from=' + from.unix() + '&to=' + to.unix())
-        .success(function (data) {
-          PatientData.bgLength = data.length;
-          //Chart array
-          var chartArray = [];
+      if (id) {
+        return $http.get('/api/users/' + id + '/bg?from=' + from.unix() + '&to=' + to.unix())
+          .success(function (data) {
+            if (data.length) {
+              PatientData.bgLength = data.length;
+              //Chart array
+              var chartArray = [];
 
-          PatientData.classifiedBgData = [
-            {
-              key: 'Glycémie capillaire (mg/dl)',
-              values: chartArray
+              PatientData.classifiedBgData = [
+                {
+                  key: 'Glycémie capillaire (mg/dl)',
+                  values: chartArray
+                }
+              ];
+              for (var i = 0; i < data.length; i++) {
+                chartArray[i] = [data[i].MDate, data[i].BG];
+                data[i].MDate = moment.utc(data[i].MDate, 'X').format('DD/MM HH:mm');
+              }
+              // pagination
+              if (data.length > pagination) {
+                var finalList = [];
+                for (var i = 0; i < Math.floor(data.length / pagination) + 1; i++) {
+                  finalList.push(data.slice(i * pagination, (i + 1) * pagination));
+                }
+                PatientData.bgData = finalList;
+              } else {
+                PatientData.bgData = [data];
+              }
+            } else {
+              resetBg();
             }
-          ];
-          for (var i = 0; i < data.length; i++) {
-            chartArray[i] = [data[i].MDate, data[i].BG];
-            data[i].MDate = moment.utc(data[i].MDate, 'X').format('DD/MM HH:mm');
-          }
-          // pagination
-          if (data.length > pagination) {
-            var finalList = [];
-            for (var i = 0; i < Math.floor(data.length / pagination) + 1; i++) {
-              finalList.push(data.slice(i * pagination, (i + 1) * pagination));
-            }
-            PatientData.bgData = finalList;
-          } else {
-            PatientData.bgData = [data];
-          }
-        })
-        .error(function (data) {
-          console.log(data);
-        });
+         })
+          .error(function (data) {
+            resetBg();
+            console.log(data);
+          });
+      } else {
+        resetBg();
+      }
     };
 
     PatientData.infos = {};
@@ -149,8 +165,11 @@ angular.module('lifealthApp')
             PatientData.infos = data.profile;
           })
           .error(function (data) {
+            PatientData.infos = {};
             console.log(data);
           });
+      } else {
+        PatientData.infos = {};
       }
     };
 
