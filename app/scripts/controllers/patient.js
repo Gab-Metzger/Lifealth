@@ -83,6 +83,42 @@ angular.module('lifealthApp')
       };
     };
 
+    $scope.momentColor = function(bg) {
+        var backgroundColor = 'black';
+        if(bg.DinnerSituation === 'A jeun' || bg.DinnerSituation === 'Avant repas du midi' || bg.DinnerSituation === 'Avant repas du soir') {
+            if(bg.BG <= 70) {
+                backgroundColor = 'rgb(142, 194, 31)';
+            }
+            else if(bg.BG > 70 && bg.BG <= 110) {
+                backgroundColor = 'rgb(1, 145, 60)';
+            }
+            else if(bg.BG > 110 && bg.BG <= 120) {
+                backgroundColor = 'rgb(241, 150, 0)';
+            }
+            else if(bg.BG > 120) {
+                backgroundColor = 'rgb(233, 86, 19)';
+            }
+        }
+        else if (bg.DinnerSituation === 'Après petit-déjeuner' || bg.DinnerSituation === 'Après repas du midi' || bg.DinnerSituation === 'Après repas du soir') {
+            if(bg.BG <= 140) {
+                backgroundColor = 'rgb(142, 194, 31)';
+            }
+            else if(bg.BG > 140 && bg.BG <= 180) {
+                backgroundColor = 'rgb(241, 150, 0)';
+            }
+            else if(bg.BG > 180) {
+                backgroundColor = 'rgb(233, 86, 19)';
+            }
+        }
+        else if(bg.BG >= 250) {
+            backgroundColor = 'rgb(161,0,230)';
+        }
+        return {
+            'background-color': backgroundColor,
+            'color': 'white'
+        };
+    };
+
     $scope.xAxisTickFormat = function () {
       return function (d) {
         return d;

@@ -94,7 +94,6 @@
                 height="250"
                 showXAxis="true"
                 showYAxis="true"
-                showLegend="true"
                 showValues="true"
                 interactive="true"
                 useInteractiveGuideline="true"
@@ -131,12 +130,14 @@
                 <thead>
                 <tr>
                     <th>Date</th>
+                    <th>Moment</th>
                     <th>Glycémie (mg/dl)</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="BG in BGDatas[0]">
                     <td>{{BG.MDate}}</td>
+                    <td ng-style="momentColor(BG)">{{BG.DinnerSituation}}</td>
                     <td>{{BG.BG}}</td>
                 </tr>
                 </tbody>

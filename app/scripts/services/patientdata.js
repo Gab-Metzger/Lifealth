@@ -89,7 +89,7 @@ angular.module('lifealthApp')
               }
               PatientData.classifiedBpData = [
                 {
-                  key: 'Préssion artérielle - vue statistique sur la période',
+                  key: 'Pression artérielle - vue statistique sur la période',
                   values: classified
                 }
               ];
@@ -128,6 +128,14 @@ angular.module('lifealthApp')
               for (var i = 0; i < data.length; i++) {
                 chartArray[i] = [data[i].MDate, data[i].BG];
                 data[i].MDate = moment.utc(data[i].MDate, 'X').format('DD/MM HH:mm');
+                switch (data[i].DinnerSituation) {
+                    case 'Before_breakfast': data[i].DinnerSituation = 'A jeun';break;
+                    case 'After_breakfast': data[i].DinnerSituation = 'Après petit-déjeuner';break;
+                    case 'Before_lunch': data[i].DinnerSituation = 'Avant repas du midi';break;
+                    case 'After_lunch': data[i].DinnerSituation = 'Après repas du midi';break;
+                    case 'Before_dinner': data[i].DinnerSituation = 'Avant repas du soir';break;
+                    case 'After_dinner': data[i].DinnerSituation = 'Après repas du soir';break;
+                }
               }
               // pagination
               if (data.length > pagination) {
