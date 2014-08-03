@@ -4,7 +4,7 @@
   <div class="col-md-5">
     <div class="thumbnail">
       <div class="caption">
-        <h4>RECHERCHER UN DOSSIER</h4>
+        <h4>RECHERCHER UN PATIENT</h4>
 
         <div class="material-input-group material-input-group-theme-light">
           <label for="t1">Nom</label>
@@ -24,7 +24,7 @@
     <div class="thumbnail">
       <div class="caption">
         <form ng-submit="addRecord()" name="form" novalidate>
-          <h4>CRÉER UN DOSSIER</h4>
+          <h4>INVITER UN PATIENT</h4>
           <div class="material-input-group material-input-group-theme-light">
             <label for="t2">Prénom</label>
             <input id="t2" type="text" name="firstName" ng-model="firstName" ng-model-options="{ updateOn: 'blur' }" required>
@@ -41,7 +41,7 @@
             <p ng-show="form.email.$dirty && form.email.$error.required">obligatoire</p>
             <p ng-show="form.email.$dirty && form.email.$invalid">email invalide</p>
           </div>
-          <button class="material-button material-button-raised material-button-colored" type="submit" ng-disabled="form.$invalid">Créer</button>
+          <button class="material-button material-button-raised material-button-colored" type="submit" ng-disabled="form.$invalid">Envoyer l'invitation</button>
         </form>
       </div>
     </div>
