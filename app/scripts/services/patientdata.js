@@ -35,7 +35,7 @@ angular.module('lifealthApp')
     var resetBp = function() {
       PatientData.bpLength = 0;
       PatientData.bpData = [];
-      PatientData.classfiedBpData = [];
+      PatientData.classifiedBpData = [];
     }
     var resetBg = function() {
       PatientData.bgLength = 0;
