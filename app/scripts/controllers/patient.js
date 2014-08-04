@@ -96,7 +96,7 @@ angular.module('lifealthApp')
                 backgroundColor = 'rgb(241, 150, 0)';
             }
             else if(bg.BG > 120) {
-                backgroundColor = 'rgb(233, 86, 19)';
+                backgroundColor = 'rgb(229, 1, 18)';
             }
         }
         else if (bg.DinnerSituation === 'Après petit-déjeuner' || bg.DinnerSituation === 'Après repas du midi' || bg.DinnerSituation === 'Après repas du soir') {
@@ -107,7 +107,7 @@ angular.module('lifealthApp')
                 backgroundColor = 'rgb(241, 150, 0)';
             }
             else if(bg.BG > 180) {
-                backgroundColor = 'rgb(233, 86, 19)';
+                backgroundColor = 'rgb(229, 1, 18)';
             }
         }
         else if(bg.BG >= 250) {
