@@ -99,9 +99,10 @@ body {
 
 .patient .panel-primary > .panel-heading div input {
   width: 120px;
-  border-width: 0;
-  border-bottom-width: 1px;
+  border-width: 1px;
+  border-style: solid;
   text-align: center;
+  cursor: pointer;
 }
 
 .patient table th, .patient table td {
