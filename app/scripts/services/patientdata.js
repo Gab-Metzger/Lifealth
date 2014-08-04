@@ -43,6 +43,16 @@ angular.module('lifealthApp')
       PatientData.classifiedBgData = [];
     }
 
+    var momentFilterBg = function(data,moment) {
+        var res = [];
+        for(var i=0;i<data[0].length;i++) {
+            if(data[0][i].DinnerSituation === moment) {
+                res.push(data[0][i].DinnerSituation);
+            }
+        }
+        return [res];
+    }
+
     PatientData.colors = ['rgb(1, 145, 60)', 'rgb(142, 194, 31)', 'rgb(255, 240, 2)', 'rgb(241, 150, 0)', 'rgb(233, 86, 19)', 'rgb(229, 1, 18)'];
 
     PatientData.getBPData = function (from, to) {

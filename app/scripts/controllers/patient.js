@@ -113,6 +113,7 @@ angular.module('lifealthApp')
         else if(bg.BG >= 250) {
             backgroundColor = 'rgb(161,0,230)';
         }
+
         return {
             'background-color': backgroundColor,
             'color': 'white'
