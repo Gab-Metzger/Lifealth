@@ -1,6 +1,6 @@
 <material-toolbar class="material-theme-light">
   <div class="material-toolbar-tools" ng-switch="$root.currentUser.role">
-    <span class="glyphicon glyphicon-list" ng-click="openSideNavBar()"></span>
+    <span class="glyphicon glyphicon-list" ng-click="goBack()" ng-switch-when="DOCTOR"></span>
     <div class="material-flex">
       <span ng-bind="patientName()"></span>
       <br>
@@ -8,6 +8,5 @@
     </div>
     <span class="material-flex">Lifealth</span>
     <span class="glyphicon glyphicon-log-out" ng-click="logout()" ng-show="$root.currentUser" ng-switch-when="PATIENT"></span>
-    <span class="glyphicon glyphicon-backward" ng-click="goBack()" ng-switch-when="DOCTOR"></span>
   </div>
 </material-toolbar>
