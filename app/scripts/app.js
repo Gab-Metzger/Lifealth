@@ -31,6 +31,14 @@ angular.module('lifealthApp', [
         templateUrl: 'partials/signup',
         controller: 'SignupCtrl'
       })
+      .when('/lostPassword', {
+        templateUrl: 'partials/lostPassword',
+        controller: 'LostPasswordCtrl'
+      })
+      .when('/newPassword', {
+        templateUrl: 'partials/newPassword',
+        controller: 'NewPasswordCtrl'
+      })
       .when('/settings', {
         templateUrl: 'partials/settings',
         controller: 'SettingsCtrl',
