@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('lifealthApp')
-  .factory('PatientData', function PatientData($rootScope, $http) {
+  .factory('PatientData', function ($rootScope, $http) {
+
+    var PatientData = {};
 
     var getClassification = function (bp) {
       var result = 0;
