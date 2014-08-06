@@ -10,7 +10,7 @@ angular.module('lifealthApp')
     $scope.logout = function () {
       Auth.logout()
         .then(function () {
-          $location.path('/');
+          $location.path('/loginPatient');
         });
     };
 
