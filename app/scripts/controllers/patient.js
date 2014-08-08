@@ -42,7 +42,6 @@ angular.module('lifealthApp')
         .catch(function(err) {
           $scope.BPDatas = [];
           $scope.BPClassified = [];
-          alert(err.ErrorDescription);
         });
     });
 
@@ -54,6 +53,11 @@ angular.module('lifealthApp')
       PatientData.getBGData(value.startDate, value.endDate).then(function () {
         $scope.BGDatas = PatientData.bgData;
         $scope.BGClassified = PatientData.classifiedBgData;
+        $scope.hba1c = PatientData.hba1c;
+      }).catch(function() {
+        $scope.BGDatas = [];
+        $scope.BGClassified = [];
+        $scope.hba1c = '';
       });
     });
 

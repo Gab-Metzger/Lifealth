@@ -137,8 +137,10 @@ angular.module('lifealthApp')
                   values: chartArray
                 }
               ];
+              var sumBG = 0;
               for (var i = 0; i < data.length; i++) {
                 chartArray[i] = [data[i].MDate, data[i].BG];
+                sumBG += data[i].BG;
                 data[i].MDate = moment.utc(data[i].MDate, 'X').format('DD/MM HH:mm');
                 switch (data[i].DinnerSituation) {
                     case 'Before_breakfast': data[i].DinnerSituation = 'A jeun';break;
@@ -149,6 +151,22 @@ angular.module('lifealthApp')
                     case 'After_dinner': data[i].DinnerSituation = 'Après repas du soir';break;
                 }
               }
+              //hba1c calcul
+              var averageBG = sumBG/data.length;
+              if (averageBG < 120) {
+                PatientData.hba1c = 'hba1c < 6%';
+              } else if (120 >= averageBG && averageBG < 150) {
+                PatientData.hba1c = '6% < hba1c < 7%';
+              } else if (150 >= averageBG && averageBG < 180) {
+                PatientData.hba1c = '7% < hba1c < 8%';
+              } else if (180 >= averageBG && averageBG < 210) {
+                PatientData.hba1c = '8% < hba1c < 9%';
+              } else if (210 >= averageBG && averageBG < 240) {
+                PatientData.hba1c = '9% < hba1c < 10%';
+              } else if (240 >= averageBG) {
+                PatientData.hba1c = 'hba1c > 10%';
+              }
+
               // pagination
               if (data.length > pagination) {
                 var finalList = [];
