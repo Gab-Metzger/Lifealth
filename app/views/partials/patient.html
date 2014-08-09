@@ -160,12 +160,13 @@
                   <span ng-click="previousBgIndex()" ng-show="showPreviousBgIndex()" class="glyphicon glyphicon-backward left"></span>
                   <span ng-click="firstBgIndex()" ng-show="showFirstBgIndex()" class="glyphicon glyphicon-step-forward right"></span>
                   <span ng-click="nextBgIndex()" ng-show="showNextBgIndex()" class="glyphicon glyphicon-forward right"></span>
+                  <span ng-bind="getBGDataLength()"></span>
                 </td>
               </tr>
               </tfoot>
             </table>
         </div>
-        <span ng-bind="getBGDataLength()"></span>
+
 
     </div>
     <div class="col-md-7">
