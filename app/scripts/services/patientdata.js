@@ -29,6 +29,9 @@ angular.module('lifealthApp')
     };
 
     var pagination = 6;
+    var originalBpData = [];
+    var originalBgData = [];
+    var momentFilter = null;
 
     PatientData.getColor = function (bp) {
       return PatientData.colors[getClassification(bp)];
@@ -43,6 +46,7 @@ angular.module('lifealthApp')
       PatientData.bgLength = 0;
       PatientData.bgData = [];
       PatientData.classifiedBgData = [];
+      PatientData.hba1c = '';
     }
 
     var momentFilterBg = function(data,moment) {
@@ -77,6 +81,7 @@ angular.module('lifealthApp')
       if (id) {
         return $http.get('/api/users/' + id + '/bp?from=' + from.unix() + '&to=' + to.unix())
           .success(function (data) {
+            originalBpData = data;
 
             if (data.length) {
               //Change date format
@@ -85,15 +90,7 @@ angular.module('lifealthApp')
               }
               PatientData.bpLength = data.length;
               // pagination
-              if (data.length > pagination) {
-                var finalList = [];
-                for (var i = 0; i < Math.floor(data.length / pagination) + 1; i++) {
-                  finalList.push(data.slice(i * pagination, (i + 1) * pagination));
-                }
-                PatientData.bpData = finalList;
-              } else {
-                PatientData.bpData = [data];
-              }
+              PatientData.bpData = paginate(data);
 
               // classification
               var classified = [
@@ -130,6 +127,18 @@ angular.module('lifealthApp')
       }
     };
 
+    function paginate(data) {
+      if (data.length > pagination) {
+        var finalList = [];
+        for (var i = 0; i < Math.floor(data.length / pagination) + 1; i++) {
+          finalList.push(data.slice(i * pagination, (i + 1) * pagination));
+        }
+        return finalList;
+      } else {
+        return [data];
+      }
+    }
+
     PatientData.getBGData = function (from, to) {
       var id = $rootScope.currentUser.id;
       if ($rootScope.currentUser.role == 'DOCTOR') {
@@ -138,6 +147,7 @@ angular.module('lifealthApp')
       if (id) {
         return $http.get('/api/users/' + id + '/bg?from=' + from.unix() + '&to=' + to.unix())
           .success(function (data) {
+            originalBgData = data;
             if (data.length) {
               PatientData.bgLength = data.length;
               //Chart array
@@ -180,16 +190,7 @@ angular.module('lifealthApp')
               }
 
               // pagination
-              if (data.length > pagination) {
-                var finalList = [];
-                for (var i = 0; i < Math.floor(data.length / pagination) + 1; i++) {
-                  finalList.push(data.slice(i * pagination, (i + 1) * pagination));
-                }
-                PatientData.bgData = finalList;
-
-              } else {
-                PatientData.bgData = [data];
-              }
+              PatientData.bgData = paginate(data);
             } else {
               resetBg();
             }
