@@ -431,6 +431,18 @@ module.exports = function (grunt) {
       }
     },
 
+    protractor: {
+      options: {
+        configFile: "protractor.js", // Default config file
+        keepAlive: true, // If false, the grunt process stops when the test fails.
+        noColor: false, // If true, protractor will not use colors in its output.
+        args: {
+          // Arguments passed to the command
+        }
+      },
+      run: {}
+    },
+
     mochaTest: {
       options: {
         reporter: 'spec'
@@ -507,6 +519,16 @@ module.exports = function (grunt) {
         'autoprefixer',
         'karma'
       ]);
+    }
+
+    else if (target == 'e2e') {
+      return grunt.task.run([
+        'clean:server',
+        'concurrent:test',
+        'autoprefixer',
+        'express:dev',
+        'protractor'
+      ])
     }
 
     else grunt.task.run([
