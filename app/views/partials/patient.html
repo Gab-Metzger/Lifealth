@@ -114,16 +114,28 @@
             <!-- Default panel contents -->
             <div class="panel-heading">
                 <div>
-                  <span>Période</span>
-                  <input
-                        type="daterange"
-                        ng-model="datesBG"
-                        min-date="minDateRange"
-                        max-date="maxDateRange"
-                        format="DD/MM"
-                        separator="--"
-                        ranges="defaultRange">
-                  <span ng-bind="getBGDataLength()"></span>
+                    <span>Période</span>
+                    <input
+                            type="daterange"
+                            ng-model="datesBG"
+                            min-date="minDateRange"
+                            max-date="maxDateRange"
+                            format="DD/MM"
+                            separator="--"
+                            ranges="defaultRange">
+
+                </div>
+                <div>
+                    <span>FILTRE</span>
+                    <select class="form-control" style="width: 50%;display: inline">
+                        <option>Aucun</option>
+                        <option>A Jeun</option>
+                        <option>Après petit-déjeuner</option>
+                        <option>Avant repas du midi</option>
+                        <option>Après repas du midi</option>
+                        <option>Avant repas du soir</option>
+                        <option>Après repas du soir</option>
+                    </select>
                 </div>
             </div>
             <table class="table table-hover">
@@ -153,6 +165,8 @@
               </tfoot>
             </table>
         </div>
+        <span ng-bind="getBGDataLength()"></span>
+
     </div>
     <div class="col-md-7">
         <div class="col-md-offset-2">

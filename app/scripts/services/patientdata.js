@@ -47,12 +47,24 @@ angular.module('lifealthApp')
 
     var momentFilterBg = function(data,moment) {
         var res = [];
-        for(var i=0;i<data[0].length;i++) {
-            if(data[0][i].DinnerSituation === moment) {
-                res.push(data[0][i].DinnerSituation);
+        var k= 0;
+        var l=0;
+
+        for (var i=0; i<data.length; i++) {
+            for (var j=0; j<pagination; j++) {
+                if (data[i][j].DinnerSituation === moment) {
+                    res[k][l] = data[i][j];
+                    //Update indexes
+                    l++;
+                    if(l > (pagination-1)) {
+                        k=k+1;
+                        l=0;
+                    }
+                }
             }
         }
-        return [res];
+
+        return res;
     }
 
     PatientData.colors = ['rgb(1, 145, 60)', 'rgb(142, 194, 31)', 'rgb(255, 240, 2)', 'rgb(241, 150, 0)', 'rgb(233, 86, 19)', 'rgb(229, 1, 18)'];
@@ -174,6 +186,7 @@ angular.module('lifealthApp')
                   finalList.push(data.slice(i * pagination, (i + 1) * pagination));
                 }
                 PatientData.bgData = finalList;
+
               } else {
                 PatientData.bgData = [data];
               }
