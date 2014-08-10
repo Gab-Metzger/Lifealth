@@ -143,7 +143,7 @@ angular.module('lifealthApp')
         return $http.get('/api/users/' + id + '/bg?from=' + from.unix() + '&to=' + to.unix())
           .success(function (data) {
             originalBgData = data;
-            if (data.length) {
+            if (originalBgData.length) {
               PatientData.bgLength = data.length;
               //Chart array
               var chartArray = [];
@@ -196,7 +196,7 @@ angular.module('lifealthApp')
                 PatientData.hba1c = 'hba1c > 10%';
               }
               // moment filter
-              if (momentFilter && momentFilter != 'Aucun') {
+              if (momentFilter && (momentFilter !== 'Aucun')) {
                 PatientData.bgData = paginate(filterBgBy(momentFilter));
               } else {
                 // pagination
