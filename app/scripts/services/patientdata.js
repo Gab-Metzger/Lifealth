@@ -85,7 +85,7 @@ angular.module('lifealthApp')
               }
               PatientData.bpLength = data.length;
               // pagination
-              PatientData.bpData = PatientData.paginate(data);
+              PatientData.bpData = paginate(data);
 
               // classification
               var classified = [
