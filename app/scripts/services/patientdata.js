@@ -127,7 +127,7 @@ angular.module('lifealthApp')
       }
     }
 
-    PatientData.getBGData = function (from, to) {
+    PatientData.getBGData = function (from, to, momentFilter) {
       var id = $rootScope.currentUser.id;
       if ($rootScope.currentUser.role == 'DOCTOR') {
         id = $rootScope.currentUser.selectedPatientId;
@@ -136,7 +136,6 @@ angular.module('lifealthApp')
         return $http.get('/api/users/' + id + '/bg?from=' + from.unix() + '&to=' + to.unix())
           .success(function (data) {
             PatientData.originalBgData = data;
-            console.log("TEst : "+data[1].DinnerSituation);
             if (data.length) {
               PatientData.bgLength = data.length;
               //Chart array
@@ -178,9 +177,15 @@ angular.module('lifealthApp')
                 PatientData.hba1c = 'hba1c > 10%';
               }
               // moment filter
-              //data = momentFilterBg(data,'Avant repas du midi');
-              // pagination
-              PatientData.bgData = PatientData.paginate(data);
+              if (moment !== 'Aucun') {
+                  PatientData.bgData = PatientData.momentFilterBg(data,momentFilter);
+                  PatientData.bgData = PatientData.paginate(PatientData.bgData);
+              }
+              else {
+                  // pagination
+                  PatientData.bgData = PatientData.paginate(data);
+              }
+
             } else {
               resetBg();
             }

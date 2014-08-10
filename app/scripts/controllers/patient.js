@@ -51,7 +51,7 @@ angular.module('lifealthApp')
       'endDate': moment()
     };
     $scope.$watch('datesBG', function (value) {
-      PatientData.getBGData(value.startDate, value.endDate).then(function () {
+      PatientData.getBGData(value.startDate, value.endDate,$scope.momentBG).then(function () {
         $scope.BGDatas = PatientData.bgData;
         $scope.BGClassified = PatientData.classifiedBgData;
         $scope.hba1c = PatientData.hba1c;
@@ -71,7 +71,7 @@ angular.module('lifealthApp')
             PatientData.bgData = PatientData.paginate(PatientData.bgData);
             $scope.BGDatas = PatientData.bgData;
         }
-    }
+    };
 
     $scope.getBPDataLength = function () {
       if (PatientData.bpLength == 0) {
