@@ -37,26 +37,33 @@ angular.module('lifealthApp')
       return PatientData.colors[getClassification(bp)];
     };
 
-    var resetBp = function() {
+    var resetBp = function () {
       PatientData.bpLength = 0;
       PatientData.bpData = [];
       PatientData.classifiedBpData = [];
     }
-    var resetBg = function() {
+    var resetBg = function () {
       PatientData.bgLength = 0;
       PatientData.bgData = [];
       PatientData.classifiedBgData = [];
       PatientData.hba1c = '';
     }
 
-    PatientData.momentFilterBg = function(data,moment) {
-        var res = [];
-        for (var i=0;i<data.length;i++) {
-            if(data[i].DinnerSituation === moment) {
-                res.push(data[i]);
-            }
+    PatientData.momentFilterBg = function (moment) {
+      if (moment == 'Aucun') {
+        return paginate(originalBgData);
+      }
+      return paginate(filterBgBy(moment));
+    }
+
+    function filterBgBy(moment) {
+      var res = [];
+      for (var i = 0; i < originalBgData.length; i++) {
+        if (originalBgData[i].DinnerSituation === moment) {
+          res.push(originalBgData[i]);
         }
-        return res;
+      }
+      return res;
     }
 
     PatientData.colors = ['rgb(1, 145, 60)', 'rgb(142, 194, 31)', 'rgb(255, 240, 2)', 'rgb(241, 150, 0)', 'rgb(233, 86, 19)', 'rgb(229, 1, 18)'];
@@ -94,7 +101,7 @@ angular.module('lifealthApp')
               }
               for (var i = 0; i < classified.length; i++) {
                 classified[i][1] = (classified[i][1] / data.length) * 100;
-                classified[i][1] = Math.round(classified[i][1]*10)/10;
+                classified[i][1] = Math.round(classified[i][1] * 10) / 10;
               }
               PatientData.classifiedBpData = [
                 {
@@ -115,7 +122,7 @@ angular.module('lifealthApp')
       }
     };
 
-     PatientData.paginate = function(data) {
+    var paginate = function (data) {
       if (data.length > pagination) {
         var finalList = [];
         for (var i = 0; i < Math.floor(data.length / pagination) + 1; i++) {
@@ -135,7 +142,7 @@ angular.module('lifealthApp')
       if (id) {
         return $http.get('/api/users/' + id + '/bg?from=' + from.unix() + '&to=' + to.unix())
           .success(function (data) {
-            PatientData.originalBgData = data;
+            originalBgData = data;
             if (data.length) {
               PatientData.bgLength = data.length;
               //Chart array
@@ -153,16 +160,28 @@ angular.module('lifealthApp')
                 sumBG += data[i].BG;
                 data[i].MDate = moment.utc(data[i].MDate, 'X').format('DD/MM HH:mm');
                 switch (data[i].DinnerSituation) {
-                    case 'Before_breakfast': data[i].DinnerSituation = 'A jeun';break;
-                    case 'After_breakfast': data[i].DinnerSituation = 'Après petit-déjeuner';break;
-                    case 'Before_lunch': data[i].DinnerSituation = 'Avant repas du midi';break;
-                    case 'After_lunch': data[i].DinnerSituation = 'Après repas du midi';break;
-                    case 'Before_dinner': data[i].DinnerSituation = 'Avant repas du soir';break;
-                    case 'After_dinner': data[i].DinnerSituation = 'Après repas du soir';break;
+                  case 'Before_breakfast':
+                    data[i].DinnerSituation = 'A jeun';
+                    break;
+                  case 'After_breakfast':
+                    data[i].DinnerSituation = 'Après petit-déjeuner';
+                    break;
+                  case 'Before_lunch':
+                    data[i].DinnerSituation = 'Avant repas du midi';
+                    break;
+                  case 'After_lunch':
+                    data[i].DinnerSituation = 'Après repas du midi';
+                    break;
+                  case 'Before_dinner':
+                    data[i].DinnerSituation = 'Avant repas du soir';
+                    break;
+                  case 'After_dinner':
+                    data[i].DinnerSituation = 'Après repas du soir';
+                    break;
                 }
               }
               //hba1c calcul
-              var averageBG = sumBG/data.length;
+              var averageBG = sumBG / data.length;
               if (averageBG < 120) {
                 PatientData.hba1c = 'hba1c < 6%';
               } else if (120 >= averageBG && averageBG < 150) {
@@ -177,19 +196,17 @@ angular.module('lifealthApp')
                 PatientData.hba1c = 'hba1c > 10%';
               }
               // moment filter
-              if (moment !== 'Aucun') {
-                  PatientData.bgData = PatientData.momentFilterBg(data,momentFilter);
-                  PatientData.bgData = PatientData.paginate(PatientData.bgData);
-              }
-              else {
-                  // pagination
-                  PatientData.bgData = PatientData.paginate(data);
+              if (momentFilter && momentFilter != 'Aucun') {
+                PatientData.bgData = paginate(filterBgBy(momentFilter));
+              } else {
+                // pagination
+                PatientData.bgData = paginate(data);
               }
 
             } else {
               resetBg();
             }
-         })
+          })
           .error(function (data) {
             resetBg();
             console.log(data);

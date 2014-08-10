@@ -40,7 +40,7 @@ angular.module('lifealthApp')
           $scope.BPDatas = PatientData.bpData;
           $scope.BPClassified = PatientData.classifiedBpData;
         })
-        .catch(function(err) {
+        .catch(function (err) {
           $scope.BPDatas = [];
           $scope.BPClassified = [];
         });
@@ -51,40 +51,33 @@ angular.module('lifealthApp')
       'endDate': moment()
     };
     $scope.$watch('datesBG', function (value) {
-      PatientData.getBGData(value.startDate, value.endDate,$scope.momentBG).then(function () {
+      PatientData.getBGData(value.startDate, value.endDate, $scope.momentBG).then(function () {
         $scope.BGDatas = PatientData.bgData;
         $scope.BGClassified = PatientData.classifiedBgData;
         $scope.hba1c = PatientData.hba1c;
-      }).catch(function() {
+      }).catch(function () {
         $scope.BGDatas = [];
         $scope.BGClassified = [];
         $scope.hba1c = '';
       });
     });
 
-    $scope.filter = function() {
-        if($scope.momentBG === "Aucun") {
-            $scope.BGDatas = PatientData.paginate(PatientData.originalBgData);
-        }
-        else {
-            PatientData.bgData = PatientData.momentFilterBg(PatientData.originalBgData,$scope.momentBG);
-            PatientData.bgData = PatientData.paginate(PatientData.bgData);
-            $scope.BGDatas = PatientData.bgData;
-        }
+    $scope.filter = function () {
+      $scope.BGDatas = PatientData.momentFilterBg($scope.momentBG);
     };
 
     $scope.getBPDataLength = function () {
       if (PatientData.bpLength == 0) {
         return 'aucune mesure trouvée';
       }
-      return PatientData.bpLength + ' mesure' + ((PatientData.bpLength>1)?'s':'');
+      return PatientData.bpLength + ' mesure' + ((PatientData.bpLength > 1) ? 's' : '');
     };
 
     $scope.getBGDataLength = function () {
       if (PatientData.bgLength == 0) {
         return 'aucune mesure trouvée';
       }
-      return PatientData.bgLength + ' mesure' + ((PatientData.bgLength>1)?'s':'');
+      return PatientData.bgLength + ' mesure' + ((PatientData.bgLength > 1) ? 's' : '');
     };
 
     $scope.color = function () {
@@ -99,41 +92,41 @@ angular.module('lifealthApp')
       };
     };
 
-    $scope.momentColor = function(bg) {
-        var backgroundColor = 'black';
-        if(bg.DinnerSituation === 'A jeun' || bg.DinnerSituation === 'Avant repas du midi' || bg.DinnerSituation === 'Avant repas du soir') {
-            if(bg.BG <= 70) {
-                backgroundColor = 'rgb(142, 194, 31)';
-            }
-            else if(bg.BG > 70 && bg.BG <= 110) {
-                backgroundColor = 'rgb(1, 145, 60)';
-            }
-            else if(bg.BG > 110 && bg.BG <= 120) {
-                backgroundColor = 'rgb(241, 150, 0)';
-            }
-            else if(bg.BG > 120) {
-                backgroundColor = 'rgb(229, 1, 18)';
-            }
+    $scope.momentColor = function (bg) {
+      var backgroundColor = 'black';
+      if (bg.DinnerSituation === 'A jeun' || bg.DinnerSituation === 'Avant repas du midi' || bg.DinnerSituation === 'Avant repas du soir') {
+        if (bg.BG <= 70) {
+          backgroundColor = 'rgb(142, 194, 31)';
         }
-        else if (bg.DinnerSituation === 'Après petit-déjeuner' || bg.DinnerSituation === 'Après repas du midi' || bg.DinnerSituation === 'Après repas du soir') {
-            if(bg.BG <= 140) {
-                backgroundColor = 'rgb(142, 194, 31)';
-            }
-            else if(bg.BG > 140 && bg.BG <= 180) {
-                backgroundColor = 'rgb(241, 150, 0)';
-            }
-            else if(bg.BG > 180) {
-                backgroundColor = 'rgb(229, 1, 18)';
-            }
+        else if (bg.BG > 70 && bg.BG <= 110) {
+          backgroundColor = 'rgb(1, 145, 60)';
         }
-        else if(bg.BG >= 250) {
-            backgroundColor = 'rgb(161,0,230)';
+        else if (bg.BG > 110 && bg.BG <= 120) {
+          backgroundColor = 'rgb(241, 150, 0)';
         }
+        else if (bg.BG > 120) {
+          backgroundColor = 'rgb(229, 1, 18)';
+        }
+      }
+      else if (bg.DinnerSituation === 'Après petit-déjeuner' || bg.DinnerSituation === 'Après repas du midi' || bg.DinnerSituation === 'Après repas du soir') {
+        if (bg.BG <= 140) {
+          backgroundColor = 'rgb(142, 194, 31)';
+        }
+        else if (bg.BG > 140 && bg.BG <= 180) {
+          backgroundColor = 'rgb(241, 150, 0)';
+        }
+        else if (bg.BG > 180) {
+          backgroundColor = 'rgb(229, 1, 18)';
+        }
+      }
+      else if (bg.BG >= 250) {
+        backgroundColor = 'rgb(161,0,230)';
+      }
 
-        return {
-            'background-color': backgroundColor,
-            'color': 'white'
-        };
+      return {
+        'background-color': backgroundColor,
+        'color': 'white'
+      };
     };
 
     $scope.xAxisTickFormat = function () {
@@ -150,14 +143,14 @@ angular.module('lifealthApp')
 
     $scope.xBGAxisTickFormat = function () {
       return function (d) {
-        return moment(d,'X').format('DD/MM HH:mm');  //uncomment for date format
+        return moment(d, 'X').format('DD/MM HH:mm');  //uncomment for date format
       }
     };
 
     $scope.toolTipContentFunction = function () {
       return function (key, x, y, e, graph) {
-        return  'Informations' +
-          '<p>' + y + ' à ' + x + '</p>'
+        return 'Informations' +
+        '<p>' + y + ' à ' + x + '</p>'
       }
     };
 
@@ -175,8 +168,12 @@ angular.module('lifealthApp')
       var result = '';
       if ($scope.patientInfos.gender) {
         switch ($scope.patientInfos.gender) {
-          case 'Male': result += 'Homme';break;
-          case 'Female': result += 'Femme';break;
+          case 'Male':
+            result += 'Homme';
+            break;
+          case 'Female':
+            result += 'Femme';
+            break;
         }
       }
       if (result.length && $scope.patientInfos.age) {
@@ -198,10 +195,10 @@ angular.module('lifealthApp')
     $scope.previousBpIndex = function () {
       $scope.bpIndex++;
     };
-    $scope.nextBpIndex = function() {
+    $scope.nextBpIndex = function () {
       $scope.bpIndex--;
     };
-    $scope.firstBpIndex = function() {
+    $scope.firstBpIndex = function () {
       $scope.bpIndex = 0;
     };
     $scope.showLastBpIndex = function () {
@@ -224,10 +221,10 @@ angular.module('lifealthApp')
     $scope.previousBgIndex = function () {
       $scope.bgIndex++;
     };
-    $scope.nextBgIndex = function() {
+    $scope.nextBgIndex = function () {
       $scope.bgIndex--;
     };
-    $scope.firstBgIndex = function() {
+    $scope.firstBgIndex = function () {
       $scope.bgIndex = 0;
     };
     $scope.showLastBgIndex = function () {
