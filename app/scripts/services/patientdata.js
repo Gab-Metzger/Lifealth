@@ -49,25 +49,13 @@ angular.module('lifealthApp')
       PatientData.hba1c = '';
     }
 
-    var momentFilterBg = function(data,moment) {
+    PatientData.momentFilterBg = function(data,moment) {
         var res = [];
-        var k= 0;
-        var l=0;
-
-        for (var i=0; i<data.length; i++) {
-            for (var j=0; j<pagination; j++) {
-                if (data[i][j].DinnerSituation === moment) {
-                    res[k][l] = data[i][j];
-                    //Update indexes
-                    l++;
-                    if(l > (pagination-1)) {
-                        k=k+1;
-                        l=0;
-                    }
-                }
+        for (var i=0;i<data.length;i++) {
+            if(data[i].DinnerSituation === moment) {
+                res.push(data[i]);
             }
         }
-
         return res;
     }
 
@@ -90,7 +78,7 @@ angular.module('lifealthApp')
               }
               PatientData.bpLength = data.length;
               // pagination
-              PatientData.bpData = paginate(data);
+              PatientData.bpData = PatientData.paginate(data);
 
               // classification
               var classified = [
@@ -127,7 +115,7 @@ angular.module('lifealthApp')
       }
     };
 
-    function paginate(data) {
+     PatientData.paginate = function(data) {
       if (data.length > pagination) {
         var finalList = [];
         for (var i = 0; i < Math.floor(data.length / pagination) + 1; i++) {
@@ -147,7 +135,8 @@ angular.module('lifealthApp')
       if (id) {
         return $http.get('/api/users/' + id + '/bg?from=' + from.unix() + '&to=' + to.unix())
           .success(function (data) {
-            originalBgData = data;
+            PatientData.originalBgData = data;
+            console.log("TEst : "+data[1].DinnerSituation);
             if (data.length) {
               PatientData.bgLength = data.length;
               //Chart array
@@ -188,9 +177,10 @@ angular.module('lifealthApp')
               } else if (240 >= averageBG) {
                 PatientData.hba1c = 'hba1c > 10%';
               }
-
+              // moment filter
+              //data = momentFilterBg(data,'Avant repas du midi');
               // pagination
-              PatientData.bgData = paginate(data);
+              PatientData.bgData = PatientData.paginate(data);
             } else {
               resetBg();
             }

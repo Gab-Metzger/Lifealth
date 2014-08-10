@@ -18,6 +18,7 @@ angular.module('lifealthApp')
     $scope.BGDatas = [];
     $scope.BPClassified = [];
     $scope.BGClassified = [];
+    $scope.momentBG = 'Aucun';
 
     $scope.predicate = "-MDate";
     $scope.reverse = false;
@@ -60,6 +61,11 @@ angular.module('lifealthApp')
         $scope.hba1c = '';
       });
     });
+
+    $scope.filter = function() {
+        PatientData.originalBgData = PatientData.momentFilterBg(PatientData.originalBgData,$scope.momentBG);
+        PatientData.bgData = PatientData.paginate(PatientData.originalBgData);
+    }
 
     $scope.getBPDataLength = function () {
       if (PatientData.bpLength == 0) {

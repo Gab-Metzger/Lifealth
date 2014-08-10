@@ -127,14 +127,14 @@
                 </div>
                 <div>
                     <span>FILTRE</span>
-                    <select class="form-control" style="width: 50%;display: inline">
-                        <option>Aucun</option>
-                        <option>A Jeun</option>
-                        <option>Après petit-déjeuner</option>
-                        <option>Avant repas du midi</option>
-                        <option>Après repas du midi</option>
-                        <option>Avant repas du soir</option>
-                        <option>Après repas du soir</option>
+                    <select ng-model="momentBG" ng-change="filter()" class="form-control" style="width: 50%;display: inline">
+                        <option value="Aucun">Aucun</option>
+                        <option value="A Jeun">A Jeun</option>
+                        <option value="Après petit-déjeuner">Après petit-déjeuner</option>
+                        <option value="Avant repas du midi">Avant repas du midi</option>
+                        <option value="Après repas du midi">Après repas du midi</option>
+                        <option value="Avant repas du soir">Avant repas du soir</option>
+                        <option value="Après repas du soir">Après repas du soir</option>
                     </select>
                 </div>
             </div>
@@ -166,7 +166,6 @@
               </tfoot>
             </table>
         </div>
-
 
     </div>
     <div class="col-md-7">
