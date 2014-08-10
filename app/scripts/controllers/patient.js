@@ -63,8 +63,14 @@ angular.module('lifealthApp')
     });
 
     $scope.filter = function() {
-        PatientData.originalBgData = PatientData.momentFilterBg(PatientData.originalBgData,$scope.momentBG);
-        PatientData.bgData = PatientData.paginate(PatientData.originalBgData);
+        if($scope.momentBG === "Aucun") {
+            $scope.BGDatas = PatientData.paginate(PatientData.originalBgData);
+        }
+        else {
+            PatientData.bgData = PatientData.momentFilterBg(PatientData.originalBgData,$scope.momentBG);
+            PatientData.bgData = PatientData.paginate(PatientData.bgData);
+            $scope.BGDatas = PatientData.bgData;
+        }
     }
 
     $scope.getBPDataLength = function () {
