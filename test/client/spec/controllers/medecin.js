@@ -16,7 +16,8 @@ describe('Controller: MedecinCtrl', function () {
     rt.currentUser = {};
     rt.currentUser.id = '123';
     MedecinCtrl = $controller('MedecinCtrl', {
-      $scope: scope
+      $scope: scope,
+      records: []
     });
   }));
 
@@ -37,7 +38,6 @@ describe('Controller: MedecinCtrl', function () {
     scope.email = 'gabriel.metzger@free.fr';
     scope.firstName = 'Gabriel';
     scope.lastName = 'METZGER';
-    hb.whenGET('/api/doctors/'+rt.currentUser.id+'/records').respond([{'id': 123,'firstName': 'Gabriel', 'lastName': 'METZGER'}]);
     hb.expectPOST('/api/doctors/'+rt.currentUser.id+'/records',{'email': 'gabriel.metzger@free.fr','firstName': 'Gabriel', 'lastName': 'METZGER'}).respond(200, '');
     scope.addRecord();
     hb.flush();

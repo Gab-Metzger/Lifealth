@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('lifealthApp')
-  .controller('MedecinCtrl', function ($scope, Auth, $location, MedecinData, $http, $rootScope, $materialSidenav, $materialToast) {
+  .controller('MedecinCtrl', function ($scope, Auth, $location, records, $http, $rootScope, $materialSidenav, $materialToast) {
 
     $scope.logout = function() {
       Auth.logout()
@@ -36,7 +36,7 @@ angular.module('lifealthApp')
       return r.firstName+' '+ r.lastName;
     };
 
-    $sope.foundRecords = MedecinData.getRecords();
+    $scope.foundRecords = records.data;
 
     $scope.deleteRecord = function (r) {
       if (confirm('Etes-vous sûr de vouloir supprimer ce patient ?')) {

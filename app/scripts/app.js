@@ -18,10 +18,8 @@ angular.module('lifealthApp', [
         templateUrl: 'partials/medecin',
         controller: 'MedecinCtrl',
         resolve: {
-          getRecords: function(MedecinData) {
-            return MedecinData.getRecords();
-          }
-        }
+          records: 'MedecinData'
+        },
         authenticate: true
       })
       .when('/loginDoctor', {
