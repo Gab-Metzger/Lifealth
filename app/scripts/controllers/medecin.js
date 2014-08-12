@@ -2,7 +2,7 @@
 
 angular.module('lifealthApp')
   .controller('MedecinCtrl', function ($scope, Auth, $location, $http, $rootScope, $materialSidenav, $materialToast) {
-    $
+
     $scope.logout = function() {
       Auth.logout()
         .then(function() {
