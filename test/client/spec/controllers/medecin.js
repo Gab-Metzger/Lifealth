@@ -15,18 +15,28 @@ describe('Controller: MedecinCtrl', function () {
     rt = $rootScope;
     rt.currentUser = {};
     rt.currentUser.id = '123';
-    MedecinCtrl = $controller;
+    MedecinCtrl = $controller('MedecinCtrl', {
+      $scope: scope
+    });;
   }));
 
-  //it('should attach a list of awesomeThings to the scope', function () {
-    //expect(scope.awesomeThings.length).toBe(3);
-  //});
+  afterEach(function() {
+    hb.verifyNoOutstandingExpectation();
+    hb.verifyNoOutstandingRequest();
+  });
+
   it('should return records', function() {
     hb.expectGET('/api/doctors/'+rt.currentUser.id+'/records').respond([{'id': 123,'firstName': 'Gabriel', 'lastName': 'METZGER'}]);
-    MedecinCtrl('MedecinCtrl', {
-      $scope: scope
-    });
     hb.flush();
-    expect(scope.data).toBe(1);
+    expect(scope.foundRecords.length).toBe(1);
+    expect(scope.foundRecords[0].firstName).toBe('Gabriel');
+  });
+
+  it('should add a record', function() {
+    scope.foundRecords = [];
+    hb.expectPOST('/api/doctors/'+rt.currentUser.id+'/records',{'email': 'gabriel.metzger@free.fr','firstName': 'Gabriel', 'lastName': 'METZGER'}).respond(201);
+    scope.addRecord();
+    hb.flush();
+    expect(scope.foundRecords.length).toBe(1);
   });
 });
