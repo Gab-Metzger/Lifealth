@@ -17,6 +17,11 @@ angular.module('lifealthApp', [
       .when('/medecin', {
         templateUrl: 'partials/medecin',
         controller: 'MedecinCtrl',
+        resolve: {
+          getRecords: function(MedecinData) {
+            return MedecinData.getRecords();
+          }
+        }
         authenticate: true
       })
       .when('/loginDoctor', {
