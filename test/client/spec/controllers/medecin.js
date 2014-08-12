@@ -11,6 +11,10 @@ describe('Controller: MedecinCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope, $httpBackend) {
     scope = $rootScope.$new();
+    scope.form = {
+      $valid: true,
+      $setPristine: function() {}
+    };
     hb = $httpBackend;
     rt = $rootScope;
     rt.currentUser = {};
@@ -26,15 +30,12 @@ describe('Controller: MedecinCtrl', function () {
     hb.verifyNoOutstandingRequest();
   });
 
-  it('should return records', function() {
-    hb.expectGET('/api/doctors/'+rt.currentUser.id+'/records').respond([{'id': 123,'firstName': 'Gabriel', 'lastName': 'METZGER'}]);
-    hb.flush();
-    expect(scope.foundRecords.length).toBe(1);
-    expect(scope.foundRecords[0].firstName).toBe('Gabriel');
-  });
-
   it('should add a record', function() {
-    scope.foundRecords = [];
+    scope.foundRecords = [{
+      'email': 'jean.dupont@test.fr',
+      'firstName': 'Jean',
+      'lastName': 'Dupont'
+    }];
     scope.email = 'gabriel.metzger@free.fr';
     scope.firstName = 'Gabriel';
     scope.lastName = 'METZGER';
@@ -42,5 +43,29 @@ describe('Controller: MedecinCtrl', function () {
     scope.addRecord();
     hb.flush();
     expect(scope.foundRecords.length).toBe(1);
+  });
+
+  it('should delete a record', function() {
+    scope.foundRecords = [{
+      '_id': 123,
+      'email': 'jean.dupont@test.fr',
+      'firstName': 'Jean',
+      'lastName': 'Dupont'
+    }];
+    hb.expectDELETE('/api/doctors/'+rt.currentUser.id+'/records/123').respond(201,'');
+    scope.deleteRecord(scope.foundRecords[0]);
+    hb.flush();
+    expect(scope.foundRecords.length).toBe(0);
+  });
+
+  it('should construct firstname+lastname', function() {
+    scope.foundRecords = [{
+      '_id': 123,
+      'email': 'jean.dupont@test.fr',
+      'firstName': 'Jean',
+      'lastName': 'Dupont'
+    }];
+    var name = scope.name(scope.foundRecords[0]);
+    expect(name).toBe('Jean Dupont');
   });
 });
