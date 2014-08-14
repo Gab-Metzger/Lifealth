@@ -35,14 +35,20 @@ angular.module('lifealthApp')
     };
     $scope.$watch('datesBP', function (value) {
       $scope.bpIndex = 0;
+      $scope.BPDatas = [];
+      $scope.BPClassified = [];
+      $scope.searchingBp = true;
       PatientData.getBPData(value.startDate, value.endDate)
         .then(function () {
           $scope.BPDatas = PatientData.bpData;
           $scope.BPClassified = PatientData.classifiedBpData;
+          $scope.searchingBp = false;
         })
         .catch(function (err) {
+          $scope.bpIndex = 0;
           $scope.BPDatas = [];
           $scope.BPClassified = [];
+          $scope.searchingBp = false;
         });
     });
 
@@ -51,14 +57,20 @@ angular.module('lifealthApp')
       'endDate': moment()
     };
     $scope.$watch('datesBG', function (value) {
+      $scope.BGDatas = [];
+      $scope.BGClassified = [];
+      $scope.hba1c = '';
+      $scope.searchingBg = true;
       PatientData.getBGData(value.startDate, value.endDate, $scope.momentBG).then(function () {
         $scope.BGDatas = PatientData.bgData;
         $scope.BGClassified = PatientData.classifiedBgData;
         $scope.hba1c = PatientData.hba1c;
+        $scope.searchingBg = false;
       }).catch(function () {
         $scope.BGDatas = [];
         $scope.BGClassified = [];
         $scope.hba1c = '';
+        $scope.searchingBg = false;
       });
     });
 
