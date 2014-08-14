@@ -1,4 +1,4 @@
-<div ng-include="'partials/includes/headerPatient.html'"></div>
+ <div ng-include="'partials/includes/headerPatient.html'"></div>
 <material-sidenav class="material-sidenav-left material-whiteframe-z2" component-id="left">
   <material-toolbar class="material-theme-light">
     <div class="material-toolbar-tools">Menu</div>
@@ -183,9 +183,9 @@
                 interactive="true">
         </nvd3-line-chart>
       <div class="col-md-offset-2">
-        <span>hba1c prévisionnelle : </span><span ng-bind="hba1c"></span>
+        <span>hba1c prévisionnelle : </span><span ng-bind="hba1c"> *</span>
         <br />
-        <small>*il s'agit d'une projection à partir de la moyenne de vos glycémies sur la période sélectionnée. L'hba1c prévisionnelle est une information
+        <small ng-if="currentUser.role !== 'DOCTOR'">*il s'agit d'une projection à partir de la moyenne de vos glycémies sur la période sélectionnée. L'hba1c prévisionnelle est une information
 qui vous permet de vous situer par rapport à l'objectif fixé par votre médecin.</small>
       </div>
     </div>
