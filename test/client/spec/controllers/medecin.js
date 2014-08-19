@@ -21,7 +21,8 @@ describe('Controller: MedecinCtrl', function () {
     rt.currentUser.id = '123';
     MedecinCtrl = $controller('MedecinCtrl', {
       $scope: scope,
-      records: []
+      records: [],
+      invites: []
     });
   }));
 

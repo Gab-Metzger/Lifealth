@@ -18,7 +18,12 @@ angular.module('lifealthApp', [
         templateUrl: 'partials/medecin',
         controller: 'MedecinCtrl',
         resolve: {
-          records: 'MedecinData'
+          records: function(MedecinData) {
+            return MedecinData.records();
+          },
+          invites: function(MedecinData) {
+            return MedecinData.invites();
+          }
         },
         authenticate: true
       })

@@ -6,7 +6,7 @@ describe('Service: MedecinData', function () {
   beforeEach(module('lifealthApp'));
 
   // instantiate service
-  var pd;
+  var md;
   var hb,rt;
   beforeEach(inject(function (_MedecinData_, $httpBackend, $rootScope) {
     md = _MedecinData_;

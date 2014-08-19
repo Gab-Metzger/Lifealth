@@ -45,6 +45,15 @@
         </form>
       </div>
     </div>
+      <div class="caption" ng-if="invites.length > 0">
+          <span>Invitations en attente :</span>
+          <ul>
+              <li ng-repeat="u in invites">
+                  <span ng-bind="u.firstName"></span>
+                  <span ng-bind="u.lastName"></span>
+              </li>
+          </ul>
+      </div>
   </div>
 </div>
 
