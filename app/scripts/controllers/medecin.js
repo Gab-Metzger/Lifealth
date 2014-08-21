@@ -47,6 +47,14 @@ angular.module('lifealthApp')
           });
       }
     };
+    $scope.deleteInvite = function (u) {
+      if (confirm('Etes-vous sûr de vouloir supprimer cette invitation ?')) {
+        $http.delete('/api/doctors/'+$rootScope.currentUser.id+'/invites/'+ u._id)
+          .success(function(data) {
+            $scope.invites.splice($scope.invites.indexOf(u), 1);
+          });
+      }
+    };
     $scope.goToRecord = function (r) {
       $rootScope.currentUser.selectedPatientId = r._id;
       $location.path('/patient');

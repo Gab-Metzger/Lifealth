@@ -51,6 +51,7 @@
               <li ng-repeat="u in invites">
                   <span ng-bind="u.firstName"></span>
                   <span ng-bind="u.lastName"></span>
+                  <a ng-click="deleteInvite(u)"><span class="glyphicon glyphicon-trash"></span></a>
               </li>
           </ul>
       </div>
