@@ -7,8 +7,8 @@ angular.module('ngMaterial', [ 'ng', 'ngAnimate', 'material.services', "material
 angular.module('material.animations', ['ngAnimateStylers', 'ngAnimateSequence', 'ngAnimate'])
 
 .service('materialEffects', [
-  '$animateSequence', 
-  'canvasRenderer', 
+  '$animateSequence',
+  'canvasRenderer',
   '$position',
   '$$rAF',
 function ($animateSequence, canvasRenderer, $position, $$rAF) {
@@ -118,7 +118,7 @@ function ($animateSequence, canvasRenderer, $position, $$rAF) {
     // **********************************************************
     // Utility Methods
     // **********************************************************
-    
+
     function translateString(x, y, z) {
       return 'translate3d(' + x + 'px,' + y + 'px,' + z + 'px)';
     }
@@ -614,7 +614,7 @@ angular.module('material.animations')
 
               var ctx = this.adjustBounds(canvas).getContext('2d');
               ctx.scale(this.pixelDensity, this.pixelDensity);
-              
+
               if (!this._loop) {
                 this._loop = this.animate.bind(this, ctx);
               }
@@ -1062,7 +1062,7 @@ function MaterialDialogService($timeout, $materialPopup, $rootElement, $material
       materialEffects.popIn(
         dialog.element,
         options.appendTo,
-        options.targetEvent && options.targetEvent.target && 
+        options.targetEvent && options.targetEvent.target &&
           angular.element(options.targetEvent.target)
       );
 
@@ -1103,13 +1103,13 @@ function materialInputGroupDirective() {
     restrict: 'C',
     link: function($scope, $element, $attr) {
       // Grab the input child, and just do nothing if there is no child
-      var input = $element[0].querySelector('input');
+      var input = $element[0].querySelector('input') || $element[0].querySelector('textarea');
       if(!input) { return; }
 
       input = angular.element(input);
       var ngModelCtrl = input.controller('ngModel');
 
-      // When the input value changes, check if it "has" a value, and 
+      // When the input value changes, check if it "has" a value, and
       // set the appropriate class on the input group
       if (ngModelCtrl) {
         $scope.$watch(
@@ -1382,7 +1382,7 @@ function materialScrollHeader($materialContent, $timeout) {
         // Full height of the target
         height = target.offsetHeight,
 
-        // Condensed height is set through condensedHeight or defaults to 1/3 the 
+        // Condensed height is set through condensedHeight or defaults to 1/3 the
         // height of the target
         condensedHeight = $attr.condensedHeight || (height / 3),
 
@@ -1391,7 +1391,7 @@ function materialScrollHeader($materialContent, $timeout) {
 
         // Current "y" position of scroll
         y = 0,
-      
+
         // Store the last scroll top position
         prevScrollTop = 0;
 
@@ -1454,7 +1454,7 @@ angular.module('material.components.sidenav', [
       '$materialComponentRegistry',
     materialSidenavController ])
   .directive('materialSidenav', [ materialSidenavDirective ]);
-  
+
 /**
  * @ngdoc controller
  * @name material.components.sidenav.controller:$materialSidenavController
@@ -2407,7 +2407,7 @@ function QpToastDirective() {
   return {
     restrict: 'E',
     transclude: true,
-    template: 
+    template:
       '<div class="toast-container" ng-transclude>' +
       '</div>'
   };
@@ -2428,7 +2428,7 @@ function QpToastService($timeout, $materialPopup) {
       duration: 3000,
       // [unimplemented] Whether to disable swiping
       swipeDisabled: false,
-      // Supports any combination of these class names: 'bottom top left right fit'. 
+      // Supports any combination of these class names: 'bottom top left right fit'.
       // Default: 'bottom left'
       position: 'bottom left',
 
@@ -2615,7 +2615,7 @@ function materialCompilerService($q, $http, $injector, $compile, $controller, $t
     * with the following properties:
     *
     *   - `{element}` â€“ `element` â€“ an uncompiled angular element compiled using the provided template.
-    *   
+    *
     *   - `{function(scope)}`  â€“ `link` â€“ A link function, which, when called, will compile
     *     the elmeent and instantiate options.controller.
     *
@@ -2643,7 +2643,7 @@ function materialCompilerService($q, $http, $injector, $compile, $controller, $t
     var locals = options.locals || {};
     var transformTemplate = options.transformTemplate || angular.identity;
 
-    // Take resolve values and invoke them.  
+    // Take resolve values and invoke them.
     // Resolves can either be a string (value: 'MyRegisteredAngularConst'),
     // or an invokable 'factory' of sorts: (value: function ValueGetter($dependency) {})
     angular.forEach(resolve, function(value, key) {

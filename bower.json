@@ -13,7 +13,8 @@
     "angular-route": ">=1.2.*",
     "angular-animate": "~1.2.20",
     "angularjs-nvd3-directives": "~0.0.7",
-    "ng-bs-daterangepicker": "~0.0.3"
+    "ng-bs-daterangepicker": "~0.0.3",
+    "angular-material": "~0.0.1"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

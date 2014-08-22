@@ -13,13 +13,15 @@ angular.module('lifealthApp')
     $scope.email;
     $scope.firstName;
     $scope.lastName;
+    $scope.notes;
     $scope.addRecord = function () {
-      $http.post('/api/doctors/'+$rootScope.currentUser.id+'/records', {'email': $scope.email, 'firstName': $scope.firstName, 'lastName': $scope.lastName})
+      $http.post('/api/doctors/'+$rootScope.currentUser.id+'/records', {'email': $scope.email, 'firstName': $scope.firstName, 'lastName': $scope.lastName, 'notes': $scope.notes})
         .success(function(data) {
           $rootScope.currentUser.selectedPatientId = data._id;
           $scope.lastName = undefined;
           $scope.firstName = undefined;
           $scope.email = undefined;
+          $scope.notes = undefined;
           $scope.form.$setPristine();
           $materialToast({
             template: 'Invitation envoyée avec succès',

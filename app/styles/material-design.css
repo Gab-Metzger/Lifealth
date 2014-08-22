@@ -103,7 +103,7 @@
   background-color: #db4437 !important;
   color: #f1f1f1 !important; }
 
-.material-input-group-theme-light.material-input-has-value input, .material-input-group-theme-light.material-input-focused input {
+.material-input-group-theme-light.material-input-has-value input, .material-input-group-theme-light.material-input-focused input, .material-input-group-theme-light.material-input-has-value textarea, .material-input-group-theme-light.material-input-focused textarea{
   border-color: #4285f4; }
 .material-input-group-theme-light.material-input-has-value label, .material-input-group-theme-light.material-input-focused label {
   color: #4285f4; }
@@ -611,6 +611,7 @@ label {
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"] {
   display: block;
   border-width: 0 0 1px 0;
+  border-color: #dddddd;
   line-height: 30px;
   font-size: 0.85em; }
   textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus {
@@ -645,7 +646,7 @@ input, textarea {
     color: #a4a4a4; }
     .material-input-group label:hover {
       cursor: text; }
-  .material-input-group.material-input-focused input, .material-input-group.material-input-has-value input {
+  .material-input-group.material-input-focused input, .material-input-group.material-input-has-value input, .material-input-group.material-input-focused textarea, .material-input-group.material-input-has-value textarea {
     border-bottom-width: 2px; }
   .material-input-group.material-input-focused label, .material-input-group.material-input-has-value label {
     -webkit-transform: translate3d(0, 0, 0) scale(0.85);
