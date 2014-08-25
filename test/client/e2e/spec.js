@@ -6,7 +6,7 @@ describe('iHealth auth', function () {
       element(by.id('login-ihealth')).click().then(function () {
         expect(browser.getTitle()).toEqual('iHealthLabs - Login');
         element(by.id('txtUserName')).sendKeys('sebastien.letelie@gmail.com');
-        element(by.id('txtPsw')).sendKeys('win7352');
+        element(by.id('txtPsw')).sendKeys('test12345');
         element(by.id('Button1')).click().then(function () {
           browser.getTitle().then(function (title) {
             expect(title).toEqual('http://localhost:9000/#/patient');

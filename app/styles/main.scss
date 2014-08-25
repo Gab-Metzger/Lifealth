@@ -29,7 +29,7 @@ body .row {
 }
 
 .main .material-button {
-  padding: 10px 10px;  
+  padding: 10px 10px;
 }
 
 .doctor {
@@ -115,6 +115,18 @@ body {
 
 .patient table td {
   font-weight: bold;
+}
+
+.patient table td input {
+  display: inline;
+  width: 95px;
+  text-align: center;
+}
+.patient table td span {
+  display: inline;
+}
+.glyphicon:hover {
+  cursor: pointer;
 }
 
 .material-toolbar-tools div {

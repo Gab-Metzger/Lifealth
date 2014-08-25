@@ -122,6 +122,25 @@ angular.module('lifealthApp')
       }
     };
 
+    PatientData.updateBpData = function(bp) {
+      bp.MDate = moment.utc(bp.MDate, 'DD/MM HH:mm').unix();
+      return $http.post('/api/users/'+$rootScope.currentUser.id+'/bp', bp).success(function(data) {
+        bp.MDate = moment.utc(bp.MDate, 'X').format('DD/MM HH:mm');
+        bp._id = data;
+      });
+    };
+
+    PatientData.removeBpData = function(bp) {
+      return $http.delete('/api/users/'+$rootScope.currentUser.id+'/bp/' + bp._id);
+    };
+
+    PatientData.resetBpData = function(bp) {
+      return $http.get('/api/users/'+$rootScope.currentUser.id+'/bp/'+bp._id).success(function(data) {
+        data.MDate = moment.utc(data.MDate, 'X').format('DD/MM HH:mm');
+        angular.copy(data, bp);
+      });
+    };
+
     var paginate = function (data) {
       if (data.length > pagination) {
         var finalList = [];
@@ -132,7 +151,7 @@ angular.module('lifealthApp')
       } else {
         return [data];
       }
-    }
+    };
 
     PatientData.getBGData = function (from, to, momentFilter) {
       var id = $rootScope.currentUser.id;

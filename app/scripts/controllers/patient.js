@@ -85,6 +85,45 @@ angular.module('lifealthApp')
       return PatientData.bpLength + ' mesure' + ((PatientData.bpLength > 1) ? 's' : '');
     };
 
+    $scope.addBPData = function () {
+      if ($scope.BPDatas.length == 0) {
+        $scope.BPDatas[0] = [];
+      }
+      $scope.BPDatas[0].unshift({
+        MDate: moment.utc().format('DD/MM HH:mm'),
+        manual: true,
+        edit: false
+      });
+    };
+
+    $scope.validBPData = function (bp) {
+      PatientData.updateBpData(bp).then(function() {
+        bp.manual = undefined;
+        bp.edit = true;
+      }).catch(function(err) {
+        console.log('valid BP data error : '+err);
+      });
+    };
+    $scope.cancelBPData = function (bp) {
+      if (bp._id) {
+        bp.manual = undefined;
+        bp.edit = true;
+      } else {
+        $scope.BPDatas[0].splice($scope.BPDatas[0].indexOf(bp), 1);
+      }
+    };
+    $scope.editBPData = function (bp) {
+      bp.manual = true;
+      bp.edit = false;
+    };
+    $scope.removeBPData = function (bp) {
+      PatientData.removeBpData(bp).then(function() {
+        $scope.BPDatas[0].splice($scope.BPDatas[0].indexOf(bp), 1);
+      }).catch(function(err) {
+        console.log('remove BP data error : ' +err);
+      });
+    };
+
     $scope.getBGDataLength = function () {
       if (PatientData.bgLength == 0) {
         return 'aucune mesure trouvée';
