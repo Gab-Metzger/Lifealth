@@ -1,24 +1,28 @@
 'use strict';
 
 angular.module('lifealthApp')
-  .controller('SignupCtrl', function ($scope, Auth, $location) {
-    $scope.user = {};
+  .controller('SignupCtrl', function ($scope, Auth, $location, $rootScope) {
+    $scope.user = {
+      email: $location.search().email
+    };
     $scope.errors = {};
+    $scope.role = $rootScope.role;
+    $scope.path = $rootScope.path;
 
     $scope.register = function(form) {
       $scope.submitted = true;
-  
+
       if(form.$valid) {
         Auth.createUser({
           lastName: $scope.user.lastName,
           firstName: $scope.user.firstName,
           email: $scope.user.email,
           password: $scope.user.password,
-          role: 'DOCTOR'
+          role: $scope.role
         })
         .then( function() {
           // Account created, redirect
-          $location.path('/medecin');
+          $location.path($scope.path);
         })
         .catch( function(err) {
           err = err.data;

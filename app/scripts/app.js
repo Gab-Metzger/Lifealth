@@ -68,7 +68,7 @@ angular.module('lifealthApp', [
       return {
         'responseError': function (response) {
           if (response.status === 401) {
-            $location.path('/loginDoctor');
+            //$location.path('/loginDoctor');
             return $q.reject(response);
           }
           else {
@@ -94,5 +94,6 @@ angular.module('lifealthApp', [
           $location.path('/loginDoctor')
         }
       }
+
     });
   });

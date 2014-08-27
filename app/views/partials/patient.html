@@ -76,13 +76,13 @@
             <span class="glyphicon glyphicon-trash" ng-click="removeBPData(BP)"></span>
           </td>
           <td ng-switch-when="true">
-            <input type="text" ng-model="BP.MDate"/>
+            <input name="MDate" type="text" ng-model="BP.MDate"/>
           </td>
           <td ng-switch-when="true">
-            <input type="text" ng-model="BP.HP" mask="number"/> / <input type="text" ng-model="BP.LP" mask="number"/>
+            <input name="HP" type="text" ng-model="BP.HP" mask="number"/> / <input name="LP" type="text" ng-model="BP.LP" mask="number"/>
           </td>
           <td ng-switch-when="true">
-            <input type="text" ng-model="BP.HR" mask="number"/>
+            <input name="HR" type="text" ng-model="BP.HR" mask="number"/>
           </td>
           <td ng-switch-when="true">
             <span class="glyphicon glyphicon-ok" ng-click="validBPData(BP)"></span>

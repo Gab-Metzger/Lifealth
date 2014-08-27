@@ -69,9 +69,9 @@ body {
 }
 
 .login-panel material-whiteframe {
-  width: 500px;
+  //width: 500px;
   margin: auto;
-  font-size: 24pt;
+  font-size: 20pt;
 }
 
 .login-panel form {
@@ -122,8 +122,21 @@ body {
   width: 95px;
   text-align: center;
 }
+.patient table td input[name="MDate"] {
+  width: 95px;
+}
+.patient table td input[name="HP"] {
+  width: 40px;
+}
+.patient table td input[name="LP"] {
+  width: 40px;
+}
+.patient table td input[name="HR"] {
+  width: 30px;
+}
 .patient table td span {
   display: inline;
+  font-size: 12px;
 }
 .glyphicon:hover {
   cursor: pointer;

@@ -69,10 +69,7 @@ angular.module('lifealthApp')
     PatientData.colors = ['rgb(1, 145, 60)', 'rgb(142, 194, 31)', 'rgb(255, 240, 2)', 'rgb(241, 150, 0)', 'rgb(233, 86, 19)', 'rgb(229, 1, 18)'];
 
     PatientData.getBPData = function (from, to) {
-      var id = $rootScope.currentUser.id;
-      if ($rootScope.currentUser.role == 'DOCTOR') {
-        id = $rootScope.currentUser.selectedPatientId;
-      }
+      var id = getID();
       if (id) {
         return $http.get('/api/users/' + id + '/bp?from=' + from.unix() + '&to=' + to.unix())
           .success(function (data) {
@@ -122,23 +119,42 @@ angular.module('lifealthApp')
       }
     };
 
-    PatientData.updateBpData = function(bp) {
-      bp.MDate = moment.utc(bp.MDate, 'DD/MM HH:mm').unix();
-      return $http.post('/api/users/'+$rootScope.currentUser.id+'/bp', bp).success(function(data) {
-        bp.MDate = moment.utc(bp.MDate, 'X').format('DD/MM HH:mm');
-        bp._id = data;
-      });
+    PatientData.updateBpData = function (bp) {
+      var id = getID();
+      if (id) {
+        bp.MDate = moment.utc(bp.MDate, 'DD/MM HH:mm').unix();
+        return $http.post('/api/users/' + id + '/bp', bp).success(function (data) {
+          bp.MDate = moment.utc(bp.MDate, 'X').format('DD/MM HH:mm');
+          bp._id = data;
+        });
+      }
     };
 
-    PatientData.removeBpData = function(bp) {
-      return $http.delete('/api/users/'+$rootScope.currentUser.id+'/bp/' + bp._id);
+    PatientData.removeBpData = function (bp) {
+      var id = getID();
+      if (id) {
+        return $http.delete('/api/users/' + id + '/bp/' + bp._id);
+      }
     };
 
-    PatientData.resetBpData = function(bp) {
-      return $http.get('/api/users/'+$rootScope.currentUser.id+'/bp/'+bp._id).success(function(data) {
-        data.MDate = moment.utc(data.MDate, 'X').format('DD/MM HH:mm');
-        angular.copy(data, bp);
-      });
+    function getID() {
+      if ($rootScope.currentUser) {
+        var id = $rootScope.currentUser.id;
+        if ($rootScope.currentUser.role == 'DOCTOR') {
+          id = $rootScope.currentUser.selectedPatientId;
+        }
+        return id;
+      }
+    }
+
+    PatientData.resetBpData = function (bp) {
+      var id = getID();
+      if (id) {
+        return $http.get('/api/users/' + id + '/bp/' + bp._id).success(function (data) {
+          data.MDate = moment.utc(data.MDate, 'X').format('DD/MM HH:mm');
+          angular.copy(data, bp);
+        });
+      }
     };
 
     var paginate = function (data) {
@@ -154,10 +170,7 @@ angular.module('lifealthApp')
     };
 
     PatientData.getBGData = function (from, to, momentFilter) {
-      var id = $rootScope.currentUser.id;
-      if ($rootScope.currentUser.role == 'DOCTOR') {
-        id = $rootScope.currentUser.selectedPatientId;
-      }
+      var id = getID();
       if (id) {
         return $http.get('/api/users/' + id + '/bg?from=' + from.unix() + '&to=' + to.unix())
           .success(function (data) {
@@ -238,10 +251,7 @@ angular.module('lifealthApp')
     PatientData.infos = {};
 
     PatientData.getInfos = function () {
-      var id = $rootScope.currentUser.id;
-      if ($rootScope.currentUser.role == 'DOCTOR') {
-        id = $rootScope.currentUser.selectedPatientId;
-      }
+      var id = getID();
       if (id) {
         return $http.get('/api/users/' + id)
           .success(function (data) {

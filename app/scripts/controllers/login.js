@@ -1,9 +1,23 @@
 'use strict';
 
 angular.module('lifealthApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location) {
-    $scope.user = {};
+  .controller('LoginCtrl', function ($scope, Auth, $location, $rootScope) {
+    $scope.user = {
+      email: $location.search().email
+    };
     $scope.errors = {};
+
+    $scope.$on('$locationChangeSuccess', function(event, toUrl, fromUrl) {
+      if (toUrl.indexOf('signup') != -1) {
+        if (fromUrl.indexOf('loginPatient') != -1) {
+          $rootScope.role = 'PATIENT';
+          $rootScope.path = '/patient';
+        } else if (fromUrl.indexOf('loginDoctor') != -1) {
+          $rootScope.role = 'DOCTOR';
+          $rootScope.path = '/medecin';
+        }
+      }
+    });
 
     $scope.login = function(form) {
       $scope.submitted = true;
@@ -27,6 +41,13 @@ angular.module('lifealthApp')
           $scope.errors.other = err.message;
         });
       }
+    };
+
+    $scope.signupUrl = function () {
+      if ($scope.user.email) {
+        return '/#/signup?email='+$scope.user.email;
+      }
+      return '/#/signup';
     };
 
   });
