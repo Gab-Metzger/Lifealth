@@ -53,7 +53,6 @@
             format="DD/MM"
             separator="--"
             ranges="defaultRange">
-          <span ng-bind="getBPDataLength()"></span>
           <span class="glyphicon glyphicon-plus right" ng-click="addBPData()"></span>
         </div>
       </div>
@@ -100,6 +99,7 @@
             <span ng-click="firstBpIndex()" ng-show="showFirstBpIndex()"
                   class="glyphicon glyphicon-step-forward right"></span>
             <span ng-click="nextBpIndex()" ng-show="showNextBpIndex()" class="glyphicon glyphicon-forward right"></span>
+            <span ng-bind="getBPDataLength()"></span>
           </td>
         </tr>
         </tfoot>

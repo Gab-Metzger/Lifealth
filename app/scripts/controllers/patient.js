@@ -253,16 +253,16 @@ angular.module('lifealthApp')
       $scope.bpIndex = 0;
     };
     $scope.showLastBpIndex = function () {
-      return $scope.bpIndex != $scope.BPDatas.length - 1;
+      return $scope.BPDatas.length > 0 && $scope.bpIndex != $scope.BPDatas.length - 1;
     };
     $scope.showPreviousBpIndex = function () {
-      return $scope.bpIndex != $scope.BPDatas.length - 1;
+      return $scope.BPDatas.length > 0 && $scope.bpIndex != $scope.BPDatas.length - 1;
     };
     $scope.showNextBpIndex = function () {
-      return $scope.bpIndex != 0;
+      return $scope.BPDatas.length > 0 && $scope.bpIndex != 0;
     };
     $scope.showFirstBpIndex = function () {
-      return $scope.bpIndex != 0;
+      return $scope.BPDatas.length > 0 && $scope.bpIndex != 0;
     };
 
     $scope.bgIndex = 0;
@@ -279,15 +279,15 @@ angular.module('lifealthApp')
       $scope.bgIndex = 0;
     };
     $scope.showLastBgIndex = function () {
-      return $scope.bgIndex != $scope.BGDatas.length - 1;
+      return $scope.BGDatas.length > 0 && $scope.bgIndex != $scope.BGDatas.length - 1;
     };
     $scope.showPreviousBgIndex = function () {
-      return $scope.bgIndex != $scope.BGDatas.length - 1;
+      return $scope.BGDatas.length > 0 && $scope.bgIndex != $scope.BGDatas.length - 1;
     };
     $scope.showNextBgIndex = function () {
-      return $scope.bgIndex != 0;
+      return $scope.BGDatas.length > 0 && $scope.bgIndex != 0;
     };
     $scope.showFirstBgIndex = function () {
-      return $scope.bgIndex != 0;
+      return $scope.BGDatas.length > 0 && $scope.bgIndex != 0;
     };
   });
