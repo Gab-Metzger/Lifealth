@@ -1,0 +1,87 @@
+<div class="patient row">
+  <div class="col-md-5">
+    <div class="panel panel-primary">
+      <!-- Default panel contents -->
+      <div class="panel-heading">
+        <div>
+          <span>Période</span>
+          <input
+            type="daterange"
+            ng-model="datesBG"
+            min-date="minDateRange"
+            max-date="maxDateRange"
+            format="DD/MM"
+            separator="--"
+            ranges="defaultRange">
+
+        </div>
+        <div>
+          <span>FILTRE</span>
+          <select ng-model="momentBG" ng-change="filter()" class="form-control" style="width: 160px;display: inline">
+            <option value="Aucun">Aucun</option>
+            <option value="A jeun">A Jeun</option>
+            <option value="Après petit-déjeuner">Après petit-déjeuner</option>
+            <option value="Avant repas du midi">Avant repas du midi</option>
+            <option value="Après repas du midi">Après repas du midi</option>
+            <option value="Avant repas du soir">Avant repas du soir</option>
+            <option value="Après repas du soir">Après repas du soir</option>
+          </select>
+        </div>
+      </div>
+      <table class="table table-hover" ng-if="!searchingBg">
+        <thead>
+        <tr>
+          <th>Date</th>
+          <th>Moment</th>
+          <th>Glycémie (mg/dl)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="BG in BGDatas[bgIndex]">
+          <td>{{BG.MDate}}</td>
+          <td>{{BG.DinnerSituation}}</td>
+          <td ng-style="momentColor(BG)">{{BG.BG}}</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="3">
+            <span ng-click="lastBgIndex()" ng-show="showLastBgIndex()" class="glyphicon glyphicon-step-backward left"></span>
+            <span ng-click="previousBgIndex()" ng-show="showPreviousBgIndex()" class="glyphicon glyphicon-backward left"></span>
+            <span ng-click="firstBgIndex()" ng-show="showFirstBgIndex()" class="glyphicon glyphicon-step-forward right"></span>
+            <span ng-click="nextBgIndex()" ng-show="showNextBgIndex()" class="glyphicon glyphicon-forward right"></span>
+            <span ng-bind="getBGDataLength()"></span>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+      <div class="loader" ng-if="searchingBg">
+        <img src="images/loader.gif"/>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-7">
+    <div class="col-md-offset-2">
+      <h4>Evolution de la glycémie capillaire sur la période sélectionnée (mg/dl)</h4>
+    </div>
+    <nvd3-line-chart
+      id="chartBG"
+      data="BGClassified"
+      showYAxis="true"
+      height="250"
+      xAxisTickFormat="xBGAxisTickFormat()"
+      tooltips="true"
+      stacked="true"
+      interactive="true">
+    </nvd3-line-chart>
+    <div class="col-md-offset-2">
+      <span>hba1c prévisionnelle : </span><span ng-bind="hba1c"> *</span>
+      <br/>
+      <small ng-if="currentUser.role !== 'DOCTOR'">*il s'agit d'une projection à partir de la moyenne de vos glycémies
+        sur la période sélectionnée. L'hba1c prévisionnelle est une information
+        qui vous permet de vous situer par rapport à l'objectif fixé par votre médecin.
+      </small>
+    </div>
+  </div>
+</div>
