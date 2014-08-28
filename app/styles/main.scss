@@ -87,6 +87,12 @@ body {
   transition-duration: 100ms;
 }
 
+.error {
+  font-size: 10pt;
+  color: #9a0005;
+  font-style: italic;
+}
+
 material-tab-label {
   font-size: 18pt;
 }
@@ -109,6 +115,15 @@ material-tab-label {
   cursor: pointer;
 }
 
+.table > tbody > tr > td {
+  padding: 8px;
+  line-height: 1.428571429;
+  vertical-align: middle;
+  border-top: 0px solid #dddddd;
+}
+.table > tbody + tbody {
+  border-top: 1px solid #dddddd;
+}
 .patient table th, .patient table td {
   text-align: center;
 }
@@ -129,14 +144,26 @@ material-tab-label {
 .patient table td input[name="MDate"] {
   width: 95px;
 }
+.patient table td input[name="MDate"].ng-invalid {
+  background-color: #FF6E6E;
+}
 .patient table td input[name="HP"] {
-  width: 40px;
+  width: 45px;
+}
+.patient table td input[name="HP"].ng-invalid {
+  background-color: #FF6E6E;
 }
 .patient table td input[name="LP"] {
-  width: 40px;
+  width: 45px;
+}
+.patient table td input[name="LP"].ng-invalid {
+  background-color: #FF6E6E;
 }
 .patient table td input[name="HR"] {
-  width: 30px;
+  width: 35px;
+}
+.patient table td input[name="HR"].ng-invalid {
+  background-color: #FF6E6E;
 }
 .patient table tbody td span {
   display: inline;

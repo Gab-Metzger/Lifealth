@@ -13,7 +13,7 @@
             format="DD/MM"
             separator="--"
             ranges="defaultRange">
-          <span class="glyphicon glyphicon-plus right" ng-click="addBPData()"></span>
+          <span class="glyphicon glyphicon-plus right" ng-click="addBPData()" ng-hide="editingBpData"></span>
         </div>
       </div>
       <table class="table table-hover" ng-if="!searchingBp">
@@ -25,8 +25,8 @@
           <th></th>
         </tr>
         </thead>
-        <tbody>
-        <tr ng-repeat="BP in BPDatas[bpIndex]" ng-switch="BP.manual">
+        <tbody ng-form="bpForm" ng-repeat="BP in BPDatas[bpIndex]">
+        <tr ng-switch="BP.manual">
           <td ng-switch-when="undefined">{{BP.MDate}}</td>
           <td ng-switch-when="undefined" ng-style="bgColor(BP)">{{BP.HP}}/{{BP.LP}}</td>
           <td ng-switch-when="undefined">{{BP.HR}}</td>
@@ -35,23 +35,28 @@
             <span class="glyphicon glyphicon-trash" ng-click="removeBPData(BP)"></span>
           </td>
           <td ng-switch-when="true">
-            <input name="MDate" type="text" ng-model="BP.MDate"/>
+            <input name="MDate" type="text" ng-model="BP.MDate" required/>
           </td>
           <td ng-switch-when="true">
-            <input name="HP" type="text" ng-model="BP.HP" mask="number"/> / <input name="LP" type="text" ng-model="BP.LP" mask="number"/>
+            <input name="HP" type="number" ng-model="BP.HP" min="60" max="250" required/> / <input name="LP" type="number" ng-model="BP.LP" min="40" max="130" required/>
           </td>
           <td ng-switch-when="true">
-            <input name="HR" type="text" ng-model="BP.HR" mask="number"/>
+            <input name="HR" type="number" ng-model="BP.HR" min="40" max="220" required/>
           </td>
           <td ng-switch-when="true">
             <span class="glyphicon glyphicon-ok" ng-click="validBPData(BP)"></span>
             <span class="glyphicon glyphicon-remove" ng-click="cancelBPData(BP)"></span>
           </td>
         </tr>
+        <tr ng-if="bpForm.$invalid && !bpForm.$pristine">
+          <td colspan="4">
+            <span ng-bind="errorMessage()" class="error"></span>
+          </td>
+        </tr>
         </tbody>
         <tfoot>
         <tr>
-          <td colspan="3">
+          <td colspan="4">
             <span ng-click="lastBpIndex()" ng-show="showLastBpIndex()"
                   class="glyphicon glyphicon-step-backward left"></span>
             <span ng-click="previousBpIndex()" ng-show="showPreviousBpIndex()"

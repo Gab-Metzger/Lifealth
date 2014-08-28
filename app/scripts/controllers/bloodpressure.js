@@ -44,6 +44,7 @@ angular.module('lifealthApp')
     };
 
     $scope.addBPData = function () {
+      $scope.editingBpData = true;
       if ($scope.BPDatas.length == 0) {
         $scope.BPDatas[0] = [];
       }
@@ -55,12 +56,15 @@ angular.module('lifealthApp')
     };
 
     $scope.validBPData = function (bp) {
-      PatientData.updateBpData(bp).then(function() {
-        bp.manual = undefined;
-        bp.edit = true;
-      }).catch(function(err) {
-        console.log('valid BP data error : '+err);
-      });
+      if (this.bpForm.$valid) {
+        PatientData.updateBpData(bp).then(function() {
+          bp.manual = undefined;
+          bp.edit = true;
+        }).catch(function(err) {
+          console.log('valid BP data error : '+err);
+        });
+        $scope.editingBpData = false;
+      }
     };
 
     $scope.cancelBPData = function (bp) {
@@ -70,11 +74,16 @@ angular.module('lifealthApp')
       } else {
         $scope.BPDatas[0].splice($scope.BPDatas[0].indexOf(bp), 1);
       }
+      $scope.editingBpData = false;
     };
 
     $scope.editBPData = function (bp) {
+      $scope.editingBpData = true;
       bp.manual = true;
       bp.edit = false;
+      bp.HP = +bp.HP;
+      bp.LP = +bp.LP;
+      bp.HR = +bp.HR;
     };
 
     $scope.removeBPData = function (bp) {
@@ -83,6 +92,21 @@ angular.module('lifealthApp')
       }).catch(function(err) {
         console.log('remove BP data error : ' +err);
       });
+    };
+
+    $scope.errorMessage = function () {
+      if (this.bpForm.MDate && this.bpForm.MDate.$invalid) {
+        return 'La date/heure doit renseignée au format DD/MM hh:mm';
+      }
+      if (this.bpForm.HP && this.bpForm.HP.$invalid) {
+        return 'La PAS doit être renseignée avec une valeur entre 60 et 250';
+      }
+      if (this.bpForm.LP && this.bpForm.LP.$invalid) {
+        return 'La PAD doit être renseignée avec une valeur entre 40 et 130';
+      }
+      if (this.bpForm.HR && this.bpForm.HR.$invalid) {
+        return 'La fréquence cardiaque doit être renseignée avec une valeur entre 40 et 220';
+      }
     };
 
     $scope.bpIndex = 0;
