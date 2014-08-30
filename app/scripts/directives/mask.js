@@ -1,21 +1,24 @@
 'use strict';
-angular.module('lifealthApp').directive('mask', function(){
+angular.module('lifealthApp').directive('mask', function () {
   return {
-    require: 'ngModel',
-    link: function(scope, element, attrs, modelCtrl) {
-      modelCtrl.$parsers.push(function (inputValue) {
-        // this next if is necessary for when using ng-required on your input.
-        // In such cases, when a letter is typed first, this parser will be called
-        // again, and the 2nd time, the value will be undefined
-        if (inputValue == undefined) return ''
-        var transformedInput = inputValue.replace(/[^0-9]/g, '');
-        if (transformedInput!=inputValue) {
-          modelCtrl.$setViewValue(transformedInput);
-          modelCtrl.$render();
-        }
-
-        return transformedInput;
-      });
+    restrict: 'A',
+    require: '?ngModel',
+    link: function (scope, element, attrs, modelCtrl) {
+      if (attrs.mask == 'date') {
+        element.mask("99/99/9999", {
+          completed: function () {
+            var date = this.val();
+            scope.$apply(function() {
+              var value = moment(date,'DD/MM/YYYY');
+              if (value.isValid()) {
+                modelCtrl.$setViewValue(value.unix());
+              } else {
+                modelCtrl.$setValidity('format', false);
+              }
+            });
+          }
+        });
+      }
     }
-  };
+  }
 });

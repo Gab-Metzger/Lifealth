@@ -87,6 +87,16 @@ body {
   transition-duration: 100ms;
 }
 
+material-radio-button {
+  font-size: 0.85em;
+  font-width: bold;
+  display: inline;
+}
+
+material-radio-button .material-on {
+  background-color: #4285F4;
+}
+
 .error {
   font-size: 10pt;
   color: #9a0005;
