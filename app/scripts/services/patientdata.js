@@ -119,6 +119,34 @@ angular.module('lifealthApp')
       }
     };
 
+    PatientData.getHTAValues = function(classifiedArray) {
+      var res = [];
+
+      for (var i = 0; i < 3; i++) {
+        res.push(classifiedArray[i+3][1]);
+      }
+      var mean = Math.round(((res[0]+res[1]+res[2])/3.0) * 10) / 10;
+      res.push(mean);
+
+      return res;
+    }
+
+    PatientData.getBpSmiley = function(htaArray) {
+        var smiley = '';
+
+        if ((htaArray[0] > 30.0 || htaArray[1] > 30.0 || htaArray[2] > 30.0) || htaArray[3] > 30.0) {
+          smiley = 'bad';
+        }
+        else if ((htaArray[0] > 15.0 || htaArray[1] > 15.0 || htaArray[2] > 15.0) || htaArray[3] > 15.0) {
+          smiley = 'bof';
+        }
+        else {
+          smiley = 'good';
+        }
+
+        return smiley;
+    }
+
     PatientData.updateBpData = function (bp) {
       var id = getID();
       if (id) {
