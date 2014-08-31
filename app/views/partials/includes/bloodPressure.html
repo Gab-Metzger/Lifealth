@@ -92,8 +92,16 @@
       color="color()">
       <svg></svg>
     </nvd3-discrete-bar-chart>
-    <div class="col-md-offset-10">
-      <h6>* Classification OMS</h6>
+    <div class="row">
+      <div class="col-md-offset-9 col-md-3">
+        <small>* Classification OMS</small>
+      </div>
+    </div>
+    <div ng-if="currentUser.role !== 'DOCTOR'" class="row">
+      <div class="col-md-12">
+        <img height="100" width="80" ng-src="{{smiley.img?('images/'+ smiley.img +'.png'):null}}">
+        <small>{{smiley.texte}}</small>
+      </div>
     </div>
   </div>
 </div>

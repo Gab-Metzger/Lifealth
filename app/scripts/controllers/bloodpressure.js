@@ -13,17 +13,28 @@ angular.module('lifealthApp')
       $scope.bpIndex = 0;
       $scope.BPDatas = [];
       $scope.BPClassified = [];
+      $scope.htaValues = [];
+      $scope.smiley = {
+        img: '',
+        texte: ''
+      };
       $scope.searchingBp = true;
       PatientData.getBPData(value.startDate, value.endDate)
         .then(function () {
           $scope.BPDatas = PatientData.bpData;
           $scope.BPClassified = PatientData.classifiedBpData;
+          $scope.smiley = PatientData.getBpSmiley(PatientData.getHTAValues($scope.BPClassified[0].values));
           $scope.searchingBp = false;
         })
         .catch(function (err) {
           $scope.bpIndex = 0;
           $scope.BPDatas = [];
           $scope.BPClassified = [];
+          $scope.htaValues = [];
+          $scope.smiley = {
+            img: '',
+            texte: ''
+          };
           $scope.searchingBp = false;
         });
     });

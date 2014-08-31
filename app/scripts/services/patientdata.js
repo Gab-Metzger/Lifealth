@@ -119,6 +119,40 @@ angular.module('lifealthApp')
       }
     };
 
+    PatientData.getHTAValues = function(classifiedArray) {
+      var res = [];
+
+      for (var i = 0; i < 3; i++) {
+        res.push(classifiedArray[i+3][1]);
+      }
+      var mean = Math.round(((res[0]+res[1]+res[2])/3.0) * 10) / 10;
+      res.push(mean);
+
+      return res;
+    }
+
+    PatientData.getBpSmiley = function(htaArray) {
+        var smiley = {
+          img: '',
+          texte: ''
+        };
+
+        if ((htaArray[0] > 30.0 || htaArray[1] > 30.0 || htaArray[2] > 30.0) || htaArray[3] > 30.0) {
+          smiley.img = 'bad';
+          smiley.texte = 'Attention ! Votre tension artérielle est très élevée, veuillez consulter votre medecin';
+        }
+        else if ((htaArray[0] > 15.0 || htaArray[1] > 15.0 || htaArray[2] > 15.0) || htaArray[3] > 15.0) {
+          smiley.img = 'bof';
+          smiley.texte = 'Dommage ! Votre tension artérielle n\'est pas bonne';
+        }
+        else {
+          smiley.img = 'good';
+          smiley.texte = 'Bravo ! Votre tension artérielle est correcte';
+        }
+
+        return smiley;
+    }
+
     PatientData.updateBpData = function (bp) {
       var id = getID();
       if (id) {
