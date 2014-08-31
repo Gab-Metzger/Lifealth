@@ -132,16 +132,22 @@ angular.module('lifealthApp')
     }
 
     PatientData.getBpSmiley = function(htaArray) {
-        var smiley = '';
+        var smiley = {
+          img: '',
+          texte: ''
+        };
 
         if ((htaArray[0] > 30.0 || htaArray[1] > 30.0 || htaArray[2] > 30.0) || htaArray[3] > 30.0) {
-          smiley = 'bad';
+          smiley.img = 'bad';
+          smiley.texte = 'Attention ! Votre tension artérielle est très élevée, veuillez consulter votre medecin';
         }
         else if ((htaArray[0] > 15.0 || htaArray[1] > 15.0 || htaArray[2] > 15.0) || htaArray[3] > 15.0) {
-          smiley = 'bof';
+          smiley.img = 'bof';
+          smiley.texte = 'Dommage ! Votre tension artérielle n\'est pas bonne';
         }
         else {
-          smiley = 'good';
+          smiley.img = 'good';
+          smiley.texte = 'Bravo ! Votre tension artérielle est correcte';
         }
 
         return smiley;

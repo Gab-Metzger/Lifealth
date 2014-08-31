@@ -14,7 +14,10 @@ angular.module('lifealthApp')
       $scope.BPDatas = [];
       $scope.BPClassified = [];
       $scope.htaValues = [];
-      $scope.smiley = '';
+      $scope.smiley = {
+        img: '',
+        texte: ''
+      };
       $scope.searchingBp = true;
       PatientData.getBPData(value.startDate, value.endDate)
         .then(function () {
@@ -28,7 +31,10 @@ angular.module('lifealthApp')
           $scope.BPDatas = [];
           $scope.BPClassified = [];
           $scope.htaValues = [];
-          $scope.smiley = '';
+          $scope.smiley = {
+            img: '',
+            texte: ''
+          };
           $scope.searchingBp = false;
         });
     });

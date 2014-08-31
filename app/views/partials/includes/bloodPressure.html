@@ -93,11 +93,12 @@
       <svg></svg>
     </nvd3-discrete-bar-chart>
     <div class="row">
-      <div class="col-md-2">
-        <img height="100" width="80" ng-src="{{smiley?('images/'+ smiley +'.png'):null}}">
+      <div class="col-md-9">
+        <img height="100" width="80" ng-src="{{smiley.img?('images/'+ smiley.img +'.png'):null}}">
+        <small>{{smiley.texte}}</small>
       </div>
-      <div class="col-md-offset-7 col-md-3">
-        <h6>* Classification OMS</h6>
+      <div class="col-md-3">
+        <small>* Classification OMS</small>
       </div>
     </div>
   </div>
