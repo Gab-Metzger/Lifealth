@@ -62,7 +62,7 @@ angular.module('lifealthApp')
         $scope.BPDatas[0] = [];
       }
       $scope.BPDatas[0].unshift({
-        MDate: moment.utc().format('DD/MM HH:mm'),
+        MDate: moment().format('DD/MM HH:mm'),
         manual: true,
         edit: false
       });

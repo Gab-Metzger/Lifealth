@@ -4,14 +4,14 @@
   <div class="col-sm-12 text-center">
     <h1>Enregistrement</h1>
   </div>
-  <div class="col-sm-12 login-panel">
+  <div class="col-sm-12 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4 login-panel">
     <material-whiteframe class="material-flex material-display-flex material-flex-center material-whiteframe-z2">
       <div class="material-flex">
         <form class="form" name="form" ng-submit="register(form)" novalidate>
 
           <div class="material-input-group material-input-group-theme-light">
             <label for="t1">Prénom</label>
-            <input id="t1" type="text" name="name" ng-model="user.firstName" required>
+            <input id="t1" type="text" name="firstName" ng-model="user.firstName" required>
 
             <p class="help-block" ng-show="form.firstName.$error.required && submitted">
               prénom obligatoire
@@ -19,12 +19,32 @@
           </div>
           <div class="material-input-group material-input-group-theme-light">
             <label for="t1b">Nom</label>
-            <input id="t1b" type="text" name="name" ng-model="user.lastName" required>
+            <input id="t1b" type="text" name="lastName" ng-model="user.lastName" required>
 
             <p class="help-block" ng-show="form.lastName.$error.required && submitted">
               nom obligatoire
             </p>
           </div>
+          <div class="material-input-group material-input-group-theme-light">
+            <label for="t1t">Date de naissance</label>
+            <input id="t1t" type="text" mask="date" name="dateofbirth" ng-model="user.dateofbirth" required>
+
+            <p class="help-block" ng-show="form.dateofbirth.$error.format && submitted">
+              format de date incorrect
+            </p>
+            <p class="help-block" ng-show="form.dateofbirth.$error.required && submitted">
+              date de naissance obligatoire
+            </p>
+          </div>
+
+          <material-radio-group ng-model="user.gender" required>
+            <material-radio-button>
+              <input type="radio" value="Male" name="gender">Homme</input>
+            </material-radio-button>
+            <material-radio-button>
+              <input type="radio" value="Female" name="gender">Femme</input>
+            </material-radio-button>
+          </material-radio-group>
 
           <div class="material-input-group material-input-group-theme-light"
                ng-class="{ 'has-success': form.email.$valid && submitted, 'has-error': form.email.$invalid && submitted }">
@@ -57,6 +77,7 @@
               {{ errors.password }}
             </p>
           </div>
+
 
           <div class="text-right">
             <button type="submit" class="material-button material-button-raised material-button-colored">Valider</button>

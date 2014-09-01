@@ -16,6 +16,8 @@ angular.module('lifealthApp')
         Auth.createUser({
           lastName: $scope.user.lastName,
           firstName: $scope.user.firstName,
+          gender: $scope.user.gender,
+          dateofbirth: $scope.user.dateofbirth,
           email: $scope.user.email,
           password: $scope.user.password,
           role: $scope.role
