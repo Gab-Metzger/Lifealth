@@ -25,7 +25,7 @@
               nom obligatoire
             </p>
           </div>
-          <div class="material-input-group material-input-group-theme-light">
+          <div class="material-input-group material-input-group-theme-light" ng-if="role == 'PATIENT'">
             <label for="t1t">Date de naissance</label>
             <input id="t1t" type="text" mask="date" name="dateofbirth" ng-model="user.dateofbirth" required>
 
@@ -37,7 +37,7 @@
             </p>
           </div>
 
-          <material-radio-group ng-model="user.gender" required>
+          <material-radio-group ng-model="user.gender" required ng-if="role == 'PATIENT'">
             <material-radio-button>
               <input type="radio" value="Male" name="gender">Homme</input>
             </material-radio-button>

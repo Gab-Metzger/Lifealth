@@ -23,7 +23,9 @@ angular.module('lifealthApp')
         .then(function () {
           $scope.BPDatas = PatientData.bpData;
           $scope.BPClassified = PatientData.classifiedBpData;
-          $scope.smiley = PatientData.getBpSmiley(PatientData.getHTAValues($scope.BPClassified[0].values));
+          if ($scope.BPClassified[0]) {
+            $scope.smiley = PatientData.getBpSmiley(PatientData.getHTAValues($scope.BPClassified[0].values));
+          }
           $scope.searchingBp = false;
         })
         .catch(function (err) {
@@ -70,11 +72,11 @@ angular.module('lifealthApp')
 
     $scope.validBPData = function (bp) {
       if (this.bpForm.$valid) {
-        PatientData.updateBpData(bp).then(function() {
+        PatientData.updateBpData(bp).then(function () {
           bp.manual = undefined;
           bp.edit = true;
-        }).catch(function(err) {
-          console.log('valid BP data error : '+err);
+        }).catch(function (err) {
+          console.log('valid BP data error : ' + err);
         });
         $scope.editingBpData = false;
       }
@@ -100,10 +102,10 @@ angular.module('lifealthApp')
     };
 
     $scope.removeBPData = function (bp) {
-      PatientData.removeBpData(bp).then(function() {
+      PatientData.removeBpData(bp).then(function () {
         $scope.BPDatas[0].splice($scope.BPDatas[0].indexOf(bp), 1);
-      }).catch(function(err) {
-        console.log('remove BP data error : ' +err);
+      }).catch(function (err) {
+        console.log('remove BP data error : ' + err);
       });
     };
 
