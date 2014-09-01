@@ -39,6 +39,8 @@ angular.module('lifealthApp')
         });
     });
 
+    $scope.msg = ':-)';
+
     $scope.getBPDataLength = function () {
       if (PatientData.bpLength == 0) {
         return 'aucune mesure trouvée';

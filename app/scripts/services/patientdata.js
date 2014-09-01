@@ -125,8 +125,8 @@ angular.module('lifealthApp')
       for (var i = 0; i < 3; i++) {
         res.push(classifiedArray[i+3][1]);
       }
-      var mean = Math.round(((res[0]+res[1]+res[2])/3.0) * 10) / 10;
-      res.push(mean);
+      var sum = (res[0]+res[1]+res[2]);
+      res.push(sum);
 
       return res;
     }
@@ -138,15 +138,15 @@ angular.module('lifealthApp')
         };
 
         if ((htaArray[0] > 30.0 || htaArray[1] > 30.0 || htaArray[2] > 30.0) || htaArray[3] > 30.0) {
-          smiley.img = 'bad';
+          smiley.img = ':(';
           smiley.texte = 'Attention ! Votre tension artérielle est très élevée, veuillez consulter votre medecin';
         }
         else if ((htaArray[0] > 15.0 || htaArray[1] > 15.0 || htaArray[2] > 15.0) || htaArray[3] > 15.0) {
-          smiley.img = 'bof';
+          smiley.img = ':)';
           smiley.texte = 'Dommage ! Votre tension artérielle n\'est pas bonne';
         }
         else {
-          smiley.img = 'good';
+          smiley.img = ':D';
           smiley.texte = 'Bravo ! Votre tension artérielle est correcte';
         }
 
@@ -203,6 +203,32 @@ angular.module('lifealthApp')
       }
     };
 
+    var hba1cArray = [
+      [[126,128],6.0], [[128,131],6.1], [[131,134],6.2], [[134,137],6.3],
+      [[137,140],6.4], [[140,143],6.5], [[143,146],6.6], [[146,148],6.7],
+      [[148,151],6.8], [[151,154],6.9], [[154,157],7.0], [[157,160],7.1],
+      [[160,163],7.2], [[163,166],7.3], [[166,169],7.4], [[169,171],7.5],
+      [[171,174],7.6], [[174,177],7.7], [[177,180],7.8], [[180,183],7.9],
+      [[183,186],8.0], [[186,189],8.1], [[189,192],8.2], [[192,194],8.3],
+      [[194,197],8.4], [[197,200],8.5], [[200,203],8.6], [[203,206],8.7],
+      [[206,209],8.8], [[209,212],8.9], [[212,214],9.0], [[214,217],9.1],
+      [[217,220],9.2], [[220,223],9.3], [[223,226],9.4], [[226,229],9.5],
+      [[229,232],9.6], [[232,235],9.7], [[235,237],9.8], [[237,240],9.9],
+      [[240,243],10.0]
+    ];
+
+    var calculHba1c = function(value,n) {
+      if ((n < 0) || (n >= hba1cArray.length)) {
+          return 'erreur';
+      }
+      else if ( (value >= hba1cArray[n][0][0]) && (value < hba1cArray[n][0][1])) {
+               return hba1cArray[n][1]+'%';
+      }
+      else {
+          return calculHba1c(value,n+1);
+      }
+    }
+
     PatientData.getBGData = function (from, to, momentFilter) {
       var id = getID();
       if (id) {
@@ -248,19 +274,7 @@ angular.module('lifealthApp')
               }
               //hba1c calcul
               var averageBG = sumBG / data.length;
-              if (averageBG < 120) {
-                PatientData.hba1c = 'hba1c < 6%';
-              } else if (120 >= averageBG && averageBG < 150) {
-                PatientData.hba1c = '6% < hba1c < 7%';
-              } else if (150 >= averageBG && averageBG < 180) {
-                PatientData.hba1c = '7% < hba1c < 8%';
-              } else if (180 >= averageBG && averageBG < 210) {
-                PatientData.hba1c = '8% < hba1c < 9%';
-              } else if (210 >= averageBG && averageBG < 240) {
-                PatientData.hba1c = '9% < hba1c < 10%';
-              } else if (240 >= averageBG) {
-                PatientData.hba1c = 'hba1c > 10%';
-              }
+              PatientData.hba1c = calculHba1c(averageBG,0);
               // moment filter
               if (momentFilter && (momentFilter !== 'Aucun')) {
                 PatientData.bgData = paginate(filterBgBy(momentFilter));

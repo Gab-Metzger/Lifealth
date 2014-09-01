@@ -269,3 +269,28 @@ material-toast {
         border-bottom: 0;
     }
 }
+
+/* Emoticons */
+
+div.container-emo {
+
+    display: inline-block;
+    cursor: pointer;
+}
+
+div.container-emo div {
+  height: 50px;
+  text-align: center;
+  width: 50px;
+  border: 3px solid #4285f4;
+  color: white;
+  background-color: #4285f4;
+  border-radius: 50%;
+  font-size: 24px;
+  font-family: "comic sans ms";
+  font-weight: bold;
+
+  transition: color .25s linear;
+  transition: border-color .25s linear;
+  transform: rotate(90deg);
+}
