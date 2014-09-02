@@ -143,7 +143,7 @@ angular.module('lifealthApp')
         }
         else if ((htaArray[0] > 15.0 || htaArray[1] > 15.0 || htaArray[2] > 15.0) || htaArray[3] > 15.0) {
           smiley.img = ':)';
-          smiley.texte = 'Dommage ! Votre tension artérielle n\'est pas bonne';
+          smiley.texte = 'Votre tension artérielle est presque bonne, continuez vos mesures !';
         }
         else {
           smiley.img = ':D';
