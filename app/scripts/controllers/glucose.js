@@ -18,6 +18,7 @@ angular.module('lifealthApp')
       PatientData.getBGData(value.startDate, value.endDate, $scope.momentBG).then(function () {
         $scope.BGDatas = PatientData.bgData;
         $scope.BGClassified = PatientData.classifiedBgData;
+        $scope.averageBG = PatientData.averageBG;
         $scope.hba1c = PatientData.hba1c;
         $scope.searchingBg = false;
       }).catch(function () {

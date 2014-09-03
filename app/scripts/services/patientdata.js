@@ -221,7 +221,13 @@ angular.module('lifealthApp')
 
     var calculHba1c = function (value, n) {
       if ((n < 0) || (n >= hba1cArray.length)) {
-        return 'erreur';
+        if (value < hba1cArray[0][0][0]) {
+          return 'inférieur à 6.0%';
+        }
+        else {
+          return 'supérieur à 10.0%';
+        }
+
       }
       else if ((value >= hba1cArray[n][0][0]) && (value < hba1cArray[n][0][1])) {
         return hba1cArray[n][1] + '%';
@@ -273,8 +279,8 @@ angular.module('lifealthApp')
                 //data[i].DinnerSituation = PatientData.MOMENTS[data[i].DinnerSituation];
               }
               //hba1c calcul
-              var averageBG = sumBG / data.length;
-              PatientData.hba1c = calculHba1c(averageBG, 0);
+              PatientData.averageBG = sumBG / data.length;
+              PatientData.hba1c = calculHba1c(PatientData.averageBG, 0);
               // moment filter
               if (momentFilter && (momentFilter !== 'Aucun')) {
                 PatientData.bgData = paginate(filterBgBy(momentFilter));
