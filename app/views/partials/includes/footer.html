@@ -1,9 +1,18 @@
 <div class="footer-mask"></div>
-<div class="footer text-center">
-    <div ng-if="currentUser.role !== 'DOCTOR'">
-      <p>Bandeau Patient !</p>
+<div class="footer">
+    <div ng-if="currentUser.role === 'PATIENT'">
+      <div class="col-md-12">
+        <small>Les tensimoètres BP5 de iHealth sont compatibles avec Lifealth Connect</small>
+      </div>
     </div>
     <div ng-if="currentUser.role === 'DOCTOR'">
-      <p>Bandeau Docteur !</p>
+      <div class="col-md-12">
+        <span>Compatible iHealth</span>
+        <img height="70" width="50" src="images/myvitals_blue.png" alt="iHealth MyVitals">
+        <img height="70" width="50" src="images/glucosmart.png" alt="iHealth GlucoSmart">
+      </div>
+    </div>
+    <div ng-if="currentUser.role !== 'PATIENT' && currentUser.role !== 'DOCTOR'" class="text-center">
+      <span>© 2014 Lifealth. All Rights Reserved</span>
     </div>
 </div>
