@@ -50,20 +50,22 @@ angular.module('lifealthApp')
     }
 
     PatientData.momentFilterBg = function (moment) {
-      if (moment == 'Aucun') {
+      if (moment == '') {
         return paginate(originalBgData);
       }
       return paginate(filterBgBy(moment));
     }
 
     function filterBgBy(moment) {
-      var res = [];
-      for (var i = 0; i < originalBgData.length; i++) {
-        if (originalBgData[i].DinnerSituation === moment) {
-          res.push(originalBgData[i]);
+      if (moment != '') {
+        var res = [];
+        for (var i = 0; i < originalBgData.length; i++) {
+          if (originalBgData[i].DinnerSituation === moment) {
+            res.push(originalBgData[i]);
+          }
         }
+        return res;
       }
-      return res;
     }
 
     PatientData.colors = ['rgb(1, 145, 60)', 'rgb(142, 194, 31)', 'rgb(255, 240, 2)', 'rgb(241, 150, 0)', 'rgb(233, 86, 19)', 'rgb(229, 1, 18)'];
@@ -119,38 +121,48 @@ angular.module('lifealthApp')
       }
     };
 
-    PatientData.getHTAValues = function(classifiedArray) {
+    PatientData.getHTAValues = function (classifiedArray) {
       var res = [];
 
       for (var i = 0; i < 3; i++) {
-        res.push(classifiedArray[i+3][1]);
+        res.push(classifiedArray[i + 3][1]);
       }
-      var sum = (res[0]+res[1]+res[2]);
+      var sum = (res[0] + res[1] + res[2]);
       res.push(sum);
 
       return res;
     }
 
-    PatientData.getBpSmiley = function(htaArray) {
-        var smiley = {
-          img: '',
-          texte: ''
-        };
+    PatientData.getBpSmiley = function (htaArray) {
+      var smiley = {
+        img: '',
+        texte: ''
+      };
 
-        if ((htaArray[0] > 30.0 || htaArray[1] > 30.0 || htaArray[2] > 30.0) || htaArray[3] > 30.0) {
-          smiley.img = ':(';
-          smiley.texte = 'Attention ! Votre tension artérielle est très élevée, veuillez consulter votre medecin';
-        }
-        else if ((htaArray[0] > 15.0 || htaArray[1] > 15.0 || htaArray[2] > 15.0) || htaArray[3] > 15.0) {
-          smiley.img = ':)';
-          smiley.texte = 'Votre tension artérielle est presque bonne, continuez vos mesures !';
-        }
-        else {
-          smiley.img = ':D';
-          smiley.texte = 'Bravo ! Votre tension artérielle est correcte';
-        }
+      if ((htaArray[0] > 30.0 || htaArray[1] > 30.0 || htaArray[2] > 30.0) || htaArray[3] > 30.0) {
+        smiley.img = ':(';
+        smiley.texte = 'Attention ! Votre tension artérielle est très élevée, veuillez consulter votre medecin';
+      }
+      else if ((htaArray[0] > 15.0 || htaArray[1] > 15.0 || htaArray[2] > 15.0) || htaArray[3] > 15.0) {
+        smiley.img = ':)';
+        smiley.texte = 'Votre tension artérielle est presque bonne, continuez vos mesures !';
+      }
+      else {
+        smiley.img = ':D';
+        smiley.texte = 'Bravo ! Votre tension artérielle est correcte';
+      }
 
-        return smiley;
+      return smiley;
+    }
+
+    function getID() {
+      if ($rootScope.currentUser) {
+        var id = $rootScope.currentUser.id;
+        if ($rootScope.currentUser.role == 'DOCTOR') {
+          id = $rootScope.currentUser.selectedPatientId;
+        }
+        return id;
+      }
     }
 
     PatientData.updateBpData = function (bp) {
@@ -170,16 +182,6 @@ angular.module('lifealthApp')
         return $http.delete('/api/users/' + id + '/bp/' + bp._id);
       }
     };
-
-    function getID() {
-      if ($rootScope.currentUser) {
-        var id = $rootScope.currentUser.id;
-        if ($rootScope.currentUser.role == 'DOCTOR') {
-          id = $rootScope.currentUser.selectedPatientId;
-        }
-        return id;
-      }
-    }
 
     PatientData.resetBpData = function (bp) {
       var id = getID();
@@ -204,30 +206,47 @@ angular.module('lifealthApp')
     };
 
     var hba1cArray = [
-      [[126,128],6.0], [[128,131],6.1], [[131,134],6.2], [[134,137],6.3],
-      [[137,140],6.4], [[140,143],6.5], [[143,146],6.6], [[146,148],6.7],
-      [[148,151],6.8], [[151,154],6.9], [[154,157],7.0], [[157,160],7.1],
-      [[160,163],7.2], [[163,166],7.3], [[166,169],7.4], [[169,171],7.5],
-      [[171,174],7.6], [[174,177],7.7], [[177,180],7.8], [[180,183],7.9],
-      [[183,186],8.0], [[186,189],8.1], [[189,192],8.2], [[192,194],8.3],
-      [[194,197],8.4], [[197,200],8.5], [[200,203],8.6], [[203,206],8.7],
-      [[206,209],8.8], [[209,212],8.9], [[212,214],9.0], [[214,217],9.1],
-      [[217,220],9.2], [[220,223],9.3], [[223,226],9.4], [[226,229],9.5],
-      [[229,232],9.6], [[232,235],9.7], [[235,237],9.8], [[237,240],9.9],
-      [[240,243],10.0]
+      [[126, 128], 6.0], [[128, 131], 6.1], [[131, 134], 6.2], [[134, 137], 6.3],
+      [[137, 140], 6.4], [[140, 143], 6.5], [[143, 146], 6.6], [[146, 148], 6.7],
+      [[148, 151], 6.8], [[151, 154], 6.9], [[154, 157], 7.0], [[157, 160], 7.1],
+      [[160, 163], 7.2], [[163, 166], 7.3], [[166, 169], 7.4], [[169, 171], 7.5],
+      [[171, 174], 7.6], [[174, 177], 7.7], [[177, 180], 7.8], [[180, 183], 7.9],
+      [[183, 186], 8.0], [[186, 189], 8.1], [[189, 192], 8.2], [[192, 194], 8.3],
+      [[194, 197], 8.4], [[197, 200], 8.5], [[200, 203], 8.6], [[203, 206], 8.7],
+      [[206, 209], 8.8], [[209, 212], 8.9], [[212, 214], 9.0], [[214, 217], 9.1],
+      [[217, 220], 9.2], [[220, 223], 9.3], [[223, 226], 9.4], [[226, 229], 9.5],
+      [[229, 232], 9.6], [[232, 235], 9.7], [[235, 237], 9.8], [[237, 240], 9.9],
+      [[240, 243], 10.0]
     ];
 
-    var calculHba1c = function(value,n) {
+    var calculHba1c = function (value, n) {
       if ((n < 0) || (n >= hba1cArray.length)) {
-          return 'erreur';
+        return 'erreur';
       }
-      else if ( (value >= hba1cArray[n][0][0]) && (value < hba1cArray[n][0][1])) {
-               return hba1cArray[n][1]+'%';
+      else if ((value >= hba1cArray[n][0][0]) && (value < hba1cArray[n][0][1])) {
+        return hba1cArray[n][1] + '%';
       }
       else {
-          return calculHba1c(value,n+1);
+        return calculHba1c(value, n + 1);
       }
-    }
+    };
+
+    PatientData.MOMENTS = {
+      'Before_breakfast': 'A jeun',
+      'After_breakfast': 'Après petit-déjeuner',
+      'Before_lunch': 'Avant repas du midi',
+      'After_lunch': 'Après repas du midi',
+      'Before_dinner': 'Avant repas du soir',
+      'After_dinner': 'Après repas du soir'
+    };
+    PatientData.MOMENTS2 = [
+      {value: 'Before_breakfast', label: 'A jeun', order: 1},
+      {value: 'After_breakfast', label: 'Après petit-déjeuner', order: 2},
+      {value: 'Before_lunch', label: 'Avant repas du midi', order: 3},
+      {value: 'After_lunch', label: 'Après repas du midi', order: 4},
+      {value: 'Before_dinner', label: 'Avant repas du soir', order: 5},
+      {value: 'After_dinner', label: 'Après repas du soir', order: 6}
+    ];
 
     PatientData.getBGData = function (from, to, momentFilter) {
       var id = getID();
@@ -251,30 +270,11 @@ angular.module('lifealthApp')
                 chartArray[i] = [data[i].MDate, data[i].BG];
                 sumBG += data[i].BG;
                 data[i].MDate = moment.utc(data[i].MDate, 'X').format('DD/MM HH:mm');
-                switch (data[i].DinnerSituation) {
-                  case 'Before_breakfast':
-                    data[i].DinnerSituation = 'A jeun';
-                    break;
-                  case 'After_breakfast':
-                    data[i].DinnerSituation = 'Après petit-déjeuner';
-                    break;
-                  case 'Before_lunch':
-                    data[i].DinnerSituation = 'Avant repas du midi';
-                    break;
-                  case 'After_lunch':
-                    data[i].DinnerSituation = 'Après repas du midi';
-                    break;
-                  case 'Before_dinner':
-                    data[i].DinnerSituation = 'Avant repas du soir';
-                    break;
-                  case 'After_dinner':
-                    data[i].DinnerSituation = 'Après repas du soir';
-                    break;
-                }
+                //data[i].DinnerSituation = PatientData.MOMENTS[data[i].DinnerSituation];
               }
               //hba1c calcul
               var averageBG = sumBG / data.length;
-              PatientData.hba1c = calculHba1c(averageBG,0);
+              PatientData.hba1c = calculHba1c(averageBG, 0);
               // moment filter
               if (momentFilter && (momentFilter !== 'Aucun')) {
                 PatientData.bgData = paginate(filterBgBy(momentFilter));
@@ -293,6 +293,34 @@ angular.module('lifealthApp')
           });
       } else {
         resetBg();
+      }
+    };
+
+    PatientData.updateBgData = function (bg) {
+      var id = getID();
+      if (id) {
+        bg.MDate = moment.utc(bg.MDate, 'DD/MM HH:mm').unix();
+        return $http.post('/api/users/' + id + '/bg', bg).success(function (data) {
+          bg.MDate = moment.utc(bg.MDate, 'X').format('DD/MM HH:mm');
+          bg._id = data;
+        });
+      }
+    };
+
+    PatientData.removeBgData = function (bg) {
+      var id = getID();
+      if (id) {
+        return $http.delete('/api/users/' + id + '/bg/' + bg._id);
+      }
+    };
+
+    PatientData.resetBgData = function (bg) {
+      var id = getID();
+      if (id) {
+        return $http.get('/api/users/' + id + '/bg/' + bg._id).success(function (data) {
+          data.MDate = moment.utc(data.MDate, 'X').format('DD/MM HH:mm');
+          angular.copy(data, bg);
+        });
       }
     };
 

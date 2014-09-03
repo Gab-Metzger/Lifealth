@@ -39,9 +39,78 @@ angular.module('lifealthApp')
       return PatientData.bgLength + ' mesure' + ((PatientData.bgLength > 1) ? 's' : '');
     };
 
+    $scope.addBGData = function () {
+      $scope.editingBgData = true;
+      if ($scope.BGDatas.length == 0) {
+        $scope.BGDatas[0] = [];
+      }
+      $scope.BGDatas[0].unshift({
+        MDate: moment().format('DD/MM HH:mm'),
+        manual: true,
+        edit: false
+      });
+    };
+
+    $scope.validBGData = function (bg) {
+      if (this.bgForm.$valid) {
+        PatientData.updateBgData(bg).then(function () {
+          bg.manual = undefined;
+          bg.edit = true;
+        }).catch(function (err) {
+          console.log('valid BG data error : ' + err);
+        });
+        $scope.editingBgData = false;
+      }
+    };
+
+    $scope.cancelBGData = function (bg) {
+      if (bg._id) {
+        bg.manual = undefined;
+        bg.edit = true;
+      } else {
+        $scope.BGDatas[0].splice($scope.BGDatas[0].indexOf(bg), 1);
+      }
+      $scope.editingBgData = false;
+    };
+
+    $scope.editBGData = function (bg) {
+      $scope.editingBgData = true;
+      bg.manual = true;
+      bg.edit = false;
+      bg.BG = +bg.BG;
+    };
+
+    $scope.removeBGData = function (bg) {
+      PatientData.removeBgData(bg).then(function () {
+        $scope.BGDatas[0].splice($scope.BGDatas[0].indexOf(bg), 1);
+      }).catch(function (err) {
+        console.log('remove BG data error : ' + err);
+      });
+    };
+
+    $scope.errorMessage = function () {
+      if (this.bgForm.MDate && this.bgForm.MDate.$invalid) {
+        return 'La date/heure doit être renseignée au format DD/MM hh:mm';
+      }
+      if (this.bgForm.DinnerSituation && this.bgForm.DinnerSituation.$invalid) {
+        return 'Le moment de mesure doit être renseigné';
+      }
+      if (this.bgForm.BG && this.bgForm.BG.$invalid) {
+        return 'Le taux de glycémie doit être renseigné avec une valeur entre 40 et 130 mg/dl';
+      }
+    };
+
+    $scope.moments = function() {
+      return PatientData.MOMENTS;
+    };
+
+    $scope.moment = function(bg) {
+      return PatientData.MOMENTS[bg.DinnerSituation];
+    };
+
     $scope.momentColor = function (bg) {
       var backgroundColor = 'black';
-      if (bg.DinnerSituation === 'A jeun' || bg.DinnerSituation === 'Avant repas du midi' || bg.DinnerSituation === 'Avant repas du soir') {
+      if (bg.DinnerSituation === 'Before_breakfast' || bg.DinnerSituation === 'Before_lunch' || bg.DinnerSituation === 'Before_dinner') {
         if (bg.BG <= 70) {
           backgroundColor = 'rgb(142, 194, 31)';
         }
@@ -55,7 +124,7 @@ angular.module('lifealthApp')
           backgroundColor = 'rgb(229, 1, 18)';
         }
       }
-      else if (bg.DinnerSituation === 'Après petit-déjeuner' || bg.DinnerSituation === 'Après repas du midi' || bg.DinnerSituation === 'Après repas du soir') {
+      else if (bg.DinnerSituation === 'After_breakfast' || bg.DinnerSituation === 'After_lunch' || bg.DinnerSituation === 'After_dinner') {
         if (bg.BG <= 140) {
           backgroundColor = 'rgb(142, 194, 31)';
         }

@@ -17,16 +17,11 @@
         </div>
         <div>
           <span>FILTRE</span>
-          <select ng-model="momentBG" ng-change="filter()" class="form-control" style="width: 160px;display: inline">
-            <option value="Aucun">Aucun</option>
-            <option value="A jeun">A Jeun</option>
-            <option value="Après petit-déjeuner">Après petit-déjeuner</option>
-            <option value="Avant repas du midi">Avant repas du midi</option>
-            <option value="Après repas du midi">Après repas du midi</option>
-            <option value="Avant repas du soir">Avant repas du soir</option>
-            <option value="Après repas du soir">Après repas du soir</option>
+          <select ng-model="momentBG" ng-change="filter()" class="form-control" style="width: 160px;display: inline" ng-options="k as v for (k, v) in moments()">
+            <option value="">Aucun</option>
           </select>
         </div>
+        <span class="glyphicon glyphicon-plus right" ng-click="addBGData()" ng-hide="editingBgData"></span>
       </div>
       <table class="table table-hover" ng-if="!searchingBg">
         <thead>
@@ -34,13 +29,37 @@
           <th>Date</th>
           <th>Moment</th>
           <th>Glycémie (mg/dl)</th>
+          <th></th>
         </tr>
         </thead>
-        <tbody>
-        <tr ng-repeat="BG in BGDatas[bgIndex]">
-          <td>{{BG.MDate}}</td>
-          <td>{{BG.DinnerSituation}}</td>
-          <td ng-style="momentColor(BG)">{{BG.BG}}</td>
+        <tbody ng-form="bgForm" ng-repeat="BG in BGDatas[bgIndex]">
+        <tr ng-switch="BG.manual">
+          <td ng-switch-when="undefined">{{BG.MDate}}</td>
+          <td ng-switch-when="undefined" ng-bind="moment(BG)"></td>
+          <td ng-switch-when="undefined" ng-style="momentColor(BG)">{{BG.BG}}</td>
+          <td ng-switch-when="undefined" ng-show="BG._id">
+            <span class="glyphicon glyphicon-pencil" ng-click="editBGData(BG)"></span>
+            <span class="glyphicon glyphicon-trash" ng-click="removeBGData(BG)"></span>
+          </td>
+          <td ng-switch-when="true">
+            <input name="MDate" type="text" ng-model="BG.MDate" required/>
+          </td>
+          <td ng-switch-when="true">
+            <select name="DinnerSituation" ng-model="BG.DinnerSituation" class="form-control" ng-options="k as v for (k, v) in moments()">
+            </select>
+          </td>
+          <td ng-switch-when="true">
+            <input name="BG" type="number" ng-model="BG.BG" min="20" max="600" required/>
+          </td>
+          <td ng-switch-when="true">
+            <span class="glyphicon glyphicon-ok" ng-click="validBGData(BG)"></span>
+            <span class="glyphicon glyphicon-remove" ng-click="cancelBGData(BG)"></span>
+          </td>
+        </tr>
+        <tr ng-if="bgForm.$invalid && !bgForm.$pristine">
+          <td colspan="4">
+            <span ng-bind="errorMessage()" class="error"></span>
+          </td>
         </tr>
         </tbody>
         <tfoot>
@@ -56,7 +75,7 @@
         </tfoot>
       </table>
       <div class="loader" ng-if="searchingBg">
-        <img src="/images/loader.gif"/>
+        <img src="images/loader.gif"/>
       </div>
     </div>
 
