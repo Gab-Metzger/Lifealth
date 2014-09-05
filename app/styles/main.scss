@@ -94,7 +94,7 @@ material-radio-button {
 }
 
 material-radio-button .material-on {
-  background-color: #4285F4;
+  background-color: #55acef;
 }
 
 .error {
@@ -109,8 +109,8 @@ material-tab-label {
 
 .patient .panel-primary > .panel-heading {
   color: white;
-  background-color: #4285f4;
-  border-color: #4285f4;
+  background-color: #55acef;
+  border-color: #55acef;
 }
 
 .patient .panel-primary > .panel-heading div {
@@ -221,6 +221,10 @@ material-tab-label {
   background-color: #ffffff;
 }
 
+.footer-text {
+  color: #55acef;
+}
+
 .footer-mask {
   height: 100px;
 }
@@ -292,9 +296,9 @@ div.container-emo div {
   height: 50px;
   text-align: center;
   width: 50px;
-  border: 3px solid #4285f4;
+  border: 3px solid #55acef;
   color: white;
-  background-color: #4285f4;
+  background-color: #55acef;
   border-radius: 50%;
   font-size: 24px;
   font-family: "comic sans ms";

@@ -68,7 +68,7 @@
 @include material-theme('grey', #f0f0f0, #e0e0e0, #a2a2a2, #636363, #252525);
 */
 .material-theme-light {
-  background-color: #4285f4 !important;
+  background-color: #55acef !important;
   color: #f1f1f1 !important; }
 
 .material-theme-light-blue {
@@ -104,9 +104,9 @@
   color: #f1f1f1 !important; }
 
 .material-input-group-theme-light.material-input-has-value input, .material-input-group-theme-light.material-input-focused input, .material-input-group-theme-light.material-input-has-value textarea, .material-input-group-theme-light.material-input-focused textarea{
-  border-color: #4285f4; }
+  border-color: #55acef; }
 .material-input-group-theme-light.material-input-has-value label, .material-input-group-theme-light.material-input-focused label {
-  color: #4285f4; }
+  color: #55acef; }
 
 .material-input-group-theme-light-blue.material-input-has-value input, .material-input-group-theme-light-blue.material-input-focused input {
   border-color: #03a9f4; }
@@ -309,8 +309,8 @@ material-icon {
   line-height: inherit;
   cursor: pointer; }
   .material-button.material-button-colored {
-    color: #4285f4;
-    fill: #4285f4; }
+    color: #55acef;
+    fill: #55acef; }
   .material-button:hover {
     background-color: #e4e4e4; }
   .material-button[disabled] {
@@ -325,7 +325,7 @@ material-icon {
     .material-button.material-button-raised:hover {
       background-color: #d6d6d6; }
     .material-button.material-button-raised.material-button-colored {
-      background-color: #4285f4;
+      background-color: #55acef;
       color: #fff; }
       .material-button.material-button-raised.material-button-colored:hover {
         background-color: #3367d6; }
@@ -857,7 +857,7 @@ material-toolbar {
 material-tabs {
   display: block;
   width: 100%;
-  background-color: #4285F4;
+  background-color: #55acef;
   font-weight: 500;
   font-size: 14px; }
   material-tabs .tabs-header {
@@ -869,7 +869,7 @@ material-tabs {
       display: -webkit-flex !important;
       display: flex !important;
       overflow: hidden;
-      background-color: #4285F4;
+      background-color: #55acef;
       white-space: nowrap;
       align-items: stretch; }
   material-tabs .tabs-content {
