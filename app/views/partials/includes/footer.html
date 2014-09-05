@@ -1,14 +1,16 @@
 <div class="footer-mask"></div>
 <div class="footer">
     <div ng-if="currentUser.role === 'PATIENT'">
-      <div class="col-md-12">
-        <small>Les tensimoètres BP5 de iHealth sont compatibles avec Lifealth Connect</small>
+      <div class="col-md-12 text-center">
+        <small class="footer-text">Simplifiez le partage de vos mesures avec iHealth</small>
+          <a href="http://ihealthlabs.fr/wireless-blood-pressure-monitor-feature_32.htm" target="_blank"><img src="images/bp5.png" alt="iHealth BP5"></a>
+          <a href="http://www.ihealthlabs.fr/wireless-smart-glucose-monitoring-system-bg5.htm" target="_blank"><img src="images/bg5.png" alt="iHealth BG5"></a>
       </div>
     </div>
     <div ng-if="currentUser.role === 'DOCTOR'">
-      <div class="col-md-12">
-        <span>Compatible iHealth</span>
-        <img height="70" width="50" src="images/myvitals_blue.png" alt="iHealth MyVitals">
+      <div class="col-md-12 text-center">
+        <small class="footer-text">Compatible iHealth</small>
+        <a href="http://www.ihealthlabs.fr/ihealth_myvitals_app.htm" target="_blank"><img height="70" width="50" src="images/myvitals_blue.png" alt="iHealth MyVitals"></a>
         <img height="70" width="50" src="images/glucosmart.png" alt="iHealth GlucoSmart">
       </div>
     </div>
