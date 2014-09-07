@@ -97,21 +97,24 @@ angular.module('lifealthApp')
         return 'Le moment de mesure doit être renseigné';
       }
       if (this.bgForm.BG && this.bgForm.BG.$invalid) {
-        return 'Le taux de glycémie doit être renseigné avec une valeur entre 40 et 130 mg/dl';
+        return 'Le taux de glycémie doit être renseigné avec une valeur entre 20 et 600 mg/dl';
       }
     };
 
     $scope.moments = function() {
-      return PatientData.MOMENTS;
+      return PatientData.MOMENTS;//.sort(function(a,b) {return a.order - b.order});
     };
 
     $scope.moment = function(bg) {
-      return PatientData.MOMENTS[bg.DinnerSituation];
+      for (var i=0; i<PatientData.MOMENTS.length; i++) {
+        if (PatientData.MOMENTS[i].value == bg.DinnerSituation) return PatientData.MOMENTS[i].label;
+      }
+      return null;
     };
 
     $scope.momentColor = function (bg) {
       var backgroundColor = 'black';
-      if (bg.DinnerSituation === 'Before_breakfast' || bg.DinnerSituation === 'Before_lunch' || bg.DinnerSituation === 'Before_dinner') {
+      if (bg.DinnerSituation === PatientData.MOMENTS[0].value || bg.DinnerSituation === PatientData.MOMENTS[2].value || bg.DinnerSituation === PatientData.MOMENTS[4].value) {
         if (bg.BG <= 70) {
           backgroundColor = 'rgb(142, 194, 31)';
         }
@@ -125,7 +128,7 @@ angular.module('lifealthApp')
           backgroundColor = 'rgb(229, 1, 18)';
         }
       }
-      else if (bg.DinnerSituation === 'After_breakfast' || bg.DinnerSituation === 'After_lunch' || bg.DinnerSituation === 'After_dinner') {
+      else if (bg.DinnerSituation === PatientData.MOMENTS[1].value || bg.DinnerSituation === PatientData.MOMENTS[3].value || bg.DinnerSituation === PatientData.MOMENTS[5].value) {
         if (bg.BG <= 140) {
           backgroundColor = 'rgb(142, 194, 31)';
         }

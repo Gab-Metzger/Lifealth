@@ -41,20 +41,20 @@ angular.module('lifealthApp')
       PatientData.bpLength = 0;
       PatientData.bpData = [];
       PatientData.classifiedBpData = [];
-    }
+    };
     var resetBg = function () {
       PatientData.bgLength = 0;
       PatientData.bgData = [];
       PatientData.classifiedBgData = [];
       PatientData.hba1c = '';
-    }
+    };
 
     PatientData.momentFilterBg = function (moment) {
-      if (moment == '') {
-        return paginate(originalBgData);
+      if (moment) {
+        return paginate(filterBgBy(moment));
       }
-      return paginate(filterBgBy(moment));
-    }
+      return paginate(originalBgData);
+    };
 
     function filterBgBy(moment) {
       if (moment != '') {
@@ -64,6 +64,7 @@ angular.module('lifealthApp')
             res.push(originalBgData[i]);
           }
         }
+        PatientData.bgLength = res.length;
         return res;
       }
     }
@@ -237,7 +238,7 @@ angular.module('lifealthApp')
       }
     };
 
-    PatientData.MOMENTS = {
+    PatientData.MOMENTS2 = {
       'Before_breakfast': 'A jeun',
       'After_breakfast': 'Après petit-déjeuner',
       'Before_lunch': 'Avant repas du midi',
@@ -245,7 +246,7 @@ angular.module('lifealthApp')
       'Before_dinner': 'Avant repas du soir',
       'After_dinner': 'Après repas du soir'
     };
-    PatientData.MOMENTS2 = [
+    PatientData.MOMENTS = [
       {value: 'Before_breakfast', label: 'A jeun', order: 1},
       {value: 'After_breakfast', label: 'Après petit-déjeuner', order: 2},
       {value: 'Before_lunch', label: 'Avant repas du midi', order: 3},

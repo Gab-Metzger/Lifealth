@@ -17,7 +17,7 @@
         </div>
         <div>
           <span>FILTRE</span>
-          <select ng-model="momentBG" ng-change="filter()" class="form-control" style="width: 160px;display: inline" ng-options="k as v for (k, v) in moments()">
+          <select ng-model="momentBG" ng-change="filter()" class="form-control" style="width: 160px;display: inline" ng-options="m.value as m.label for m in moments()">
             <option value="">Aucun</option>
           </select>
         </div>
@@ -45,7 +45,7 @@
             <input name="MDate" type="text" ng-model="BG.MDate" required/>
           </td>
           <td ng-switch-when="true">
-            <select name="DinnerSituation" ng-model="BG.DinnerSituation" class="form-control" ng-options="k as v for (k, v) in moments()">
+            <select name="DinnerSituation" ng-model="BG.DinnerSituation" class="form-control" ng-options="m.value as m.label for m in moments()">
             </select>
           </td>
           <td ng-switch-when="true">
