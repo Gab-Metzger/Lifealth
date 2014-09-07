@@ -5,6 +5,7 @@ angular.module('lifealthApp')
     $scope.user = {
       email: $location.search().email
     };
+    $scope.emailDisabled = false;
     $scope.errors = {};
     $scope.role = $rootScope.role;
     $scope.path = $rootScope.path;

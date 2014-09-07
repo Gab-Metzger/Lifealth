@@ -5,34 +5,24 @@ angular.module('lifealthApp').directive('mask', function () {
     require: '?ngModel',
     link: function (scope, element, attrs, modelCtrl) {
       if (attrs.mask == 'date') {
-        element.mask("99/99/9999", {
-          completed: function () {
-            console.log('completed');
-            var date = this.val();
-            scope.$apply(function() {
-              console.log('apply completed');
-              var value = moment(date,'DD/MM/YYYY');
-              if (value.isValid()) {
-                modelCtrl.$setViewValue(value.unix());
-              } else {
-                modelCtrl.$setValidity('format', false);
-              }
-            });
+        element.mask("99/99/9999");
+        modelCtrl.$parsers.push(function(date) {
+          var value = moment(date,'DD/MM/YYYY');
+          if (value.isValid()) {
+            modelCtrl.$setValidity('format', true);
+            return value.unix();
+          } else {
+            modelCtrl.$setValidity('format', false);
+            return modelCtrl.$modelValue;
           }
         });
-        element.blur(function() {
-          console.log('blur');
-          var date = this.value;
-          scope.$apply(function() {
-            console.log('apply blur');
-            var value = moment(date,'DD/MM/YYYY');
-            if (value.isValid()) {
-              modelCtrl.$setViewValue(value.unix());
-            } else {
-              modelCtrl.$setValidity('format', false);
-            }
-          });
-        })
+        modelCtrl.$formatters.push(function(value) {
+          if (value) {
+            return moment.utc(value, 'X').format('DD/MM/YYYY');
+          } else {
+            return '';
+          }
+        });
       }
     }
   }

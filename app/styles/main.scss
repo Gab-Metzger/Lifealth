@@ -125,6 +125,16 @@ material-tab-label {
   cursor: pointer;
 }
 
+.provider input {
+  width: 70%;
+}
+.provider td {
+  padding: 0 20px;
+}
+.provider table span {
+  font-size: 38pt;
+}
+
 .table > tbody > tr > td {
   padding: 8px;
   line-height: 1.428571429;

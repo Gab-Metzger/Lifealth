@@ -348,5 +348,13 @@ angular.module('lifealthApp')
       }
     };
 
+    PatientData.unlink = function(provider) {
+      return $http.get('/api/users/'+$rootScope.currentUser.id+'/unlink');
+    };
+
+    PatientData.getDoctors = function() {
+      return $http.get('/api/users/'+$rootScope.currentUser.id+'/doctors');
+    }
+
     return PatientData;
   });

@@ -1,12 +1,18 @@
 <material-toolbar class="material-theme-light">
   <div class="material-toolbar-tools" ng-switch="$root.currentUser.role">
     <span class="glyphicon glyphicon-list" ng-click="goBack()" ng-switch-when="DOCTOR"></span>
+
     <div class="material-flex">
       <span ng-bind="patientName()"></span>
       <br>
       <span ng-bind="patientAge()"></span>
     </div>
     <span class="material-flex">Lifealth Connect</span>
-    <span class="glyphicon glyphicon-log-out" ng-click="logout()" ng-show="$root.currentUser" ng-switch-when="PATIENT"></span>
+
+    <div ng-switch-when="PATIENT" ng-show="$root.currentUser">
+      <span class="glyphicon glyphicon-cog" ng-click="openSettings()" ng-if="!onSettings"></span>
+      <span class="glyphicon glyphicon-inbox" ng-click="openMedicalRecord()" ng-if="!onMedicalRecord"></span>
+      <span class="glyphicon glyphicon-log-out" ng-click="logout()"></span>
+    </div>
   </div>
 </material-toolbar>

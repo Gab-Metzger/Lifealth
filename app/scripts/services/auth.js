@@ -2,7 +2,7 @@
 
 angular.module('lifealthApp')
   .factory('Auth', function Auth($location, $rootScope, Session, User, $cookieStore) {
-    
+
     // Get currentUser from cookie
     $rootScope.currentUser = $cookieStore.get('user') || null;
     $cookieStore.remove('user');
@@ -11,10 +11,10 @@ angular.module('lifealthApp')
 
       /**
        * Authenticate user
-       * 
+       *
        * @param  {Object}   user     - login info
        * @param  {Function} callback - optional
-       * @return {Promise}            
+       * @return {Promise}
        */
       login: function(user, callback) {
         var cb = callback || angular.noop;
@@ -33,9 +33,9 @@ angular.module('lifealthApp')
 
       /**
        * Unauthenticate user
-       * 
+       *
        * @param  {Function} callback - optional
-       * @return {Promise}           
+       * @return {Promise}
        */
       logout: function(callback) {
         var cb = callback || angular.noop;
@@ -51,10 +51,10 @@ angular.module('lifealthApp')
 
       /**
        * Create a new user
-       * 
+       *
        * @param  {Object}   user     - user info
        * @param  {Function} callback - optional
-       * @return {Promise}            
+       * @return {Promise}
        */
       createUser: function(user, callback) {
         var cb = callback || angular.noop;
@@ -70,20 +70,15 @@ angular.module('lifealthApp')
       },
 
       /**
-       * Change password
-       * 
-       * @param  {String}   oldPassword 
-       * @param  {String}   newPassword 
-       * @param  {Function} callback    - optional
-       * @return {Promise}              
+       * Update user
+       *
+       * @param  {Object}   user
+       * @return {Promise}
        */
-      changePassword: function(oldPassword, newPassword, callback) {
+      updateUser: function(user, callback) {
         var cb = callback || angular.noop;
 
-        return User.update({
-          oldPassword: oldPassword,
-          newPassword: newPassword
-        }, function(user) {
+        return User.update(user, function(user) {
           return cb(user);
         }, function(err) {
           return cb(err);
@@ -92,7 +87,7 @@ angular.module('lifealthApp')
 
       /**
        * Gets all available info on authenticated user
-       * 
+       *
        * @return {Object} user
        */
       currentUser: function() {
@@ -101,7 +96,7 @@ angular.module('lifealthApp')
 
       /**
        * Simple check to see if a user is logged in
-       * 
+       *
        * @return {Boolean}
        */
       isPatientLoggedIn: function() {

@@ -1,0 +1,59 @@
+<div class="row provider" ng-controller="SettingsCtrl" ng-init="fetchDoctors()">
+  <div class="col-md-4">
+    <h2>Mes informations</h2>
+    <form class="form" name="form" ng-submit="update(form)" novalidate>
+      <div ng-include="'partials/patientForm.html'"></div>
+      <!--<div class="material-input-group material-input-group-theme-light">
+        <label for="t3">Mot de passe actuel</label>
+        <input id="t3" type="password" name="password" ng-model="user.password" mongoose-error>
+
+        <p class="help-block" ng-show="form.password.$error.mongoose">
+          {{ errors.password }}
+        </p>
+      </div>
+      <div class="material-input-group material-input-group-theme-light">
+        <label for="tp">Confirmer le mot de passe</label>
+        <input id="tp" type="password" name="newPassword" ng-model="user.newPassword" required ng-minlength="3">
+
+        <p class="help-block"
+           ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)">
+          mot de passe au minimun de 3 caractères
+        </p>
+      </div>-->
+      <div class="text-right">
+        <button type="submit" class="material-button material-button-raised material-button-colored">Modifier</button>
+      </div>
+
+    </form>
+
+  </div>
+  <div class="col-md-4">
+    <h2>Mes médecins</h2>
+    <div ng-repeat="r in doctors">
+      <span ng-bind="r.firstName+' '+r.lastName"></span>
+      <a ng-click="deleteDoctor(r)"><span class="glyphicon glyphicon-trash"></span></a>
+    </div>
+
+  </div>
+  <div class="col-md-4">
+    <h2>Mes services</h2>
+    <table>
+      <tr ng-if="$root.currentUser.provider == 'iHealth'">
+        <td>
+          <a ng-click="unlink('iHealth')"><span class="glyphicon glyphicon-resize-full"></span></a>
+        </td>
+        <td>
+          <a ng-click="unlink('iHealth')"><img src="images/iHealth.png" alt="iHealth"></a>
+        </td>
+      </tr>
+      <tr ng-if="!$root.currentUser.provider">
+        <td>
+          <a href="/auth/iHealth"><span class="glyphicon glyphicon-resize-small"></span></a>
+        </td>
+        <td>
+          <a href="/auth/iHealth"><img src="images/iHealth.png" alt="iHealth"></a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

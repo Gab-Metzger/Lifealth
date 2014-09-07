@@ -38,17 +38,5 @@
     </material-item>
   </material-list>
 </material-sidenav>-->
-  <material-tabs selected="selectedIndex" center>
-    <material-tab label="Pression artérielle"></material-tab>
-    <material-tab label="Glycémie"></material-tab>
-  </material-tabs>
-  <div ng-switch="selectedIndex">
-    <div ng-switch-when="0">
-      <div ng-include="'partials/includes/bloodPressure.html'"></div>
-    </div>
-    <div ng-switch-when="1">
-      <div ng-include="'partials/includes/glucose.html'"></div>
-    </div>
-  </div>
-
+<div ng-include="patientContent"></div>
 <div ng-include="'partials/includes/footer.html'" ng-controller="PatientCtrl"></div>

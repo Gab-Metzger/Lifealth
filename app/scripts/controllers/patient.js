@@ -8,6 +8,20 @@ angular.module('lifealthApp')
       $scope.patientInfos = PatientData.infos;
     });
 
+    $scope.patientContent = 'partials/medicalRecord.html';
+    $scope.onSettings = false;
+    $scope.onMedicalRecord = true;
+    $scope.openSettings = function () {
+      $scope.patientContent = 'partials/patientSettings.html';
+      $scope.onSettings = true;
+      $scope.onMedicalRecord = false;
+    };
+    $scope.openMedicalRecord = function () {
+      $scope.patientContent = 'partials/medicalRecord.html';
+      $scope.onSettings = false;
+      $scope.onMedicalRecord = true;
+    };
+
     $scope.logout = function () {
       Auth.logout()
         .then(function () {
