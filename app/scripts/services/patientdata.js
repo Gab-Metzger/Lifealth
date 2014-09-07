@@ -53,6 +53,7 @@ angular.module('lifealthApp')
       if (moment) {
         return paginate(filterBgBy(moment));
       }
+      PatientData.bgLength = originalBgData.length;
       return paginate(originalBgData);
     };
 
