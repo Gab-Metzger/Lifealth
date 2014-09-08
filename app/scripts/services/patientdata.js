@@ -274,12 +274,12 @@ angular.module('lifealthApp')
               var sumBG = 0;
               for (var i = 0; i < data.length; i++) {
                 chartArray[i] = [data[i].MDate, data[i].BG];
-                sumBG += data[i].BG;
+                sumBG += parseInt(data[i].BG);
                 data[i].MDate = moment.utc(data[i].MDate, 'X').format('DD/MM HH:mm');
                 //data[i].DinnerSituation = PatientData.MOMENTS[data[i].DinnerSituation];
               }
               //hba1c calcul
-              PatientData.averageBG = sumBG / data.length;
+              PatientData.averageBG = sumBG / originalBgData.length;
               PatientData.hba1c = calculHba1c(PatientData.averageBG, 0);
               // moment filter
               if (momentFilter && (momentFilter !== 'Aucun')) {
