@@ -22,11 +22,11 @@ angular.module('lifealthApp')
         .then(function () {
           $scope.BPDatas = PatientData.bpData;
           $scope.BPClassified = PatientData.classifiedBpData;
-          if ($scope.BPClassified[0]) {
+          $scope.bpLength = PatientData.bpLength;
+          if (($scope.BPClassified[0]) && ($scope.bpLength > 10)) {
             $scope.smiley = PatientData.getBpSmiley(PatientData.getHTAValues($scope.BPClassified[0].values));
           }
           $scope.searchingBp = false;
-          $scope.bpLength = PatientData.bpLength;
         })
         .catch(function (err) {
           $scope.bpIndex = 0;
