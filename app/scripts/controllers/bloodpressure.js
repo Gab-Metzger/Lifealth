@@ -13,7 +13,6 @@ angular.module('lifealthApp')
       $scope.bpIndex = 0;
       $scope.BPDatas = [];
       $scope.BPClassified = [];
-      $scope.htaValues = [];
       $scope.smiley = {
         img: '',
         texte: ''
@@ -23,16 +22,16 @@ angular.module('lifealthApp')
         .then(function () {
           $scope.BPDatas = PatientData.bpData;
           $scope.BPClassified = PatientData.classifiedBpData;
-          if ($scope.BPClassified[0] && $scope.BPClassified[0].values.length > 10) {
+          if ($scope.BPClassified[0]) {
             $scope.smiley = PatientData.getBpSmiley(PatientData.getHTAValues($scope.BPClassified[0].values));
           }
           $scope.searchingBp = false;
+          $scope.bpLength = PatientData.bpLength;
         })
         .catch(function (err) {
           $scope.bpIndex = 0;
           $scope.BPDatas = [];
           $scope.BPClassified = [];
-          $scope.htaValues = [];
           $scope.smiley = {
             img: '',
             texte: ''
@@ -41,12 +40,11 @@ angular.module('lifealthApp')
         });
     });
 
-    $scope.msg = ':-)';
-
     $scope.getBPDataLength = function () {
       if (PatientData.bpLength == 0) {
         return 'aucune mesure trouvée';
       }
+      console.log(PatientData.bpLength);
       return PatientData.bpLength + ' mesure' + ((PatientData.bpLength > 1) ? 's' : '');
     };
 

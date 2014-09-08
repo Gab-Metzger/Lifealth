@@ -139,11 +139,11 @@ angular.module('lifealthApp')
         texte: ''
       };
 
-      if ((htaArray[0] > 30.0 || htaArray[1] > 30.0 || htaArray[2] > 30.0) || htaArray[3] > 30.0) {
+      if (((htaArray[0] > 30.0) || (htaArray[1] > 30.0) || (htaArray[2] > 30.0)) || (htaArray[3] > 30.0)) {
         smiley.img = ':(';
         smiley.texte = 'Attention ! Votre tension artérielle est très élevée, veuillez consulter votre medecin';
       }
-      else if ((htaArray[0] > 15.0 || htaArray[1] > 15.0 || htaArray[2] > 15.0) || htaArray[3] > 15.0) {
+      else if (((htaArray[0] > 15.0) || (htaArray[1] > 15.0) || (htaArray[2] > 15.0)) || (htaArray[3] > 15.0)) {
         smiley.img = ':)';
         smiley.texte = 'Votre tension artérielle est presque bonne, continuez vos mesures !';
       }
