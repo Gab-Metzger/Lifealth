@@ -294,31 +294,6 @@ material-toast {
     }
 }
 
-/* Emoticons */
-
-div.container-emo {
-
-    display: inline-block;
-    cursor: pointer;
-}
-
-div.container-emo div {
-  height: 50px;
-  text-align: center;
-  width: 50px;
-  border: 3px solid #55acef;
-  color: white;
-  background-color: #55acef;
-  border-radius: 50%;
-  font-size: 24px;
-  font-family: "comic sans ms";
-  font-weight: bold;
-
-  transition: color .25s linear;
-  transition: border-color .25s linear;
-  transform: rotate(90deg);
-}
-
 .image-login {
   margin-top: 40px;
 }
