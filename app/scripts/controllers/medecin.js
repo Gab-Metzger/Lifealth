@@ -57,6 +57,19 @@ angular.module('lifealthApp')
           });
       }
     };
+    $scope.reInvite = function (u) {
+      $http.get('/api/doctors/'+$rootScope.currentUser.id+'/invites/'+ u._id)
+        .success(function(data) {
+          $materialToast({
+            template: 'Invitation renvoyée avec succès',
+            duration: 2000,
+            position: 'bottom right'
+          });
+        })
+        .error(function(data) {
+          console.log(data);
+        });
+    };
     $scope.goToRecord = function (r) {
       $rootScope.currentUser.selectedPatientId = r._id;
       $location.path('/patient');

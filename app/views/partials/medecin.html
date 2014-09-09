@@ -25,40 +25,51 @@
       <div class="caption">
         <form ng-submit="addRecord()" name="form" novalidate>
           <h4>INVITER UN PATIENT</h4>
+
           <div class="material-input-group material-input-group-theme-light">
             <label for="t2">Prénom</label>
-            <input id="t2" type="text" name="firstName" ng-model="firstName" ng-model-options="{ updateOn: 'blur' }" required>
+            <input id="t2" type="text" name="firstName" ng-model="firstName" ng-model-options="{ updateOn: 'blur' }"
+                   required>
+
             <p ng-show="form.email.$dirty && form.firstName.$error.required">obligatoire</p>
           </div>
           <div class="material-input-group material-input-group-theme-light">
             <label for="t3">Nom</label>
-            <input id="t3" type="text" name="lastName" ng-model="lastName" ng-model-options="{ updateOn: 'blur' }" required>
+            <input id="t3" type="text" name="lastName" ng-model="lastName" ng-model-options="{ updateOn: 'blur' }"
+                   required>
+
             <p ng-show="form.email.$dirty && form.lastName.$error.required">obligatoire</p>
           </div>
           <div class="material-input-group material-input-group-theme-light">
             <label for="t4">Email</label>
             <input id="t4" type="email" name="email" ng-model="email" ng-model-options="{ updateOn: 'blur' }" required>
+
             <p ng-show="form.email.$dirty && form.email.$error.required">obligatoire</p>
+
             <p ng-show="form.email.$dirty && form.email.$invalid">email invalide</p>
           </div>
           <div class="material-input-group material-input-group-theme-light">
             <label for="t5">Message</label>
-            <textarea id="t5" style="width:100%; height: 250px;" name="notes" ng-model="notes" ng-model-options="{ updateOn: 'blur' }"></textarea>
+            <textarea id="t5" style="width:100%; height: 250px;" name="notes" ng-model="notes"
+                      ng-model-options="{ updateOn: 'blur' }"></textarea>
           </div>
-          <button class="material-button material-button-raised material-button-colored" type="submit" ng-disabled="form.$invalid">Envoyer l'invitation</button>
+          <button class="material-button material-button-raised material-button-colored" type="submit"
+                  ng-disabled="form.$invalid">Envoyer l'invitation
+          </button>
         </form>
       </div>
     </div>
-      <div class="caption" ng-if="invites.length > 0">
-          <span>Invitations en attente :</span>
-          <ul>
-              <li ng-repeat="u in invites">
-                  <span ng-bind="u.firstName"></span>
-                  <span ng-bind="u.lastName"></span>
-                  <a ng-click="deleteInvite(u)"><span class="glyphicon glyphicon-trash"></span></a>
-              </li>
-          </ul>
-      </div>
+    <div class="caption" ng-if="invites.length > 0">
+      <span>Invitations en attente :</span>
+      <ul>
+        <li ng-repeat="u in invites">
+          <span ng-bind="u.firstName"></span>
+          <span ng-bind="u.lastName"></span>
+          <a ng-click="deleteInvite(u)"><span class="glyphicon glyphicon-trash"></span></a>
+          <a ng-click="reInvite(u)"><span class="glyphicon glyphicon-refresh"></span></a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 
