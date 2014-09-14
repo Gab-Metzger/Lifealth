@@ -5,6 +5,12 @@ angular.module('lifealthApp')
 
     var PatientData = {};
 
+    /* ===================
+          BLOOD PRESSURE
+    ====================*/
+
+    var originalBpData = [];
+
     var getClassification = function (bp) {
       var result = 0;
       if ((bp.HP <= 120) && (bp.LP <= 80)) {
@@ -28,11 +34,6 @@ angular.module('lifealthApp')
       return result;
     };
 
-    var pagination = 6;
-    var originalBpData = [];
-    var originalBgData = [];
-    var momentFilter = null;
-
     PatientData.getColor = function (bp) {
       return PatientData.colors[getClassification(bp)];
     };
@@ -42,35 +43,40 @@ angular.module('lifealthApp')
       PatientData.bpData = [];
       PatientData.classifiedBpData = [];
     };
-    var resetBg = function () {
-      PatientData.bgLength = 0;
-      PatientData.bgData = [];
-      PatientData.classifiedBgData = [];
-      PatientData.hba1c = '';
-    };
 
-    PatientData.momentFilterBg = function (moment) {
-      if (moment) {
-        return paginate(filterBgBy(moment));
-      }
-      PatientData.bgLength = originalBgData.length;
-      return paginate(originalBgData);
-    };
+    PatientData.getHTAValues = function (classifiedArray) {
+      var res = [];
 
-    function filterBgBy(moment) {
-      if (moment != '') {
-        var res = [];
-        for (var i = 0; i < originalBgData.length; i++) {
-          if (originalBgData[i].DinnerSituation === moment) {
-            res.push(originalBgData[i]);
-          }
-        }
-        PatientData.bgLength = res.length;
-        return res;
+      for (var i = 0; i < 3; i++) {
+        res.push(classifiedArray[i + 3][1]);
       }
+      var sum = (res[0] + res[1] + res[2]);
+      res.push(sum);
+
+      return res;
     }
 
-    PatientData.colors = ['rgb(1, 145, 60)', 'rgb(142, 194, 31)', 'rgb(255, 240, 2)', 'rgb(241, 150, 0)', 'rgb(233, 86, 19)', 'rgb(229, 1, 18)'];
+    PatientData.getBpSmiley = function (htaArray) {
+      var smiley = {
+        img: '',
+        texte: ''
+      };
+
+      if (((htaArray[0] > 30.0) || (htaArray[1] > 30.0) || (htaArray[2] > 30.0)) || (htaArray[3] > 30.0)) {
+        smiley.img = ':(';
+        smiley.texte = 'Attention ! Votre tension artérielle est très élevée, veuillez consulter votre medecin';
+      }
+      else if (((htaArray[0] > 15.0) || (htaArray[1] > 15.0) || (htaArray[2] > 15.0)) || (htaArray[3] > 15.0)) {
+        smiley.img = ':)';
+        smiley.texte = 'Votre tension artérielle est presque bonne, continuez vos mesures !';
+      }
+      else {
+        smiley.img = ':D';
+        smiley.texte = 'Bravo ! Votre tension artérielle est correcte';
+      }
+
+      return smiley;
+    }
 
     PatientData.getBPData = function (from, to) {
       var id = getID();
@@ -123,50 +129,6 @@ angular.module('lifealthApp')
       }
     };
 
-    PatientData.getHTAValues = function (classifiedArray) {
-      var res = [];
-
-      for (var i = 0; i < 3; i++) {
-        res.push(classifiedArray[i + 3][1]);
-      }
-      var sum = (res[0] + res[1] + res[2]);
-      res.push(sum);
-
-      return res;
-    }
-
-    PatientData.getBpSmiley = function (htaArray) {
-      var smiley = {
-        img: '',
-        texte: ''
-      };
-
-      if (((htaArray[0] > 30.0) || (htaArray[1] > 30.0) || (htaArray[2] > 30.0)) || (htaArray[3] > 30.0)) {
-        smiley.img = ':(';
-        smiley.texte = 'Attention ! Votre tension artérielle est très élevée, veuillez consulter votre medecin';
-      }
-      else if (((htaArray[0] > 15.0) || (htaArray[1] > 15.0) || (htaArray[2] > 15.0)) || (htaArray[3] > 15.0)) {
-        smiley.img = ':)';
-        smiley.texte = 'Votre tension artérielle est presque bonne, continuez vos mesures !';
-      }
-      else {
-        smiley.img = ':D';
-        smiley.texte = 'Bravo ! Votre tension artérielle est correcte';
-      }
-
-      return smiley;
-    }
-
-    function getID() {
-      if ($rootScope.currentUser) {
-        var id = $rootScope.currentUser.id;
-        if ($rootScope.currentUser.role == 'DOCTOR') {
-          id = $rootScope.currentUser.selectedPatientId;
-        }
-        return id;
-      }
-    }
-
     PatientData.updateBpData = function (bp) {
       var id = getID();
       if (id) {
@@ -195,49 +157,90 @@ angular.module('lifealthApp')
       }
     };
 
-    var paginate = function (data) {
-      if (data.length > pagination) {
-        var finalList = [];
-        for (var i = 0; i < Math.floor(data.length / pagination) + 1; i++) {
-          finalList.push(data.slice(i * pagination, (i + 1) * pagination));
-        }
-        return finalList;
-      } else {
-        return [data];
-      }
+    /* ===================
+          BLOOD GLUCOSE
+    ====================*/
+
+    var originalBgData = [];
+    var momentFilter = null;
+
+    var resetBg = function () {
+      PatientData.bgLength = 0;
+      PatientData.bgData = [];
+      PatientData.classifiedBgData = [];
+      PatientData.hba1c = '';
     };
 
-    var hba1cArray = [
-      [[126, 128], 6.0], [[128, 131], 6.1], [[131, 134], 6.2], [[134, 137], 6.3],
-      [[137, 140], 6.4], [[140, 143], 6.5], [[143, 146], 6.6], [[146, 148], 6.7],
-      [[148, 151], 6.8], [[151, 154], 6.9], [[154, 157], 7.0], [[157, 160], 7.1],
-      [[160, 163], 7.2], [[163, 166], 7.3], [[166, 169], 7.4], [[169, 171], 7.5],
-      [[171, 174], 7.6], [[174, 177], 7.7], [[177, 180], 7.8], [[180, 183], 7.9],
-      [[183, 186], 8.0], [[186, 189], 8.1], [[189, 192], 8.2], [[192, 194], 8.3],
-      [[194, 197], 8.4], [[197, 200], 8.5], [[200, 203], 8.6], [[203, 206], 8.7],
-      [[206, 209], 8.8], [[209, 212], 8.9], [[212, 214], 9.0], [[214, 217], 9.1],
-      [[217, 220], 9.2], [[220, 223], 9.3], [[223, 226], 9.4], [[226, 229], 9.5],
-      [[229, 232], 9.6], [[232, 235], 9.7], [[235, 237], 9.8], [[237, 240], 9.9],
-      [[240, 243], 10.0]
-    ];
-
-    var calculHba1c = function (value, n) {
-      if ((n < 0) || (n >= hba1cArray.length)) {
-        if (value < hba1cArray[0][0][0]) {
-          return 'inférieur à 6.0%';
-        }
-        else {
-          return 'supérieur à 10.0%';
-        }
-
+    PatientData.momentFilterBg = function (moment) {
+      if (moment) {
+        return paginate(filterBgBy(moment));
       }
-      else if ((value >= hba1cArray[n][0][0]) && (value < hba1cArray[n][0][1])) {
-        return hba1cArray[n][1] + '%';
-      }
-      else {
-        return calculHba1c(value, n + 1);
-      }
+      PatientData.bgLength = originalBgData.length;
+      return paginate(originalBgData);
     };
+
+    function filterBgBy(moment) {
+      if (moment != '') {
+        var res = [];
+        for (var i = 0; i < originalBgData.length; i++) {
+          if (originalBgData[i].DinnerSituation === moment) {
+            res.push(originalBgData[i]);
+          }
+        }
+        PatientData.bgLength = res.length;
+        return res;
+      }
+    }
+
+    var getChart = function(data) {
+      var chartArray = [];
+
+      for (var i = 0; i < data.length; i++) {
+        chartArray[i] = [data[i].MDate, data[i].BG];
+      }
+
+      return chartArray;
+    }
+
+    var getHisto = function(data) {
+      var classified = [
+        ['Very low', 0],
+        ['Low', 0],
+        ['Normal', 0],
+        ['High', 0],
+        ['Very High', 0]
+      ];
+
+      for(var i = 0; i < data.length; i++) {
+        //console.log(PatientData.momentColor(data[i])[1]);
+        switch(PatientData.momentColor(data[i])[1]) {
+          case 'rgb(142, 194, 31)':
+            classified[0][1]++;
+          break;
+          case 'rgb(1, 145, 60)':
+            classified[1][1]++;
+          break;
+          case 'rgb(241, 150, 0)':
+            classified[2][1]++;
+          break;
+          case 'rgb(229, 1, 18)':
+            classified[3][1]++;
+          break;
+          case 'rgb(161,0,230)':
+            classified[4][1]++;
+          break;
+          default:
+            console.log('error color');
+        }
+      }
+
+      for (var i = 0; i < classified.length; i++) {
+        classified[i][1] = (classified[i][1] / data.length) * 100;
+        classified[i][1] = Math.round(classified[i][1] * 10) / 10;
+      }
+
+      return classified;
+    }
 
     PatientData.MOMENTS2 = {
       'Before_breakfast': 'A jeun',
@@ -256,6 +259,50 @@ angular.module('lifealthApp')
       {value: 'After_dinner', label: 'Après repas du soir', order: 6}
     ];
 
+    PatientData.moment = function(bg) {
+      for (var i=0; i<PatientData.MOMENTS.length; i++) {
+        if (PatientData.MOMENTS[i].value == bg.DinnerSituation) return PatientData.MOMENTS[i].label;
+      }
+      return null;
+    };
+
+    PatientData.momentColor = function (bg) {
+      var backgroundColor = 'black';
+      if (bg.DinnerSituation === PatientData.MOMENTS[0].value || bg.DinnerSituation === PatientData.MOMENTS[2].value || bg.DinnerSituation === PatientData.MOMENTS[4].value) {
+        if (bg.BG <= 70) {
+          backgroundColor = 'rgb(142, 194, 31)';
+        }
+        else if (bg.BG > 70 && bg.BG <= 110) {
+          backgroundColor = 'rgb(1, 145, 60)';
+        }
+        else if (bg.BG > 110 && bg.BG <= 120) {
+          backgroundColor = 'rgb(241, 150, 0)';
+        }
+        else if (bg.BG > 120) {
+          backgroundColor = 'rgb(229, 1, 18)';
+        }
+      }
+      else if (bg.DinnerSituation === PatientData.MOMENTS[1].value || bg.DinnerSituation === PatientData.MOMENTS[3].value || bg.DinnerSituation === PatientData.MOMENTS[5].value) {
+        if (bg.BG <= 140) {
+          backgroundColor = 'rgb(142, 194, 31)';
+        }
+        else if (bg.BG > 140 && bg.BG <= 180) {
+          backgroundColor = 'rgb(241, 150, 0)';
+        }
+        else if (bg.BG > 180) {
+          backgroundColor = 'rgb(229, 1, 18)';
+        }
+      }
+      else if (bg.BG >= 250) {
+        backgroundColor = 'rgb(161,0,230)';
+      }
+
+      return [{
+        'background-color': backgroundColor,
+        'color': 'white'
+      },backgroundColor];
+    };
+
     PatientData.getBGData = function (from, to, momentFilter) {
       var id = getID();
       if (id) {
@@ -265,17 +312,22 @@ angular.module('lifealthApp')
             if (originalBgData.length) {
               PatientData.bgLength = data.length;
               //Chart array
-              var chartArray = [];
-
+              var chartArray = getChart(data);
               PatientData.classifiedBgData = [
                 {
                   key: 'Glycémie capillaire (mg/dl)',
                   values: chartArray
                 }
               ];
+              var histoData = getHisto(data);
+              PatientData.histoBgData = [
+                {
+                  key: 'Seuils glycémique',
+                  values: histoData
+                }
+              ];
               var sumBG = 0;
               for (var i = 0; i < data.length; i++) {
-                chartArray[i] = [data[i].MDate, data[i].BG];
                 sumBG += parseInt(data[i].BG);
                 data[i].MDate = moment.utc(data[i].MDate, 'X').format('DD/MM HH:mm');
                 //data[i].DinnerSituation = PatientData.MOMENTS[data[i].DinnerSituation];
@@ -331,6 +383,70 @@ angular.module('lifealthApp')
         });
       }
     };
+
+    var hba1cArray = [
+      [[126, 128], 6.0], [[128, 131], 6.1], [[131, 134], 6.2], [[134, 137], 6.3],
+      [[137, 140], 6.4], [[140, 143], 6.5], [[143, 146], 6.6], [[146, 148], 6.7],
+      [[148, 151], 6.8], [[151, 154], 6.9], [[154, 157], 7.0], [[157, 160], 7.1],
+      [[160, 163], 7.2], [[163, 166], 7.3], [[166, 169], 7.4], [[169, 171], 7.5],
+      [[171, 174], 7.6], [[174, 177], 7.7], [[177, 180], 7.8], [[180, 183], 7.9],
+      [[183, 186], 8.0], [[186, 189], 8.1], [[189, 192], 8.2], [[192, 194], 8.3],
+      [[194, 197], 8.4], [[197, 200], 8.5], [[200, 203], 8.6], [[203, 206], 8.7],
+      [[206, 209], 8.8], [[209, 212], 8.9], [[212, 214], 9.0], [[214, 217], 9.1],
+      [[217, 220], 9.2], [[220, 223], 9.3], [[223, 226], 9.4], [[226, 229], 9.5],
+      [[229, 232], 9.6], [[232, 235], 9.7], [[235, 237], 9.8], [[237, 240], 9.9],
+      [[240, 243], 10.0]
+    ];
+
+    var calculHba1c = function (value, n) {
+      if ((n < 0) || (n >= hba1cArray.length)) {
+        if (value < hba1cArray[0][0][0]) {
+          return 'inférieur à 6.0%';
+        }
+        else {
+          return 'supérieur à 10.0%';
+        }
+
+      }
+      else if ((value >= hba1cArray[n][0][0]) && (value < hba1cArray[n][0][1])) {
+        return hba1cArray[n][1] + '%';
+      }
+      else {
+        return calculHba1c(value, n + 1);
+      }
+    };
+
+    /* ===================
+          GLOBAL
+    ====================*/
+
+
+
+    var pagination = 6;
+
+    var paginate = function (data) {
+      if (data.length > pagination) {
+        var finalList = [];
+        for (var i = 0; i < Math.floor(data.length / pagination) + 1; i++) {
+          finalList.push(data.slice(i * pagination, (i + 1) * pagination));
+        }
+        return finalList;
+      } else {
+        return [data];
+      }
+    };
+
+    PatientData.colors = ['rgb(1, 145, 60)', 'rgb(142, 194, 31)', 'rgb(255, 240, 2)', 'rgb(241, 150, 0)', 'rgb(233, 86, 19)', 'rgb(229, 1, 18)'];
+
+    function getID() {
+      if ($rootScope.currentUser) {
+        var id = $rootScope.currentUser.id;
+        if ($rootScope.currentUser.role == 'DOCTOR') {
+          id = $rootScope.currentUser.selectedPatientId;
+        }
+        return id;
+      }
+    }
 
     PatientData.infos = {};
 

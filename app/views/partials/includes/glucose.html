@@ -36,7 +36,7 @@
         <tr ng-switch="BG.manual">
           <td ng-switch-when="undefined">{{BG.MDate}}</td>
           <td ng-switch-when="undefined" ng-bind="moment(BG)"></td>
-          <td ng-switch-when="undefined" ng-style="momentColor(BG)">{{BG.BG}}</td>
+          <td ng-switch-when="undefined" ng-style="momentColor(BG)[0]">{{BG.BG}}</td>
           <td ng-switch-when="undefined" ng-show="BG._id">
             <span class="glyphicon glyphicon-pencil" ng-click="editBGData(BG)"></span>
             <span class="glyphicon glyphicon-trash" ng-click="removeBGData(BG)"></span>
@@ -80,27 +80,49 @@
     </div>
 
   </div>
-  <div class="col-md-7">
-    <div class="col-md-offset-2">
-      <h4>Evolution de la glycémie capillaire sur la période sélectionnée (mg/dl)</h4>
-    </div>
-    <nvd3-line-chart
-      id="chartBG"
-      data="BGClassified"
-      showYAxis="true"
-      height="250"
-      xAxisTickFormat="xBGAxisTickFormat()"
-      tooltips="true"
-      stacked="true"
-      interactive="true">
-    </nvd3-line-chart>
-    <div class="col-md-offset-2">
-      <span>hba1c prévisionnelle : </span><span ng-bind="hba1c"> *</span>
-      <br/>
-      <small ng-if="currentUser.role !== 'DOCTOR'">*il s'agit d'une projection à partir de la moyenne de vos glycémies
-        sur la période sélectionnée. L'hba1c prévisionnelle est une information
-        qui vous permet de vous situer par rapport à l'objectif fixé par votre médecin.
-      </small>
+  <div class="row">
+    <div class="col-md-7">
+      <div ng-if="currentPage === 1">
+        <div class="col-md-offset-2">
+          <h4>Evolution de la glycémie capillaire sur la période sélectionnée (mg/dl)</h4>
+        </div>
+        <nvd3-line-chart
+          id="chartBG"
+          data="BGClassified"
+          showYAxis="true"
+          height="250"
+          xAxisTickFormat="xBGAxisTickFormat()"
+          tooltips="true"
+          stacked="true"
+          interactive="true">
+        </nvd3-line-chart>
+      </div>
+      <div ng-if="currentPage === 2">
+        <div class="col-md-offset-2">
+          <h4>Seuils glycémiques</h4>
+        </div>
+        <nvd3-discrete-bar-chart
+          data="BGHisto"
+          id="histoBG"
+          height="250"
+          showYAxis="true"
+          showValues="true"
+          interactive="true"
+          useInteractiveGuideline="true"
+          xAxisTickFormat="xAxisTickFormat()"
+          color="color()">
+          <svg></svg>
+        </nvd3-discrete-bar-chart>
+      </div>
+      <pager total-items="24" previous-text="Précédent" next-text="Suivant" ng-model="currentPage"></pager>
+      <div class="col-md-12">
+        <span>hba1c prévisionnelle : </span><span ng-bind="hba1c"> *</span>
+        <br/>
+        <small ng-if="currentUser.role !== 'DOCTOR'">*il s'agit d'une projection à partir de la moyenne de vos glycémies
+          sur la période sélectionnée. L'hba1c prévisionnelle est une information
+          qui vous permet de vous situer par rapport à l'objectif fixé par votre médecin.
+        </small>
+      </div>
     </div>
   </div>
 </div>

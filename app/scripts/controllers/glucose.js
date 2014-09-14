@@ -9,29 +9,56 @@ angular.module('lifealthApp')
       'startDate': moment().subtract('days', 7),
       'endDate': moment()
     };
+    $scope.currentPage = 1;
+    $scope.maxPages = 3;
 
     $scope.$watch('datesBG', function (value) {
       $scope.BGDatas = [];
       $scope.BGClassified = [];
+      $scope.BGHisto = [];
       $scope.hba1c = '';
       $scope.searchingBg = true;
       PatientData.getBGData(value.startDate, value.endDate, $scope.momentBG).then(function () {
         $scope.BGDatas = PatientData.bgData;
         $scope.BGClassified = PatientData.classifiedBgData;
+        $scope.BGHisto = PatientData.histoBgData;
         $scope.averageBG = PatientData.averageBG;
         $scope.hba1c = PatientData.hba1c;
         $scope.searchingBg = false;
       }).catch(function () {
         $scope.BGDatas = [];
         $scope.BGClassified = [];
+        $scope.BGHisto = [];
         $scope.hba1c = '';
         $scope.searchingBg = false;
       });
     });
 
-    $scope.filter = function () {
+    $scope.$watch('momentBG', function (value) {
+      $scope.BGDatas = [];
+      $scope.BGClassified = [];
+      $scope.BGHisto = [];
+      $scope.hba1c = '';
+      $scope.searchingBg = true;
+      PatientData.getBGData($scope.datesBG.startDate, $scope.datesBG.endDate, value).then(function () {
+        $scope.BGDatas = PatientData.bgData;
+        $scope.BGClassified = PatientData.classifiedBgData;
+        $scope.BGHisto = PatientData.histoBgData;
+        $scope.averageBG = PatientData.averageBG;
+        $scope.hba1c = PatientData.hba1c;
+        $scope.searchingBg = false;
+      }).catch(function () {
+        $scope.BGDatas = [];
+        $scope.BGClassified = [];
+        $scope.BGHisto = [];
+        $scope.hba1c = '';
+        $scope.searchingBg = false;
+      });
+    });
+
+    /*$scope.filter = function () {
       $scope.BGDatas = PatientData.momentFilterBg($scope.momentBG);
-    };
+    };*/
 
     $scope.getBGDataLength = function () {
       if (PatientData.bgLength == 0) {
@@ -106,47 +133,11 @@ angular.module('lifealthApp')
     };
 
     $scope.moment = function(bg) {
-      for (var i=0; i<PatientData.MOMENTS.length; i++) {
-        if (PatientData.MOMENTS[i].value == bg.DinnerSituation) return PatientData.MOMENTS[i].label;
-      }
-      return null;
+      return PatientData.moment(bg);
     };
 
     $scope.momentColor = function (bg) {
-      var backgroundColor = 'black';
-      if (bg.DinnerSituation === PatientData.MOMENTS[0].value || bg.DinnerSituation === PatientData.MOMENTS[2].value || bg.DinnerSituation === PatientData.MOMENTS[4].value) {
-        if (bg.BG <= 70) {
-          backgroundColor = 'rgb(142, 194, 31)';
-        }
-        else if (bg.BG > 70 && bg.BG <= 110) {
-          backgroundColor = 'rgb(1, 145, 60)';
-        }
-        else if (bg.BG > 110 && bg.BG <= 120) {
-          backgroundColor = 'rgb(241, 150, 0)';
-        }
-        else if (bg.BG > 120) {
-          backgroundColor = 'rgb(229, 1, 18)';
-        }
-      }
-      else if (bg.DinnerSituation === PatientData.MOMENTS[1].value || bg.DinnerSituation === PatientData.MOMENTS[3].value || bg.DinnerSituation === PatientData.MOMENTS[5].value) {
-        if (bg.BG <= 140) {
-          backgroundColor = 'rgb(142, 194, 31)';
-        }
-        else if (bg.BG > 140 && bg.BG <= 180) {
-          backgroundColor = 'rgb(241, 150, 0)';
-        }
-        else if (bg.BG > 180) {
-          backgroundColor = 'rgb(229, 1, 18)';
-        }
-      }
-      else if (bg.BG >= 250) {
-        backgroundColor = 'rgb(161,0,230)';
-      }
-
-      return {
-        'background-color': backgroundColor,
-        'color': 'white'
-      };
+      return PatientData.momentColor(bg);
     };
 
     $scope.bgIndex = 0;

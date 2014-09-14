@@ -7,7 +7,8 @@ angular.module('lifealthApp', [
     'ngRoute',
     'ngMaterial',
     'nvd3ChartDirectives',
-    'ngBootstrap'
+    'ngBootstrap',
+    'ui.bootstrap'
   ])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
