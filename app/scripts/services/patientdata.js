@@ -326,6 +326,13 @@ angular.module('lifealthApp')
                   values: histoData
                 }
               ];
+              var histoMomentData = [];
+              PatientData.histoMomentBgData = [
+                {
+                  key: 'Seuils glycémique',
+                  values: histoMomentData
+                }
+              ];
               var sumBG = 0;
               for (var i = 0; i < data.length; i++) {
                 sumBG += parseInt(data[i].BG);

@@ -16,12 +16,14 @@ angular.module('lifealthApp')
       $scope.BGDatas = [];
       $scope.BGClassified = [];
       $scope.BGHisto = [];
+      $scope.BGMomentHisto = [];
       $scope.hba1c = '';
       $scope.searchingBg = true;
       PatientData.getBGData(value.startDate, value.endDate, $scope.momentBG).then(function () {
         $scope.BGDatas = PatientData.bgData;
         $scope.BGClassified = PatientData.classifiedBgData;
         $scope.BGHisto = PatientData.histoBgData;
+        $scope.BGMomentHisto = PatientData.histoMomentBgData;
         $scope.averageBG = PatientData.averageBG;
         $scope.hba1c = PatientData.hba1c;
         $scope.searchingBg = false;
@@ -29,6 +31,7 @@ angular.module('lifealthApp')
         $scope.BGDatas = [];
         $scope.BGClassified = [];
         $scope.BGHisto = [];
+        $scope.BGMomentHisto = [];
         $scope.hba1c = '';
         $scope.searchingBg = false;
       });
@@ -38,12 +41,14 @@ angular.module('lifealthApp')
       $scope.BGDatas = [];
       $scope.BGClassified = [];
       $scope.BGHisto = [];
+      $scope.BGMomentHisto = [];
       $scope.hba1c = '';
       $scope.searchingBg = true;
       PatientData.getBGData($scope.datesBG.startDate, $scope.datesBG.endDate, value).then(function () {
         $scope.BGDatas = PatientData.bgData;
         $scope.BGClassified = PatientData.classifiedBgData;
         $scope.BGHisto = PatientData.histoBgData;
+        $scope.BGMomentHisto = PatientData.histoMomentBgData;
         $scope.averageBG = PatientData.averageBG;
         $scope.hba1c = PatientData.hba1c;
         $scope.searchingBg = false;
@@ -51,6 +56,7 @@ angular.module('lifealthApp')
         $scope.BGDatas = [];
         $scope.BGClassified = [];
         $scope.BGHisto = [];
+        $scope.BGMomentHisto = [];
         $scope.hba1c = '';
         $scope.searchingBg = false;
       });

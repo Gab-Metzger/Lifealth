@@ -99,11 +99,28 @@
       </div>
       <div ng-if="currentPage === 2">
         <div class="col-md-offset-2">
-          <h4>Seuils glycémiques</h4>
+          <h4>Seuils glycémiques en fonction de la période</h4>
         </div>
         <nvd3-discrete-bar-chart
           data="BGHisto"
           id="histoBG"
+          height="250"
+          showYAxis="true"
+          showValues="true"
+          interactive="true"
+          useInteractiveGuideline="true"
+          xAxisTickFormat="xAxisTickFormat()"
+          color="color()">
+          <svg></svg>
+        </nvd3-discrete-bar-chart>
+      </div>
+      <div ng-if="currentPage === 3">
+        <div class="col-md-offset-2">
+          <h4>Seuils glycémiques en fonctions des moments de la journée</h4>
+        </div>
+        <nvd3-discrete-bar-chart
+          data="BGMomentHisto"
+          id="histoMomentBG"
           height="250"
           showYAxis="true"
           showValues="true"
