@@ -423,6 +423,8 @@ angular.module('lifealthApp')
       }
     };
 
+    PatientData.BGColors = ['rgb(142, 194, 31)','rgb(1, 145, 60)','rgb(241, 150, 0)','rgb(229, 1, 18)','rgb(161,0,230)'];
+
     /* ===================
           GLOBAL
     ====================*/
@@ -443,7 +445,8 @@ angular.module('lifealthApp')
       }
     };
 
-    PatientData.colors = ['rgb(1, 145, 60)', 'rgb(142, 194, 31)', 'rgb(255, 240, 2)', 'rgb(241, 150, 0)', 'rgb(233, 86, 19)', 'rgb(229, 1, 18)'];
+    PatientData.colors = ['rgb(1, 145, 60)', 'rgb(142, 194, 31)', 'rgb(255, 240, 2)', 'rgb(241, 50, 0)', 'rgb(233, 86, 19)', 'rgb(229, 1, 18)'];
+
 
     function getID() {
       if ($rootScope.currentUser) {

@@ -62,6 +62,10 @@ angular.module('lifealthApp')
       });
     });
 
+    $scope.BGColors = function() {
+      return PatientData.BGColors;
+    }
+
     /*$scope.filter = function () {
       $scope.BGDatas = PatientData.momentFilterBg($scope.momentBG);
     };*/
