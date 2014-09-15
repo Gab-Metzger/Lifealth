@@ -81,7 +81,7 @@ angular.module('lifealthApp')
     PatientData.getBPData = function (from, to) {
       var id = getID();
       if (id) {
-        return $http.get('/api/users/' + id + '/bp?from=' + from.unix() + '&to=' + to.unix())
+        return $http.get('/api/users/' + id + '/bp?from=' + from.hour(0).minute(0).second(0).unix() + '&to=' + to.hour(0).minute(0).second(0).unix())
           .success(function (data) {
             originalBpData = data;
 
@@ -306,7 +306,7 @@ angular.module('lifealthApp')
     PatientData.getBGData = function (from, to, momentFilter) {
       var id = getID();
       if (id) {
-        return $http.get('/api/users/' + id + '/bg?from=' + from.unix() + '&to=' + to.unix())
+        return $http.get('/api/users/' + id + '/bg?from=' + from.hour(0).minute(0).second(0).unix() + '&to=' + to.hour(0).minute(0).second(0).unix())
           .success(function (data) {
             originalBgData = data;
             if (originalBgData.length) {
