@@ -138,6 +138,11 @@
           qui vous permet de vous situer par rapport à l'objectif fixé par votre médecin.
         </small>
       </div>
+      <div ng-if="(currentUser.role === 'PATIENT') && (bgLength > 10)" class="row">
+        <div class="col-md-12">
+          <img height="100" width="80" ng-src="{{smiley.img?('images/'+ smiley.img +'.png'):null}}">
+          <small>{{smiley.texte}}</small>
+      </div>
     </div>
   </div>
 </div>

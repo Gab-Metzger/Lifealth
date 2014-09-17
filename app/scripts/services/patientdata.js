@@ -306,7 +306,6 @@ angular.module('lifealthApp')
         getPercentByColor(data,'rgb(229, 1, 18)'),
         getPercentByColor(data,'rgb(161,0,230)')
       ];
-      console.log(getPercentByColor(data,'rgb(142, 194, 31)'));
       for(var j = 0; j < 6; j++) {
         var sum = 0;
         for(var i = 0; i < 5; i++) {
@@ -317,8 +316,6 @@ angular.module('lifealthApp')
           res[i][j][1] = Math.round(res[i][j][1] * 10) / 10;
         }
       }
-
-      console.log(res);
 
       return res;
     }
@@ -513,6 +510,7 @@ angular.module('lifealthApp')
 
       }
       else if ((value >= hba1cArray[n][0][0]) && (value < hba1cArray[n][0][1])) {
+        PatientData.hba1cFloat = hba1cArray[n][1];
         return hba1cArray[n][1] + '%';
       }
       else {
@@ -521,6 +519,28 @@ angular.module('lifealthApp')
     };
 
     PatientData.BGColors = ['rgb(142, 194, 31)','rgb(1, 145, 60)','rgb(241, 150, 0)','rgb(229, 1, 18)','rgb(161,0,230)'];
+
+    PatientData.smileyHba1c = function(hba1c) {
+      var smiley = {
+        img: '',
+        texte: ''
+      };
+
+      if (hba1c >= 7.1) {
+        smiley.img = 'bad';
+        smiley.texte = 'Désolé. Vos glycémies sont trop élevées. Consultez votre médecin.';
+      }
+      else if (hba1c <= 7.0 && hba1c >= 6.6) {
+        smiley.img = 'bof';
+        smiley.texte = 'C\'est bien. Poursuivez vos mesures !';
+      }
+      else {
+        smiley.img = 'good';
+        smiley.texte = 'Bravo ! Continuez comme ça.';
+      }
+
+      return smiley;
+    }
 
     /* ===================
           GLOBAL

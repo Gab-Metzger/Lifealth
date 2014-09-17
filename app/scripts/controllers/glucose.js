@@ -28,6 +28,9 @@ angular.module('lifealthApp')
         if ($scope.bgLength >= 10) {
             $scope.averageBG = PatientData.averageBG;
             $scope.hba1c = PatientData.hba1c;
+            if ($scope.hba1c !== 'Pas assez de valeurs !') {
+              $scope.smiley = PatientData.smileyHba1c(PatientData.hba1cFloat);
+            }
         }
         else {
           $scope.hba1c = 'Pas assez de valeurs !';
@@ -59,6 +62,9 @@ angular.module('lifealthApp')
         if ($scope.bgLength >= 10) {
             $scope.averageBG = PatientData.averageBG;
             $scope.hba1c = PatientData.hba1c;
+            if ($scope.hba1c !== 'Pas assez de valeurs !') {
+              $scope.smiley = PatientData.smileyHba1c(PatientData.hba1cFloat);
+            }
         }
         else {
           $scope.hba1c = 'Pas assez de valeurs !';
