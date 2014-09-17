@@ -21,11 +21,17 @@ angular.module('lifealthApp')
       $scope.searchingBg = true;
       PatientData.getBGData(value.startDate, value.endDate, $scope.momentBG).then(function () {
         $scope.BGDatas = PatientData.bgData;
+        $scope.bgLength = PatientData.bgLength;
         $scope.BGClassified = PatientData.classifiedBgData;
         $scope.BGHisto = PatientData.histoBgData;
         $scope.BGMomentHisto = PatientData.histoMomentBgData;
-        $scope.averageBG = PatientData.averageBG;
-        $scope.hba1c = PatientData.hba1c;
+        if ($scope.bgLength >= 10) {
+            $scope.averageBG = PatientData.averageBG;
+            $scope.hba1c = PatientData.hba1c;
+        }
+        else {
+          $scope.hba1c = 'Pas assez de valeurs !';
+        }
         $scope.searchingBg = false;
       }).catch(function () {
         $scope.BGDatas = [];
@@ -46,11 +52,17 @@ angular.module('lifealthApp')
       $scope.searchingBg = true;
       PatientData.getBGData($scope.datesBG.startDate, $scope.datesBG.endDate, value).then(function () {
         $scope.BGDatas = PatientData.bgData;
+        $scope.bgLength = PatientData.bgLength;
         $scope.BGClassified = PatientData.classifiedBgData;
         $scope.BGHisto = PatientData.histoBgData;
         $scope.BGMomentHisto = PatientData.histoMomentBgData;
-        $scope.averageBG = PatientData.averageBG;
-        $scope.hba1c = PatientData.hba1c;
+        if ($scope.bgLength >= 10) {
+            $scope.averageBG = PatientData.averageBG;
+            $scope.hba1c = PatientData.hba1c;
+        }
+        else {
+          $scope.hba1c = 'Pas assez de valeurs !';
+        }
         $scope.searchingBg = false;
       }).catch(function () {
         $scope.BGDatas = [];

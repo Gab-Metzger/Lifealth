@@ -39,11 +39,6 @@ angular.module('lifealthApp')
       'depuis 3 mois': [moment().subtract('days', 93), moment()]
     };
 
-    $scope.color = function () {
-      return PatientData.colors;
-    };
-
-
     $scope.xAxisTickFormat = function () {
       return function (d) {
         return d;

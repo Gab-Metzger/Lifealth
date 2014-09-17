@@ -35,7 +35,7 @@ angular.module('lifealthApp')
     };
 
     PatientData.getColor = function (bp) {
-      return PatientData.colors[getClassification(bp)];
+      return PatientData.BPColors[getClassification(bp)];
     };
 
     var resetBp = function () {
@@ -156,6 +156,9 @@ angular.module('lifealthApp')
         });
       }
     };
+
+    PatientData.BPColors = ['rgb(1, 145, 60)', 'rgb(142, 194, 31)', 'rgb(255, 240, 2)', 'rgb(233, 86, 19)', 'rgb(241, 50, 0)', 'rgb(229, 1, 18)'];
+
 
     /* ===================
           BLOOD GLUCOSE

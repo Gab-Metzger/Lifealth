@@ -23,7 +23,7 @@ angular.module('lifealthApp')
           $scope.BPDatas = PatientData.bpData;
           $scope.BPClassified = PatientData.classifiedBpData;
           $scope.bpLength = PatientData.bpLength;
-          if (($scope.BPClassified[0]) && ($scope.bpLength > 10)) {
+          if (($scope.BPClassified[0]) && ($scope.bpLength >= 10)) {
             $scope.smiley = PatientData.getBpSmiley(PatientData.getHTAValues($scope.BPClassified[0].values));
           }
           $scope.searchingBp = false;
@@ -55,6 +55,10 @@ angular.module('lifealthApp')
         'color': 'white'
       };
     };
+
+    $scope.BPColors = function() {
+      return PatientData.BPColors;
+    }
 
     $scope.addBPData = function () {
       $scope.editingBpData = true;
