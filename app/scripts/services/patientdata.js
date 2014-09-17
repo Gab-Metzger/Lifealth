@@ -63,15 +63,15 @@ angular.module('lifealthApp')
       };
 
       if (((htaArray[0] > 30.0) || (htaArray[1] > 30.0) || (htaArray[2] > 30.0)) || (htaArray[3] > 30.0)) {
-        smiley.img = ':(';
+        smiley.img = 'bad';
         smiley.texte = 'Attention ! Votre tension artérielle est très élevée, veuillez consulter votre medecin';
       }
       else if (((htaArray[0] > 15.0) || (htaArray[1] > 15.0) || (htaArray[2] > 15.0)) || (htaArray[3] > 15.0)) {
-        smiley.img = ':)';
+        smiley.img = 'bof';
         smiley.texte = 'Votre tension artérielle est presque bonne, continuez vos mesures !';
       }
       else {
-        smiley.img = ':D';
+        smiley.img = 'good';
         smiley.texte = 'Bravo ! Votre tension artérielle est correcte';
       }
 

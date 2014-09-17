@@ -99,10 +99,7 @@
     </div>
     <div ng-if="(currentUser.role === 'PATIENT') && (bpLength > 10)" class="row">
       <div class="col-md-12">
-        <!--<img height="100" width="80" ng-src="{{smiley.img?('images/'+ smiley.img +'.png'):null}}">-->
-        <div class="container-emo">
-          <div class="one">{{smiley.img}}</div>
-        </div>
+        <img height="100" width="80" ng-src="{{smiley.img?('images/'+ smiley.img +'.png'):null}}">
         <small>{{smiley.texte}}</small>
     </div>
   </div>
