@@ -44,7 +44,6 @@ angular.module('lifealthApp')
       if (PatientData.bpLength == 0) {
         return 'aucune mesure trouvée';
       }
-      console.log(PatientData.bpLength);
       return PatientData.bpLength + ' mesure' + ((PatientData.bpLength > 1) ? 's' : '');
     };
 

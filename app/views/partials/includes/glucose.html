@@ -109,7 +109,6 @@
           showValues="true"
           interactive="true"
           useInteractiveGuideline="true"
-          xAxisTickFormat="xAxisTickFormat()"
           color="BGColors()">
           <svg></svg>
         </nvd3-discrete-bar-chart>
@@ -118,7 +117,7 @@
         <div class="col-md-12">
           <h4>Statistiques comparatives</h4>
         </div>
-        <nvd3-discrete-bar-chart
+        <nvd3-multi-bar-chart
           data="BGMomentHisto"
           id="histoMomentBG"
           height="250"
@@ -126,10 +125,9 @@
           showValues="true"
           interactive="true"
           useInteractiveGuideline="true"
-          xAxisTickFormat="xAxisTickFormat()"
-          color="BGColors()">
+          color="colorFunction()"
           <svg></svg>
-        </nvd3-discrete-bar-chart>
+        </nvd3-multi-bar-chart>
       </div>
       <pager total-items="24" previous-text="Précédent" next-text="Suivant" ng-model="currentPage"></pager>
       <div class="col-md-12">

@@ -78,6 +78,12 @@ angular.module('lifealthApp')
       return PatientData.BGColors;
     }
 
+    $scope.colorFunction = function() {
+    	return function(d, i) {
+        	return PatientData.BGColors[i];
+    	};
+    }
+
     /*$scope.filter = function () {
       $scope.BGDatas = PatientData.momentFilterBg($scope.momentBG);
     };*/

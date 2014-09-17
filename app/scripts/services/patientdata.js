@@ -237,12 +237,90 @@ angular.module('lifealthApp')
         }
       }
 
+
       for (var i = 0; i < classified.length; i++) {
         classified[i][1] = (classified[i][1] / data.length) * 100;
         classified[i][1] = Math.round(classified[i][1] * 10) / 10;
       }
 
       return classified;
+    }
+
+    var filterByColor = function(data, color) {
+      var res = [];
+
+      for(var i = 0; i < data.length; i++) {
+        if (PatientData.momentColor(data[i])[1] === color) {
+          res.push(data[i]);
+        }
+      }
+
+      return res;
+    }
+
+    var getPercentByColor = function(data,color) {
+      var res = [
+        ['A jeun',0],
+        ['Après Petit-Déj',0],
+        ['Avant Déj', 0],
+        ['Après Déj', 0],
+        ['Avant Dinner',0],
+        ['Après Dinner',0]
+      ];
+
+      var filteredData = filterByColor(data,color);
+
+      for(var i = 0; i < filteredData.length; i++) {
+        switch(filteredData[i].DinnerSituation) {
+          case 'Before_breakfast':
+            res[0][1]++;
+          break;
+          case 'After_breakfast':
+            res[1][1]++;
+          break;
+          case 'Before_lunch':
+            res[2][1]++;
+          break;
+          case 'After_lunch':
+            res[3][1]++;
+          break;
+          case 'Before_dinner':
+            res[4][1]++;
+          break;
+          case 'After_dinner':
+            res[5][1]++;
+          break;
+          default:
+            console.log('error moment');
+        }
+      }
+
+      return res;
+    }
+
+    var getMomentBGHisto = function(data) {
+      var res = [
+        getPercentByColor(data,'rgb(142, 194, 31)'),
+        getPercentByColor(data,'rgb(1, 145, 60)'),
+        getPercentByColor(data,'rgb(241, 150, 0)'),
+        getPercentByColor(data,'rgb(229, 1, 18)'),
+        getPercentByColor(data,'rgb(161,0,230)')
+      ];
+      console.log(getPercentByColor(data,'rgb(142, 194, 31)'));
+      for(var j = 0; j < 6; j++) {
+        var sum = 0;
+        for(var i = 0; i < 5; i++) {
+          sum = sum + res[i][j][1];
+        }
+        for(var i = 0; i < 5; i++) {
+          res[i][j][1] = (res[i][j][1] / sum)*100;
+          res[i][j][1] = Math.round(res[i][j][1] * 10) / 10;
+        }
+      }
+
+      console.log(res);
+
+      return res;
     }
 
     PatientData.MOMENTS2 = {
@@ -329,11 +407,27 @@ angular.module('lifealthApp')
                   values: histoData
                 }
               ];
-              var histoMomentData = [];
+              var momentBGHisto = getMomentBGHisto(originalBgData);
               PatientData.histoMomentBgData = [
                 {
-                  key: 'Seuils glycémique',
-                  values: histoMomentData
+                  key: 'Color 1',
+                  values: momentBGHisto[0]
+                },
+                {
+                  key: 'Color 2',
+                  values: momentBGHisto[1]
+                },
+                {
+                  key: 'Color 3',
+                  values: momentBGHisto[2]
+                },
+                {
+                  key: 'Color 4',
+                  values: momentBGHisto[3]
+                },
+                {
+                  key: 'Color 5',
+                  values: momentBGHisto[4]
                 }
               ];
               var sumBG = 0;
