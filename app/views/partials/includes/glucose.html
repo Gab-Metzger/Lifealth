@@ -17,7 +17,8 @@
         </div>
         <div>
           <span>FILTRE</span>
-          <select ng-model="momentBG" ng-change="filter()" class="form-control" style="width: 160px;display: inline" ng-options="m.value as m.label for m in moments()">
+          <select ng-model="momentBG" ng-change="filter()" class="form-control" style="width: 160px;display: inline"
+                  ng-options="m.value as m.label for m in moments()">
             <option value="">Aucun</option>
           </select>
         </div>
@@ -45,7 +46,8 @@
             <input name="MDate" type="text" ng-model="BG.MDate" required/>
           </td>
           <td ng-switch-when="true">
-            <select name="DinnerSituation" ng-model="BG.DinnerSituation" class="form-control" ng-options="m.value as m.label for m in moments()">
+            <select name="DinnerSituation" ng-model="BG.DinnerSituation" class="form-control"
+                    ng-options="m.value as m.label for m in moments()">
             </select>
           </td>
           <td ng-switch-when="true">
@@ -65,9 +67,12 @@
         <tfoot>
         <tr>
           <td colspan="3">
-            <span ng-click="lastBgIndex()" ng-show="showLastBgIndex()" class="glyphicon glyphicon-step-backward left"></span>
-            <span ng-click="previousBgIndex()" ng-show="showPreviousBgIndex()" class="glyphicon glyphicon-backward left"></span>
-            <span ng-click="firstBgIndex()" ng-show="showFirstBgIndex()" class="glyphicon glyphicon-step-forward right"></span>
+            <span ng-click="lastBgIndex()" ng-show="showLastBgIndex()"
+                  class="glyphicon glyphicon-step-backward left"></span>
+            <span ng-click="previousBgIndex()" ng-show="showPreviousBgIndex()"
+                  class="glyphicon glyphicon-backward left"></span>
+            <span ng-click="firstBgIndex()" ng-show="showFirstBgIndex()"
+                  class="glyphicon glyphicon-step-forward right"></span>
             <span ng-click="nextBgIndex()" ng-show="showNextBgIndex()" class="glyphicon glyphicon-forward right"></span>
             <span ng-bind="getBGDataLength()"></span>
           </td>
@@ -125,7 +130,7 @@
           showValues="true"
           interactive="true"
           useInteractiveGuideline="true"
-          color="colorFunction()"
+          color="colorFunction()">
           <svg></svg>
         </nvd3-multi-bar-chart>
       </div>
@@ -142,6 +147,7 @@
         <div class="col-md-12">
           <img height="100" width="80" ng-src="{{smiley.img?('images/'+ smiley.img +'.png'):null}}">
           <small>{{smiley.texte}}</small>
+        </div>
       </div>
     </div>
   </div>
