@@ -207,30 +207,22 @@ angular.module('lifealthApp')
 
     var getHisto = function(data) {
       var classified = [
-        ['Very low', 0],
         ['Low', 0],
         ['Normal', 0],
-        ['High', 0],
-        ['Very High', 0]
+        ['High', 0]
       ];
 
       for(var i = 0; i < data.length; i++) {
         //console.log(PatientData.momentColor(data[i])[1]);
         switch(PatientData.momentColor(data[i])[1]) {
-          case 'rgb(142, 194, 31)':
+          case 'rgb(1, 145, 60)':
             classified[0][1]++;
           break;
-          case 'rgb(1, 145, 60)':
+          case 'rgb(241, 150, 0)':
             classified[1][1]++;
           break;
-          case 'rgb(241, 150, 0)':
-            classified[2][1]++;
-          break;
           case 'rgb(229, 1, 18)':
-            classified[3][1]++;
-          break;
-          case 'rgb(161,0,230)':
-            classified[4][1]++;
+            classified[2][1]++;
           break;
           default:
             console.log('error color');
@@ -300,18 +292,16 @@ angular.module('lifealthApp')
 
     var getMomentBGHisto = function(data) {
       var res = [
-        getPercentByColor(data,'rgb(142, 194, 31)'),
         getPercentByColor(data,'rgb(1, 145, 60)'),
         getPercentByColor(data,'rgb(241, 150, 0)'),
-        getPercentByColor(data,'rgb(229, 1, 18)'),
-        getPercentByColor(data,'rgb(161,0,230)')
+        getPercentByColor(data,'rgb(229, 1, 18)')
       ];
       for(var j = 0; j < 6; j++) {
         var sum = 0;
-        for(var i = 0; i < 5; i++) {
+        for(var i = 0; i < 3; i++) {
           sum = sum + res[i][j][1];
         }
-        for(var i = 0; i < 5; i++) {
+        for(var i = 0; i < 3; i++) {
           res[i][j][1] = (res[i][j][1] / sum)*100;
           res[i][j][1] = Math.round(res[i][j][1] * 10) / 10;
         }
@@ -347,10 +337,7 @@ angular.module('lifealthApp')
     PatientData.momentColor = function (bg) {
       var backgroundColor = 'black';
       if (bg.DinnerSituation === PatientData.MOMENTS[0].value || bg.DinnerSituation === PatientData.MOMENTS[2].value || bg.DinnerSituation === PatientData.MOMENTS[4].value) {
-        if (bg.BG <= 70) {
-          backgroundColor = 'rgb(142, 194, 31)';
-        }
-        else if (bg.BG > 70 && bg.BG <= 110) {
+        if (bg.BG <= 110) {
           backgroundColor = 'rgb(1, 145, 60)';
         }
         else if (bg.BG > 110 && bg.BG <= 120) {
@@ -362,7 +349,7 @@ angular.module('lifealthApp')
       }
       else if (bg.DinnerSituation === PatientData.MOMENTS[1].value || bg.DinnerSituation === PatientData.MOMENTS[3].value || bg.DinnerSituation === PatientData.MOMENTS[5].value) {
         if (bg.BG <= 140) {
-          backgroundColor = 'rgb(142, 194, 31)';
+          backgroundColor = 'rgb(1, 145, 60)';
         }
         else if (bg.BG > 140 && bg.BG <= 180) {
           backgroundColor = 'rgb(241, 150, 0)';
@@ -370,9 +357,6 @@ angular.module('lifealthApp')
         else if (bg.BG > 180) {
           backgroundColor = 'rgb(229, 1, 18)';
         }
-      }
-      else if (bg.BG >= 250) {
-        backgroundColor = 'rgb(161,0,230)';
       }
 
       return [{
@@ -417,14 +401,6 @@ angular.module('lifealthApp')
                 {
                   key: 'Color 3',
                   values: momentBGHisto[2]
-                },
-                {
-                  key: 'Color 4',
-                  values: momentBGHisto[3]
-                },
-                {
-                  key: 'Color 5',
-                  values: momentBGHisto[4]
                 }
               ];
               var sumBG = 0;
@@ -518,7 +494,7 @@ angular.module('lifealthApp')
       }
     };
 
-    PatientData.BGColors = ['rgb(142, 194, 31)','rgb(1, 145, 60)','rgb(241, 150, 0)','rgb(229, 1, 18)','rgb(161,0,230)'];
+    PatientData.BGColors = ['rgb(1, 145, 60)','rgb(241, 150, 0)','rgb(229, 1, 18)'];
 
     PatientData.smileyHba1c = function(hba1c) {
       var smiley = {
